@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { logout } from '../../Actions/auth'
-
+import { Toggle } from './toggle'
 
 class Navbar extends React.Component{
   handleLogoutBtn = (e) => this.props.dispatch(logout());

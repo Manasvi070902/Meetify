@@ -6,7 +6,7 @@ import { Provider, useSelector } from 'react-redux';
 import thunk from 'redux-thunk';
 import rootReducer from './Reducers'
 import { getFirebase, isLoaded, ReactReduxFirebaseProvider } from 'react-redux-firebase';
-import firebaseConfig from './Config/firebase'
+import firebaseConfig from './Utils/firebase'
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

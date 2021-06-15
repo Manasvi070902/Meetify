@@ -1,4 +1,4 @@
-import {microsoftProvider} from '../Config/firebase'
+import {microsoftProvider} from '../Utils/firebase'
 
 // Action Types
 export const LOGIN_SUCCEEDED = 'LOGIN_SUCCEEDED'
