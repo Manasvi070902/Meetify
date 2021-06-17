@@ -8,6 +8,7 @@ const HomePage = (props) => {
     return <Redirect to="/login" />
   }
     return (
+      
         <div className="jumbotron jumbotron-fluid">
         <div className="container px-0">
         <p className="lead mt-4 mb-2">Hi <span className="text-primary">{auth.displayName}</span>!</p>

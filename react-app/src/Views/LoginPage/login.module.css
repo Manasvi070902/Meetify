@@ -15,17 +15,26 @@
 }
 
 
-/* .main-heading {
+.main-heading {
   
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-background-size: 400% 400%;
-animation: gradient 4s ease infinite;
--webkit-background-clip: text;
-background-clip: text;
--webkit-text-fill-color: transparent;
-    font-size: 35px;
+    letter-spacing: 2px;
+	text-align: left;
+	
+    background: #2dbdc3;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+    font-size: 4rem;
     font-weight: 600;
-} */
+    animation: shine 1s linear infinite;
+}
+  @keyframes shine {
+    to {
+      background-position: 200% center;
+    }
+  }
+ 
+
+
   
   
   

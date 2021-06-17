@@ -1,42 +1,58 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
 import { logout } from '../../Actions/auth'
 import { Toggle } from './toggle'
+import { Navbar, Nav, Dropdown, SplitButton } from 'react-bootstrap'
 
-class Navbar extends React.Component{
+class NavBar extends React.Component {
   handleLogoutBtn = (e) => this.props.dispatch(logout());
   render() {
 
-    const {auth} = this.props;
-    return(
-    <nav className="navbar navbar-expand navbar-dark bg-dark">
-        
-      <div className="container">
-        <p className="navbar-brand my-0">Teams App</p>
-        <div className="navbar-nav">
-        {auth.isLoaded !== undefined
-            ? <>
-                {!auth.uid && <NavLink className="nav-link mx-3" to="/login">Login</NavLink>}
-                {auth.uid && 
-                <>
-                  <NavLink className="nav-link mx-3" exact to="/">Dashboard</NavLink>
-                  <button className="nav-link mx-3 btn btn-link py-0" onClick={this.handleLogoutBtn}>Logout</button>
-                </>
+    const { auth } = this.props;
+    return (
+      <Navbar collapseOnSelect expand="lg" className= "custom-nav" variant="dark">
+        <Navbar.Brand href="#home">Teams App</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="ml-auto">
+            {auth.isLoaded !== undefined
+              ? <>
+                {!auth.uid &&
+                  <>
+                    <Nav.Link className="nav-link mx-3" to="/login">Login</Nav.Link>
+                    <Toggle theme={this.props.theme} toggleTheme={this.props.toggleTheme} />
+                  </>}
+                {auth.uid &&
+                  <>
+                    <Nav.Link className="nav-link mx-3" exact to="/">Dashboard</Nav.Link>
+                    <Toggle theme={this.props.theme} toggleTheme={this.props.toggleTheme} />
+                    <div>
+                    
+                    <SplitButton key="down" drop ="down" variant="primary" className="rounded-circle"  title={auth.displayName.charAt(0).toUpperCase()}>
+                   
+                      <Dropdown.Item >Hi {auth.displayName}</Dropdown.Item>
+                      <Dropdown.Divider />
+                      <Dropdown.Item onClick={this.handleLogoutBtn} variant="danger" >Logout</Dropdown.Item>
+                     
+                    </SplitButton>
+                    </div>
+
+                  </>
                 }
               </>
-            : <span>Loading...</span>}
-        </div>
-      </div>
-    </nav>
-    )}
+              : <span>Loading...</span>}
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+    )
+  }
 }
 
-const mapStateToProps = ({auth, firebase}) => {
+const mapStateToProps = ({ auth, firebase }) => {
   return {
     auth: firebase.auth,
     authError: auth.authError
   }
 }
 
-export default connect(mapStateToProps)(Navbar)
+export default connect(mapStateToProps)(NavBar)

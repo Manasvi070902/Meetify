@@ -8,10 +8,19 @@ export const LOGOUT_FAILED = 'LOGOUT_FAILED'
 
 
 export const login = () => {
-  return (dispatch, getState, {getFirebase}) => {
+  return (dispatch, getState, {getFirebase,getFirestore}) => {
     const firebase = getFirebase();
-    firebase.auth().signInWithPopup(microsoftProvider)
-    .then((result) => {
+    const firestore = getFirestore();
+
+    firebase.auth().signInWithPopup(microsoftProvider).then(resp => {
+      console.log(resp)
+      return firestore.collection('users').doc(resp.user.uid).set({
+        displayName : resp.user.displayName,
+        email:resp.user.email
+        
+      })
+    }).then((result) => {
+      console.log("Login successfully done...")
       dispatch({type: LOGIN_SUCCEEDED});
     })
     .catch((err) => {
