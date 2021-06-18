@@ -1,4 +1,4 @@
-import {microsoftProvider} from '../Utils/firebase'
+import {microsoftProvider ,googleProvider} from '../Utils/firebase'
 
 // Action Types
 export const LOGIN_SUCCEEDED = 'LOGIN_SUCCEEDED'
@@ -12,7 +12,7 @@ export const login = () => {
     const firebase = getFirebase();
     const firestore = getFirestore();
 
-    firebase.auth().signInWithPopup(microsoftProvider).then(resp => {
+    firebase.auth().signInWithPopup(googleProvider).then(resp => {
       console.log(resp)
       return firestore.collection('users').doc(resp.user.uid).set({
         displayName : resp.user.displayName,

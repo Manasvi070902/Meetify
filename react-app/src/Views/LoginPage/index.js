@@ -22,8 +22,8 @@ class Login extends React.Component {
       <div className="container col-12 col-lg-8 px-0 pt-5 ">
         <h1 className={styles['main-heading']}>Microsoft Teams</h1>
         <h5 className={[styles['main-text'] ,"mt-4"].join(' ')}>Meet, chat, call in just one place!</h5>
-        <Button className="btn btn-dark p-0 mt-5" onClick={this.handleLoginBtn}>
-          <img className="rounded" src={logo} alt="Ms Auth Btn"/>
+        <Button className="p-2 mt-5" onClick={this.handleLoginBtn} variant="info">Sign In with Google
+          {/* <img className="rounded" src={logo} alt="Ms Auth Btn"/> */}
         </Button>
        
       </div>

@@ -20,7 +20,5 @@ export default firebase
 
 
 // Initialize Provider & Export
-export const microsoftProvider = new firebase.auth.OAuthProvider('microsoft.com').setCustomParameters({
-    tenant: '23f2472b-c4af-48d9-9fee-8a566348ecb9',  // Put Tenant Id from Azure registered app,
-    prompt: 'consent' // Get Consent from user to access their basic info (optional - Reommended only during SignUp)
-  })
+export const microsoftProvider = new firebase.auth.OAuthProvider('microsoft.com')
+export const googleProvider = new firebase.auth.GoogleAuthProvider()
