@@ -1,0 +1,8 @@
+.btn-down {
+    z-index: 2;
+    position: fixed; 
+    bottom: 0px;
+    width: 100%;
+    height: auto;
+    text-align: center !important;
+}

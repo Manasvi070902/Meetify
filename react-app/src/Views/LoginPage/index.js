@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { login } from '../../Actions/auth'
-import logo from '../../Assets/loginms.svg'
 import pic from '../../Assets/microsoft_teams.png'
 import styles from"./login.module.css"
 import {  Button } from 'react-bootstrap'

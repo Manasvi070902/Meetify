@@ -1,4 +1,5 @@
-import {microsoftProvider ,googleProvider} from '../Utils/firebase'
+import {googleProvider} from '../Utils/firebase'
+// import {microsoftProvider ,googleProvider} from '../Utils/firebase'
 
 // Action Types
 export const LOGIN_SUCCEEDED = 'LOGIN_SUCCEEDED'

@@ -1,0 +1,12 @@
+.main-container{
+    background-image: url('../../Assets/background.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height:95vh;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    overflow-y: hidden;
+}
