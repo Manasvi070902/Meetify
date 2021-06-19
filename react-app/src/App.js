@@ -21,13 +21,14 @@ const App = () => {
       <ThemeProvider theme={themeMode}>
       <GlobalStyles />
       <Switch>
-      <Route path="/">
-      <NavBar theme={theme} toggleTheme={toggleTheme}/>
-      </Route>
-      <Route path="/login">
-      <NavBar theme={theme} toggleTheme={toggleTheme}/>
-      </Route>
+        <Route path="/" exact>
+        <NavBar theme={theme} toggleTheme={toggleTheme}/>
+        </Route>
+        <Route path="/login" >
+        <NavBar theme={theme} toggleTheme={toggleTheme}/>
+        </Route>
       </Switch>
+      
       <Switch>
         <Route path="/" exact component={HomePage} />
         <Route path="/login" component={LoginPage} />

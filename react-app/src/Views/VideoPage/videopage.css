@@ -1,9 +1,9 @@
 .main-container{
-    background-image: url('../../Assets/background.jpeg');
+    background-image: url('../../Assets/bg1.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    height:95vh;
+    height:100vh;
     top: 0px;
     right: 0px;
     bottom: 0px;

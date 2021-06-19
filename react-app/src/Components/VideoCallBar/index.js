@@ -10,10 +10,8 @@ import CallEndIcon from '@material-ui/icons/CallEnd';
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import CameraAltRoundedIcon from '@material-ui/icons/CameraAltRounded';
 import  "./videocallbar.css"
-import{Row} from 'react-bootstrap'
+
 import { imageCapture } from '../../Actions/imagecapture';
-
-
 
 
 const IconButtonStyle = {
@@ -30,7 +28,7 @@ export const VideoCallBar = () => {
    
 	
     return (
-        <div className="htmlToImageVis">
+       
         <div className="btn-down" >
         <IconButton style={{ ...IconButtonStyle,backgroundColor: "#323232"}}><VideocamIcon /> </IconButton>
 
@@ -52,21 +50,6 @@ export const VideoCallBar = () => {
         
     </div>
 
-
- 
-    <div className="container">
-        <Row id="main" className="flex-container" style={{ margin: 0, padding: 0 }}>
-            <video id="my-video"  autoPlay muted style={{
-                borderStyle: "solid",
-                borderColor: "#fff",
-                margin: "10px",
-                objectFit: "fill",
-                width: "60%",
-                height: "100%"
-            }}></video>
-        </Row>
-    </div>
-</div>
 
     )
 }
