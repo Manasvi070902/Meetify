@@ -16,7 +16,9 @@ export const login = () => {
     firebase.auth().signInWithPopup(googleProvider).then(resp => {
       console.log(resp)
       return firestore.collection('users').doc(resp.user.uid).set({
-        displayName : resp.user.displayName,
+        firstName: resp.user.displayName?.split(" ")[0],
+        lastName: resp.user.displayName?.split(" ")[1],
+        image: resp.user.photoURL,
         email:resp.user.email
         
       })
