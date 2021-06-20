@@ -1,21 +1,25 @@
 const socket = require('socket.io')
 const http = require('http')
-const ensureAuthenticated = require("../middleware/ensureAuthenticated");
+const uuid = require('uuid')
+const getTokenDetails = require("../middleware/verifytoken");
 
-const { createMeet} = require('../utils/meets');
+const { createMeet} = require('./meets/meets');
 
 const webSockets = app => {
+  
     const server = http.createServer(app);
     const io = socket(server)
-
+   
     io.on("connection", (socket) => {
         console.log("connection")
     
-        socket.on("start meet", ensureAuthenticated, async(req,res) => {
+        socket.on("start meet",  async(token) => {
+            console.log("!!!!")
+         
             try{
-                const { id, name } = req.user
-                console.log(name , id)
-                const roomID = meet1
+                
+                const { id, name } = await getTokenDetails(token)
+                const roomID = uuid.v4()
                 socket.roomID = roomID
                 socket.isHost = true
                 socket.userName = name
@@ -25,9 +29,10 @@ const webSockets = app => {
                     roomID,
                     hostID: id
                 })
-                console.log("start meet",socket.id)
+                console.log("starting meet at",socket.id)
             }
             catch(err){
+                console.log(err)
                 if(err.name === "LoginError"){
                     socket.emit("unauthorized", "Please login again")
                     return
@@ -41,3 +46,4 @@ const webSockets = app => {
 }
 
 module.exports = webSockets;
+

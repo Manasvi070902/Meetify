@@ -10,6 +10,7 @@ export const LOGOUT_FAILED = 'LOGOUT_FAILED'
 
 
 export const login = () => {
+
   return (dispatch, getState, {getFirebase}) => {
     const firebase = getFirebase();
 
@@ -28,6 +29,8 @@ export const login = () => {
         },
         redirect: 'follow'
     }).then( resp => console.log("user added to database"))
+
+    localStorage.setItem('idToken', idToken);
   
     })
 
@@ -53,3 +56,4 @@ export const logout = () => {
     })
   }
 }
+

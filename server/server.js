@@ -5,19 +5,15 @@ const methodOverride = require('method-override')
 const cors = require("cors");
 const app = express();
 
-require("dotenv").config();
+
 //handline cors
 app.use(cors());
 
-//Database connection
-const MONGOURI = process.env.MONGOURI;
-
-mongoose.connect(MONGOURI, {useNewUrlParser: true,useCreateIndex: true,useUnifiedTopology: true,})
-.then(() => console.log("Connected to database"))
-.catch((err) => console.log(err));
-mongoose.Promise = global.Promise;
 
 
+
+const connectToDB = require('./controllers/dbconnect')
+const webSockets = require('./controllers/webSockets')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -40,5 +36,17 @@ app.use('/meets', require("./routes/meet"));
   app.get('/', (req, res) => {
 	res.send('Server is Running');
 });
-  const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+
+const main = async() => {
+  await connectToDB()
+  const server = await webSockets(app)
+  console.log(server)
+  return server
+}
+const PORT = process.env.PORT || 5000;
+
+main().then(server => {
+  server.listen(PORT, () => {
+      console.log(`listening on ${PORT}`)
+  })
+})

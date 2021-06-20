@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import HomePage from './Views/HomePage'
 import LoginPage from './Views/LoginPage'
-import VideoPage from './Views/VideoPage'
+import Room from './Views/VideoPage'
 import NavBar from './Components/Navbar'
 import {useTheme} from "./Utils/theme"
 import { GlobalStyles, lightTheme, darkTheme } from './Utils/globalStyles';
@@ -32,7 +32,7 @@ const App = () => {
       <Switch>
         <Route path="/" exact component={HomePage} />
         <Route path="/login" component={LoginPage} />
-        <Route path="/video" component={VideoPage} />
+        <Route path="/room" component={Room} />
       </Switch>
       </ThemeProvider>
   </Router>

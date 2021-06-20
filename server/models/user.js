@@ -4,7 +4,6 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    validate: /^.{28}$/,
     immutable: true,
     index: true,
   },
