@@ -29,6 +29,8 @@ const checkAuth = (req, res, next) => {
       req.user = {
         user_id: "j4vM2gwuiARNg7c5uAbMddXVxiJ2",
         email: "abc@gmail.com",
+        name: "abc",
+        picture: "https://xyz.googleusercontent.com"
       };
       console.log("decoded token", req.user);
       next();

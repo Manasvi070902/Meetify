@@ -5,7 +5,7 @@ const methodOverride = require('method-override')
 const cors = require("cors");
 const app = express();
 
-
+require("dotenv").config();
 //handline cors
 app.use(cors());
 
@@ -18,8 +18,9 @@ mongoose.connect(MONGOURI, {useNewUrlParser: true,useCreateIndex: true,useUnifie
 mongoose.Promise = global.Promise;
 
 
-app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'))
 
 //handling cors
@@ -28,15 +29,15 @@ app.use(cors());
 app.use("/users", require("./routes/user"));
 
   // error handler
-  app.use((err, req, res, next) => {
-    console.log(err.message);
-    return res.status(400).send({
-      message: err.message,
-    });
-  });
+//   app.use((err, req, res, next) => {
+//     console.log(err.message);
+//     return res.status(400).send({
+//       message: err.message,
+//     });
+//   });
 
   app.get('/', (req, res) => {
 	res.send('Server is Running');
 });
   const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
