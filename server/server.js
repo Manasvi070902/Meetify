@@ -27,6 +27,7 @@ app.use(methodOverride('_method'))
 app.use(cors());
 //routes
 app.use("/users", require("./routes/user"));
+app.use('/meets', require("./routes/meet"));
 
   // error handler
 //   app.use((err, req, res, next) => {

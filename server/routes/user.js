@@ -1,12 +1,11 @@
 const router = require("express").Router();
 const ensureAuthenticated = require("../middleware/ensureAuthenticated");
-const { database } = require("firebase-admin");
+
 const User = require("../models/user");
 
 
 
 router.post("/",ensureAuthenticated, function(req, res){
-     console.log(req.user)
     
     var user = new User({
         user_id : req.user.user_id,
