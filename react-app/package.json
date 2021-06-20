@@ -22,7 +22,6 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "redux": "^4.1.0",
-    "redux-firestore": "^0.15.0",
     "redux-thunk": "^2.3.0",
     "simple-peer": "^9.11.0",
     "socket.io-client": "^4.1.2",

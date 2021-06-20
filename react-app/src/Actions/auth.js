@@ -10,24 +10,14 @@ export const LOGOUT_FAILED = 'LOGOUT_FAILED'
 
 
 export const login = () => {
-  return (dispatch, getState, {getFirebase,getFirestore}) => {
+  return (dispatch, getState, {getFirebase}) => {
     const firebase = getFirebase();
-    const firestore = getFirestore();
 
     firebase.auth().signInWithPopup(googleProvider).then(resp => {
       console.log(resp)
-      // return firestore.collection('users').doc(resp.user.uid).set({
-      //   firstName: resp.user.displayName?.split(" ")[0],
-      //   lastName: resp.user.displayName?.split(" ")[1],
-      //   image: resp.user.photoURL,
-      //   email:resp.user.email
-        
-      // })
     firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-  
-      //user is signed in
      
-     //user details
+     //user details [user is signed in]
       var user = resp.user;
       axios({
         method: 'POST',
@@ -37,7 +27,7 @@ export const login = () => {
             'Content-Type': 'application/json',
         },
         redirect: 'follow'
-    }).then( resp => console.log(resp.json()))
+    }).then( resp => console.log("user added to database"))
   
     })
 
