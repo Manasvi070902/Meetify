@@ -35,16 +35,32 @@ export const VideoPage = (props) => {
       };
       getUserMedia();
 
-
       if(params.get('host') && !params.get('room')){
        console.log(localStorage.getItem('idToken'))
         socketRef.current.emit("start meet", localStorage.getItem('idToken'))
        
         socketRef.current.on("roomID", (roomID) => {
-           
             console.log(roomID)
             window.history.replaceState("", "", `?room=${roomID}`);
         })
+      }else{
+          if(params.get('host') || !params.get('room')|| typeof params.get('room') !== 'string') {
+            alert("Enter a valid url")
+                exit()
+                return;
+          }
+          socketRef.current.emit("join room", { roomID: params.get('room'), token: localStorage.getItem('idToken') })
+
+          socketRef.current.on("invalid room", () => {
+            alert("Invalid room")
+            exit()
+            return;
+        })
+        socketRef.current.on("room full", () => {
+          alert("Room full")
+          exit()
+          return;
+      })
       }
      
     
