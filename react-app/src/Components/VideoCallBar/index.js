@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import IconButton from '@material-ui/core/IconButton';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import VideocamOffIcon from '@material-ui/icons/VideocamOff';
@@ -23,18 +23,29 @@ color: "#fff",
 
 
 
-export const VideoCallBar = () => {
-  
+export const VideoCallBar = (props) => {
+    const [audio, setAudio] = useState(props.audio)
+    const [video, setVideo] = useState(props.video)
+
+    const audioHandler = () => {
+        console.log('audio')
+        setAudio(!audio)
+    }
+
+    const videoHandler = () => {
+        console.log(video)
+        setVideo(!video)
+    }
    
 	
     return (
        
         <div className="btn-down" >
-        <IconButton style={{ ...IconButtonStyle,backgroundColor: "#323232"}}><VideocamIcon /> </IconButton>
+        <IconButton style={{ ...IconButtonStyle,backgroundColor: "#323232"}} onClick={videoHandler}>{(video === true) ? <VideocamIcon /> : <VideocamOffIcon />} </IconButton>
 
-        <IconButton style={{ ...IconButtonStyle,backgroundColor: "#323232"}}><MicIcon /> </IconButton>
+        <IconButton style={{ ...IconButtonStyle,backgroundColor: "#323232"}} onClick={audioHandler}>{audio === true ? <MicIcon /> : <MicOffIcon />} </IconButton>
 
-        <IconButton style={{ ...IconButtonStyle,backgroundColor: "#da3c3f"}}><CallEndIcon /></IconButton>
+        <IconButton style={{ ...IconButtonStyle,backgroundColor: "#da3c3f"}} onClick={props.exit} ><CallEndIcon /></IconButton>
 
 
         <IconButton style={{ ...IconButtonStyle,backgroundColor: "#323232"}}><ScreenShareIcon /> </IconButton>

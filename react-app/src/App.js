@@ -7,6 +7,7 @@ import NavBar from './Components/Navbar'
 import {useTheme} from "./Utils/theme"
 import { GlobalStyles, lightTheme, darkTheme } from './Utils/globalStyles';
 import  { ThemeProvider } from 'styled-components';
+import VideoPage from './Views/VideoPage';
 
 
 const App = () => {
@@ -32,7 +33,7 @@ const App = () => {
       <Switch>
         <Route path="/" exact component={HomePage} />
         <Route path="/login" component={LoginPage} />
-        <Route path="/room" component={Room} />
+        <Route path="/room" component={VideoPage} />
       </Switch>
       </ThemeProvider>
   </Router>

@@ -10,8 +10,6 @@ const app = express();
 app.use(cors());
 
 
-
-
 const connectToDB = require('./controllers/dbconnect')
 const webSockets = require('./controllers/webSockets')
 
@@ -26,12 +24,12 @@ app.use("/users", require("./routes/user"));
 app.use('/meets', require("./routes/meet"));
 
   // error handler
-//   app.use((err, req, res, next) => {
-//     console.log(err.message);
-//     return res.status(400).send({
-//       message: err.message,
-//     });
-//   });
+  app.use((err, req, res, next) => {
+    console.log(err.message);
+    return res.status(400).send({
+      message: err.message,
+    });
+  });
 
   app.get('/', (req, res) => {
 	res.send('Server is Running');
