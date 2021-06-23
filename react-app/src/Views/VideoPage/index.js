@@ -31,7 +31,7 @@ export const VideoPage = (props) => {
    const [video, setVideo] = useState(true);
    const [showDrawerChildren, setShowDrawerChildren] = useState(false)
    const [open, setOpen] = useState(false);
-   
+ 
    useEffect(() => {
     init()
 }, [])
@@ -194,7 +194,9 @@ const init = useCallback(async() => {
                     {peers.map((peer, index) => (
                         <VideoFrame key={index} peer={peer.peer} />
                     ))}
-                    
+
+                <Row id="main" className="flex-container" className="peer-video" style={{ margin: 0, padding: 0 }}> 
+                <div>{auth.displayName}</div>   
             <video id="my-video"  autoPlay ref={userVideo}  playsInline style={{
                 borderStyle: "solid",
                 borderColor: "#fff",
@@ -202,7 +204,7 @@ const init = useCallback(async() => {
                 width: "30%",
                 height: "100%"
             }}></video>
-            
+            </Row>
       
                     </div>
       

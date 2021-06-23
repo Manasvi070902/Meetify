@@ -23,6 +23,7 @@ const App = () => {
       <GlobalStyles />
       <Switch>
         <Route path="/" exact>
+        
         <NavBar theme={theme} toggleTheme={toggleTheme}/>
         </Route>
         <Route path="/login" >

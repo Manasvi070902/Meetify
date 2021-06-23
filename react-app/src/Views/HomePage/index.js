@@ -1,13 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom';
-// import styles from"./home.module.css"
-
+import { useStyles } from '../../Utils/globalStyles'
 import  {Button } from 'react-bootstrap'
+
 
 const HomePage = (props) => {
 
-
+  const classes = useStyles();
   const {auth} = props;
   if(!auth.uid && auth.isLoaded){
     return <Redirect to="/login" />
@@ -17,15 +17,17 @@ const HomePage = (props) => {
   }
   
     return (
-      
-        <div className="container px-0">
-        <p className="lead mt-4 mb-2">Hi <span className="text-primary">{auth.displayName}</span>!</p>
+      <main className={classes.content}>
+          <div className={classes.toolbar} />
+       
+        <p className="lead mt-5 mb-2">Hi <span className="text-primary">{auth.displayName}</span>!</p>
           <p className="lead mt-4 mb-2">Welcome to MS Teams.</p>
           <Button className="p-2 mt-5"  variant="info"  onClick={startMeet} >Create Meet</Button> <br />
         <Button className="p-2 mt-5"  variant="danger">Join Meet
         </Button>
-          
-        </div>
+         
+      
+        </main>
       
     )
   }
