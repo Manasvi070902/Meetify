@@ -22,7 +22,7 @@ app.use(cors());
 //routes
 app.use("/users", require("./routes/user"));
 app.use('/meets', require("./routes/meet"));
-
+app.use('/team', require("./routes/teams"));
   // error handler
   app.use((err, req, res, next) => {
     console.log(err.message);

@@ -5,7 +5,7 @@ const Meet = require('../models/meet');
 const User = require('../models/user');
 
 
-router.get('/', ensureAuthenticated), async function(req,res){
+router.get('/', ensureAuthenticated, async function(req,res){
     try{
         const { id } = req.userData
         const user = await User.findById(id, 'meets').populate({
@@ -26,6 +26,6 @@ router.get('/', ensureAuthenticated), async function(req,res){
             SOMETHING_WENT_WRONG: 'Something went wrong, Please try again'
         })
     }
-}
+})
 
 module.exports = router

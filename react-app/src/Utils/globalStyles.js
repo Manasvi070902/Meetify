@@ -63,7 +63,7 @@ export const lightTheme = {
 
 export const darkTheme = {
   body: '#121212',
-  text: 'rgb(178, 178, 178);',
+  text: '#fff',
   primary: 'radial-gradient(#eff1ff, #2f2f2f)',
   navbar: '#333333',
   drawer:'#333333',
