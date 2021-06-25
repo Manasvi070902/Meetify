@@ -10,8 +10,8 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom';
 import{Row} from 'react-bootstrap'
+import Grid from '@material-ui/core/Grid';
 
-    
 export const VideoPage = (props) => {
  
   const userVideo = useRef(document.createElement('video'))
@@ -187,28 +187,23 @@ const init = useCallback(async() => {
       }
     return (
         <div className="main-container">
-            <VideoCallBar exit={exit} audio={audio} video={video}/>
-           
-           
-      <div id="video-grid">
-                    {peers.map((peer, index) => (
-                        <VideoFrame key={index} peer={peer.peer} />
-                    ))}
+        <VideoCallBar exit={exit} audio={audio} video={video} peers={peers}/>
+      
+        <Grid container spacing={1} alignItems="center" justify="center" style={{ minHeight: '90vh' }}>
 
-                <Row id="main" className="flex-container" className="peer-video" style={{ margin: 0, padding: 0 }}> 
-                <div>{auth.displayName}</div>   
-            <video id="my-video"  autoPlay ref={userVideo}  playsInline style={{
-                borderStyle: "solid",
-                borderColor: "#fff",
-                objectFit: "fill",
-                width: "30%",
-                height: "100%"
-            }}></video>
-            </Row>
-      
-                    </div>
-      
-    
+        {peers.map((peer, index) => (
+            <Grid item xs={12} sm={4}>
+            <p id="overlay">{peer.username}</p>
+            <VideoFrame key={index} peer={peer.peer} />
+            </Grid>
+        ))}    
+         <Grid item xs={12}  sm={4}>
+         <p id="overlay">{auth.displayName}</p>
+        <video id="my-video"  autoPlay ref={userVideo}  playsInline ></video>
+        </Grid>
+
+       </Grid>
+
         </div>
     )
 }

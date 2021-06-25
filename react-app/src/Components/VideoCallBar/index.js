@@ -7,12 +7,20 @@ import MicOffIcon from '@material-ui/icons/MicOff';
 import ScreenShareIcon from '@material-ui/icons/ScreenShare';
 import StopScreenShareIcon from '@material-ui/icons/StopScreenShare';
 import CallEndIcon from '@material-ui/icons/CallEnd';
-import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import CameraAltRoundedIcon from '@material-ui/icons/CameraAltRounded';
 import  "./videocallbar.css"
-
+import PeopleIcon from '@material-ui/icons/People';
 import { imageCapture } from '../../Actions/imagecapture';
-
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import CloseIcon from '@material-ui/icons/Close';
+import Participants from '../../Components/Participants'
 
 const IconButtonStyle = {
 color: "#fff",
@@ -22,10 +30,12 @@ color: "#fff",
 }
 
 
-
 export const VideoCallBar = (props) => {
     const [audio, setAudio] = useState(props.audio)
     const [video, setVideo] = useState(props.video)
+    const [open, setOpen] = useState(false);
+     const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     const audioHandler = () => {
         console.log('audio')
@@ -36,7 +46,14 @@ export const VideoCallBar = (props) => {
         console.log(video)
         setVideo(!video)
     }
-   
+    const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
 	
     return (
        
@@ -56,8 +73,29 @@ export const VideoCallBar = (props) => {
                 <ChatIcon />
             </IconButton>
         </Badge> */}
-        <IconButton style={{ ...IconButtonStyle,backgroundColor: "#5a6bda"}} > <DescriptionOutlinedIcon /> </IconButton>
+        <IconButton onClick={handleClickOpen} style={{ ...IconButtonStyle,backgroundColor: "#5a6bda"}} > <PeopleIcon/> </IconButton>
         <IconButton style={{ ...IconButtonStyle,backgroundColor: "#5a6bda"}} onClick={imageCapture}> < CameraAltRoundedIcon/> </IconButton>
+
+          <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle onClose={handleClose} id="responsive-dialog-title">Participants  </DialogTitle>
+
+        <DialogContent>
+           <Participants peers={props.peers} /> 
+
+        </DialogContent>
+        <DialogActions>
+            
+          
+
+          <Button  style= {{color : "#fff"}} onClick={handleClose}  > Close</Button>
+        </DialogActions>
+     
+      </Dialog>
         
     </div>
 

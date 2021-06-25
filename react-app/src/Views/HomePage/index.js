@@ -44,7 +44,7 @@ const [teams , setTeams] = useState([])
         <Button className="p-2 mt-5"  variant="danger">Join Meet
         </Button>
 
-        <TeamsForm />
+        {/* <TeamsForm /> */}
 
          {/* <Button className="p-2 mt-5"  onClick={getDetails} variant="success">View team
         </Button> */}
