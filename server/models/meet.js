@@ -9,6 +9,16 @@ const meetSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }],
+    messages: [{
+        message: {
+            type: String,
+            required: true
+        },
+        sender: {
+            type: String,
+            required: true,
+        }
+    }],
 },
 {
     timestamps: true

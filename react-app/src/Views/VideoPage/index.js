@@ -30,7 +30,9 @@ export const VideoPage = (props) => {
    const [audio, setAudio] = useState(true);
    const [video, setVideo] = useState(true);
    const [showDrawerChildren, setShowDrawerChildren] = useState(false)
-   const [open, setOpen] = useState(false);
+
+   const inputRef = useRef(null)
+   const [chats, setChats] = useState([])
  
    useEffect(() => {
     init()
@@ -181,13 +183,42 @@ const init = useCallback(async() => {
       removePeerVideo(id)
   }, [])
   
+  useEffect(() => {
+    socketRef.current.on("receive-message", (payload) => {
+    console.log("read..")
+    console.log(payload)
+       addToChat(payload)
+    })
+}, [])
+const sendMessage = useCallback((e) => {
+    e.preventDefault()
+    console.log("send")
+    if(inputRef.current && inputRef.current?.value !== ""){
+        const val = inputRef.current?.value
+        socketRef.current.emit("message", val)
+        const chatObj = {
+            sender: auth.displayName,
+            message: val,
+            id:'me'
+        }
+        addToChat(chatObj)
+        inputRef.current.value = ""
+    }
+}, [])
+const addToChat = useCallback((chatObj) => {
+    console.log(chatObj)
+    console.log("add")
+    setChats(chats => [...chats, chatObj])
+}, [])
   
     if(!auth.uid && auth.isLoaded){
         return <Redirect to="/login" />
       }
     return (
+        
         <div className="main-container">
-        <VideoCallBar exit={exit} audio={audio} video={video} peers={peers}/>
+            {console.log(socketRef)}
+        <VideoCallBar exit={exit} audio={audio} video={video} peers={peers} inputRef={inputRef}sendMessage={sendMessage} chats={chats} socketId={auth.displayName} />
       
         <Grid container spacing={1} alignItems="center" justify="center" style={{ minHeight: '90vh' }}>
 

@@ -22,8 +22,8 @@ const Login =(props) => {
     <main className={classes.content}>
     <div className={classes.toolbar} />
     
-    <div className=" row align-items-center p-lg-5 m-lg-5 ">
-      <div className="container col-12 col-lg-8 px-0 pt-5 ">
+    <div className="  d-flex justify-content-center p-lg-5 m-lg-10 ">
+      <div className="container col-12 col-lg-8 px-0 pt-5">
         <h1 className={styles['main-heading']}>Microsoft Teams</h1>
         <h5 className={[styles['main-text'] ,"mt-4"].join(' ')}>Meet, chat, call in just one place!</h5>
         <Button className="p-2 mt-5" onClick={handleLoginBtn} variant="info">Sign In with Google

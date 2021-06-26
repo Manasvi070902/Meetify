@@ -1,6 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 export const GlobalStyles = createGlobalStyle`
+ 
+  
   body {
     background: ${({ theme }) => theme.body};
     color: ${({ theme }) => theme.text};
@@ -35,10 +37,11 @@ export const GlobalStyles = createGlobalStyle`
   
 `;
 export const useStyles = makeStyles((theme) => ({
+  
   toolbar: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,

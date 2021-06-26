@@ -4,7 +4,7 @@ const uuid = require('uuid')
 const getTokenDetails = require("../middleware/verifytoken");
 
 const { createMeet , addMember} = require('./meets/meets');
-
+const { addMessage } = require('./meets/messages');
 const webSockets = app => {
   
     const server = http.createServer(app);
@@ -91,10 +91,10 @@ const webSockets = app => {
             io.to(payload.userToSignal).emit('user joined', { signal: payload.signal, id: payload.callerID, username: socket.userName });
         });
        socket.on("message", (message) => {
-            socket.broadcast.to(socket.roomID).emit('receive-message', { sender: socket.userName, message });
+            socket.broadcast.to(socket.roomID).emit('receive-message', { sender: socket.userName, message,id:socket.id });
             addMessage({
                 meetID: socket.roomID,
-                sender: socket.userName,
+                sender : socket.userName,
                 message
             })
         })
