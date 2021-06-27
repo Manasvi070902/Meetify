@@ -40,6 +40,7 @@ const webSockets = app => {
                 socket.emit("something broke", "Something went wrong, please try again!")
             }
         })
+       
         socket.on("join room", async({ roomID, token }) => {
             try{
                 const { id, name } = await getTokenDetails(token)
@@ -106,8 +107,14 @@ const webSockets = app => {
         socket.on("disconnect", () => {
             socket.broadcast.to(socket.roomID).emit("disconnected", { id: socket.id, username: socket.userName })
         })
-    })
+        // whiteboard
+socket.on('canvas-data', (data)=> {
+    socket.broadcast.emit('canvas-data', data);
     
+})
+    })
+
+
     return server
 }
 

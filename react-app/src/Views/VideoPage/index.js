@@ -9,8 +9,8 @@ import './videopage.css'
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom';
-import{Row} from 'react-bootstrap'
 import Grid from '@material-ui/core/Grid';
+
 
 export const VideoPage = (props) => {
  
@@ -22,6 +22,7 @@ export const VideoPage = (props) => {
    
     const { auth } = props
     const history = useHistory()
+
     //get query parameter
    const search = useLocation().search;
    const params = new URLSearchParams(search);
@@ -29,10 +30,11 @@ export const VideoPage = (props) => {
    const [peers, setPeers] = useState([]);
    const [audio, setAudio] = useState(true);
    const [video, setVideo] = useState(true);
-   const [showDrawerChildren, setShowDrawerChildren] = useState(false)
-
+ 
+  
    const inputRef = useRef(null)
    const [chats, setChats] = useState([])
+
  
    useEffect(() => {
     init()
@@ -51,6 +53,7 @@ const init = useCallback(async() => {
         socketRef.current.on("roomID", (roomID) => {
             console.log(roomID)
             window.history.replaceState("", "", `?room=${roomID}`);
+           
         })
       }else{
           if(params.get('host') || !params.get('room')|| typeof params.get('room') !== 'string') {
@@ -68,7 +71,7 @@ const init = useCallback(async() => {
           return;
       })
       }
-      setShowDrawerChildren(true)
+    
 
       //get all member details and create peers
       socketRef.current.on("all members", (members) => {
@@ -101,6 +104,7 @@ const init = useCallback(async() => {
           }
           peersRef.current.push(peerObj)
           addPeerVideo(peerObj)
+          addToChat({message : username +" joined the meet "})
       })
 
       socketRef.current.on("receiving returned signal", (payload) => {
@@ -179,6 +183,7 @@ const init = useCallback(async() => {
 
   const disconnected = useCallback(({ id, username }) => {
       alert(username + "left the chat")
+      addToChat({message : username +" left the chat"})
       peersRef.current = peersRef.current.filter(peer => peer.peerID !== id)
       removePeerVideo(id)
   }, [])
@@ -230,10 +235,12 @@ const addToChat = useCallback((chatObj) => {
         ))}    
          <Grid item xs={12}  sm={4}>
          <p id="overlay">{auth.displayName}</p>
-        <video id="my-video"  autoPlay ref={userVideo}  playsInline ></video>
+        <video id="my-video" muted="muted" autoPlay ref={userVideo}  playsInline ></video>
         </Grid>
 
        </Grid>
+
+       
 
         </div>
     )

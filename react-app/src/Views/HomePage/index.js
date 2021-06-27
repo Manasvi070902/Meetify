@@ -39,11 +39,12 @@ const [teams , setTeams] = useState([])
       <main className={classes.content}>
           <div className={classes.toolbar} />
        
-        <p className="lead mt-5 mb-2">Hi <span className="text-primary">{auth.displayName}</span>!</p>
-          <p className="lead mt-4 mb-2">Welcome to MS Teams.</p>
-          <Button className="p-2 mt-5"  variant="info"  onClick={startMeet} >Create Meet</Button> <br />
-        <Button className="p-2 mt-5"  variant="danger">Join Meet
-        </Button>
+        <p className="lead d-flex justify-content-center">Hi &nbsp; <span className="text-primary"> {auth.displayName}</span>!</p>
+          <p className="lead d-flex justify-content-center">Welcome to MS Teams.</p>
+          <div className="d-flex justify-content-center">
+          <Button className="p-2 m-5 "  variant="info"  onClick={startMeet} >Create Meet</Button> <br />
+        <Button className="p-2 m-5"  variant="danger">Join Meet </Button>
+        </div>
 
         {/* <TeamsForm /> */}
 

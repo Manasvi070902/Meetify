@@ -1,0 +1,27 @@
+.b-container{
+    width:100%;
+    height:80%;
+}
+.color-picker {
+    text-align: center;
+    display: inline;
+    color: white;
+}
+
+.size {
+    display: inline;
+    color: white;
+    margin-left: 12px;
+}
+
+.tools-section {
+    text-align: center;
+}
+
+.board-container {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    margin-top: 1%;
+    background: white;
+}
