@@ -8,7 +8,7 @@ import {useTheme} from "./Utils/theme"
 import { GlobalStyles, lightTheme, darkTheme } from './Utils/globalStyles';
 import  { ThemeProvider } from 'styled-components';
 import VideoPage from './Views/VideoPage';
-import Container from "./Components/Container"
+
 
 const App = () => {
   const [ theme, toggleTheme ] = useTheme();
