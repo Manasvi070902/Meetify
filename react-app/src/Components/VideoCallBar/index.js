@@ -13,7 +13,9 @@ import { useTheme } from '@material-ui/core/styles';
 import Participants from '../../Components/Participants'
 import MessageBox from '../MessageBox';
 import ImageIcon from '@material-ui/icons/Image';
-
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Fade from '@material-ui/core/Fade';
 import Board from '../../Components/Board'
 import  "./videocallbar.css"
 
@@ -29,7 +31,16 @@ export const VideoCallBar = (props) => {
    
      const theme = useTheme();   
    const exit = props.exit;  
-	
+	 const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
     return (
        
         <div className="btn-down" >
@@ -46,7 +57,12 @@ export const VideoCallBar = (props) => {
 
         <IconButton style={{ ...IconButtonStyle,backgroundColor: "#da3c3f"}} onClick={exit} ><CallEndIcon /></IconButton>
 
-        <IconButton style={{ ...IconButtonStyle,backgroundColor: "#323232"}}><ImageIcon /> </IconButton>
+        <IconButton style={{ ...IconButtonStyle,backgroundColor: "#323232"}} aria-controls="fade-menu" aria-haspopup="true" onClick={handleClick}><ImageIcon /> </IconButton>
+        <Menu id="fade-menu" anchorEl={anchorEl} keepMounted open={open} onClose={handleClose} TransitionComponent={Fade}>
+  <MenuItem onClick={props.bg2Handler}>Birthday Theme</MenuItem>
+  <MenuItem onClick={props.bg1Handler}>Office Theme</MenuItem>
+  <MenuItem onClick={props.bgHandler}>Default</MenuItem>
+</Menu>
         <Participants peers={props.peers} /> 
 
         <IconButton style={{ ...IconButtonStyle,backgroundColor: "#5a6bda"}} onClick={imageCapture}> < CameraAltRoundedIcon/> </IconButton>

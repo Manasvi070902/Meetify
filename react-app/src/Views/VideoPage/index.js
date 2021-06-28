@@ -10,8 +10,9 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
-
-
+import bg0 from '../../Assets/bg0.jpeg'
+import bg1 from '../../Assets/bg1.png'
+import bg2 from '../../Assets/bg2.jpeg'
 export const VideoPage = (props) => {
  
   const userVideo = useRef(document.createElement('video'))
@@ -32,6 +33,8 @@ export const VideoPage = (props) => {
    const [video, setVideo] = useState(true);
    const inputRef = useRef(null)
    const [chats, setChats] = useState([])
+
+   const [bg, setBg] = useState(bg0)
 
 const senders = [];
    useEffect(() => {
@@ -239,45 +242,34 @@ const videoHandler = () => {
     userStream.current.getVideoTracks()[0].enabled = !(userStream.current.getVideoTracks()[0].enabled);
 }
    
-// const screenShareHandler = async() => {
-//     console.log(screenshare)
-//     setVideo(!screenshare)
-  
-//     const displayMediaStream = await navigator.mediaDevices.getDisplayMedia();
-//     peers.map((peer, index) => (
-//         peer.peer.on('track', (track, stream) => {
-//             track.replaceTrack(displayMediaStream.getTracks()[0])
 
-//         })
+const bgHandler = () => {setBg(bg0)}
+const bg1Handler = () => {setBg(bg1)}
+const bg2Handler = () => {setBg(bg2)}
 
-//        ))
-       
-    // senders.find(sender => sender.track.kind === 'video').replaceTrack(displayMediaStream.getTracks()[0]);
-   
-    // navigator.mediaDevices.getDisplayMedia({cursor:true})
-    // .then(screenStream=>{
-
-    // //   myPeer.current.replaceTrack(str.getVideoTracks()[0],screenStream.getVideoTracks()[0],str)
-    // //   userVideo.current.srcObject=userStream.current=screenStream
-   
-    //   console.log(userStream.current)
-    //   screenStream.getTracks()[0].onended = () =>{
-    // //   myPeer.current.replaceTrack(screenStream.getVideoTracks()[0],str.getVideoTracks()[0],str)
-    // //   userVideo.current.srcObject=userStream.current=stream
-    //   }
-    // })
-  
-
-// }
     if(!auth.uid && auth.isLoaded){
         return <Redirect to="/login" />
       }
     return (
         
-        <div className="main-container">
+        
+        <div className="main-container" style={{backgroundImage: `url(${bg})`}}>
+            <canvas id="canvas" hidden></canvas>
             {console.log(socketRef)}
             
-        <VideoCallBar exit={exit} audio={audio} video={video} peers={peers} inputRef={inputRef}sendMessage={sendMessage} chats={chats} socketId={auth.displayName} audioHandler={audioHandler} videoHandler={videoHandler} />
+        <VideoCallBar 
+        exit={exit} 
+        audio={audio} 
+        video={video} 
+        peers={peers} 
+        inputRef={inputRef}
+        sendMessage={sendMessage} 
+        chats={chats} 
+        socketId={auth.displayName} 
+        audioHandler={audioHandler} 
+        videoHandler={videoHandler} 
+        bgHandler={bgHandler} bg1Handler={bg1Handler} bg2Handler={bg2Handler}
+        />
       
         <Grid container spacing={1} alignItems="center" justify="center" style={{ minHeight: '90vh' }}>
 
