@@ -59,7 +59,7 @@ const Board =(props)=>{
 
         return (
             <>
-            <IconButton style={{ ...IconButtonStyle,backgroundColor: "#5a6bda"}} onClick={handleClickOpen}> < BrushIcon/> </IconButton>
+            <IconButton style={{ ...IconButtonStyle,backgroundColor: "#1590a2"}} onClick={handleClickOpen}> < BrushIcon/> </IconButton>
             <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
             <AppBar className={classes.appBar}>
                <Toolbar>

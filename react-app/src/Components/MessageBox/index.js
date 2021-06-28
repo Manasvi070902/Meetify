@@ -33,7 +33,7 @@ const MessageBox = (props) => {
 
     return (
         <>
-        <IconButton onClick={handleClickOpen} style={{ ...IconButtonStyle,backgroundColor: "#5a6bda"}} > <ChatIcon/> </IconButton>
+        <IconButton onClick={handleClickOpen} style={{ ...IconButtonStyle,backgroundColor: "#1590a2"}} > <ChatIcon/> </IconButton>
         <Dialog open={open} onClose={handleClose}aria-labelledby="responsive-dialog-title">
         <DialogTitle onClose={handleClose} id="responsive-dialog-title">Group Chat  </DialogTitle>
         <DialogContent>

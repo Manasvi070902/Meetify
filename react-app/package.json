@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "boostrap": "^2.0.0",
     "bootstrap": "4.6.0",
+    "copy-to-clipboard": "^3.3.1",
     "firebase": "^8.6.7",
     "html-to-image": "^1.6.2",
     "node-sass": "4.14.1",

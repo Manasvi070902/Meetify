@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     
     return (
 <>
-<IconButton onClick={handleClickOpen} style={{ ...IconButtonStyle,backgroundColor: "#5a6bda"}} > <PeopleIcon/> </IconButton>
+<IconButton onClick={handleClickOpen} style={{ ...IconButtonStyle,backgroundColor: "#1590a2"}} > <PeopleIcon/> </IconButton>
 <Dialog open={open} onClose={handleClose} aria-labelledby="responsive-dialog-title"
       >
         <DialogTitle onClose={handleClose} id="responsive-dialog-title">Participants  </DialogTitle>

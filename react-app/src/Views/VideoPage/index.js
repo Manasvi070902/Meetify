@@ -33,7 +33,7 @@ export const VideoPage = (props) => {
    const [video, setVideo] = useState(true);
    const inputRef = useRef(null)
    const [chats, setChats] = useState([])
-
+  const [ roomID, setRoomId] =useState();
    const [bg, setBg] = useState(bg0)
 
 const senders = [];
@@ -55,6 +55,7 @@ const init = useCallback(async() => {
        
         socketRef.current.on("roomID", (roomID) => {
             console.log(roomID)
+            setRoomId(roomID)
             window.history.replaceState("", "", `?room=${roomID}`);
            
         })
@@ -148,7 +149,11 @@ const init = useCallback(async() => {
       const peer = new Peer({
           initiator: true,
           trickle: false,
-          stream
+          config: {
+            'iceServers': [
+                { 'urls': 'stun:stun.l.google.com:19302' },
+            ]},
+            stream
       })
      
 
@@ -259,6 +264,7 @@ const bg2Handler = () => {setBg(bg2)}
             
         <VideoCallBar 
         exit={exit} 
+        roomID={roomID}
         audio={audio} 
         video={video} 
         peers={peers} 

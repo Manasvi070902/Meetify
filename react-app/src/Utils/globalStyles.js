@@ -34,6 +34,15 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.icon} !important ;
   
   }
+  .MuiInputBase-root{
+    color: ${({ theme }) => theme.text} !important;
+  }
+  .MuiFormLabel-root{
+    color: ${({ theme }) => theme.text};
+  }
+  .MuiInputBase-input{
+    color: ${({ theme }) => theme.text} !important;
+  }
   
 `;
 export const useStyles = makeStyles((theme) => ({
@@ -66,7 +75,7 @@ export const lightTheme = {
 
 export const darkTheme = {
   body: '#121212',
-  text: '#fff',
+  text: '#ffffff',
   primary: 'radial-gradient(#eff1ff, #2f2f2f)',
   navbar: '#333333',
   drawer:'#333333',
