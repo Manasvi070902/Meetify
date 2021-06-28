@@ -41,7 +41,7 @@ const senders = [];
     init()
 }, [])
 const init = useCallback(async() => {
-  socketRef.current = io.connect("http://127.0.0.1:5000")
+  socketRef.current = io.connect("https://mteamsclone.herokuapp.com/")
   const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true })
 
 
