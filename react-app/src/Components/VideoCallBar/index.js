@@ -26,44 +26,28 @@ color: "#fff",
 
 
 export const VideoCallBar = (props) => {
-    const [audio, setAudio] = useState(props.audio)
-    const [video, setVideo] = useState(props.video)
-     const theme = useTheme();
-    
-
-   const exit = props.exit;
-    
-    // const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
-    const audioHandler = () => {
-        console.log('audio')
-        setAudio(!audio)
-    }
-
-    const videoHandler = () => {
-        console.log(video)
-        setVideo(!video)
-    }
-  
+   
+     const theme = useTheme();   
+   const exit = props.exit;  
 	
     return (
        
         <div className="btn-down" >
-        <IconButton style={{ ...IconButtonStyle,backgroundColor: "#323232"}} onClick={videoHandler}>{(video === true) ? <VideocamIcon /> : <VideocamOffIcon />} </IconButton>
+        {(props.video === true) ?
+        <IconButton style={{ ...IconButtonStyle,backgroundColor: "#323232"}} onClick={props.videoHandler}> <VideocamIcon /></IconButton>
+         :<IconButton style={{ ...IconButtonStyle,backgroundColor: "#da3c3f"}} onClick={props.videoHandler}> <VideocamOffIcon /></IconButton>} 
+        {props.audio === true ?
+        <IconButton style={{ ...IconButtonStyle,backgroundColor: "#323232"}} onClick={props.audioHandler}> <MicIcon /></IconButton>
+        :  <IconButton style={{ ...IconButtonStyle,backgroundColor: "#da3c3f"}} onClick={props.audioHandler}> <MicOffIcon /> </IconButton>}
 
-        <IconButton style={{ ...IconButtonStyle,backgroundColor: "#323232"}} onClick={audioHandler}>{audio === true ? <MicIcon /> : <MicOffIcon />} </IconButton>
+         {/* {props.screenshare === true ?
+        <IconButton style={{ ...IconButtonStyle,backgroundColor: "#323232"}} onClick={props.screenShareHandler}> <ScreenShareIcon/></IconButton>
+        :  <IconButton style={{ ...IconButtonStyle,backgroundColor: "#da3c3f"}} onClick={props.screenShareHandler}> <StopScreenShareIcon /> </IconButton>} */}
 
         <IconButton style={{ ...IconButtonStyle,backgroundColor: "#da3c3f"}} onClick={exit} ><CallEndIcon /></IconButton>
 
-
         <IconButton style={{ ...IconButtonStyle,backgroundColor: "#323232"}}><ImageIcon /> </IconButton>
         <Participants peers={props.peers} /> 
-
-        {/* <Badge badgeContent={this.state.newmessages} max={999} color="secondary" onClick={this.openChat}>
-            <IconButton style={{ color: "#ffffff", backgroundColor: "#323232", margin: "5px", width:"50px", height:"50px"  }} >
-                <ChatIcon />
-            </IconButton>
-        </Badge> */}
 
         <IconButton style={{ ...IconButtonStyle,backgroundColor: "#5a6bda"}} onClick={imageCapture}> < CameraAltRoundedIcon/> </IconButton>
       

@@ -10,6 +10,8 @@ export const VideoFrame = (props) => {
     useEffect(() => {
         props.peer.on("stream", (stream) => {
             ref.current.srcObject = stream;
+            console.log(stream.getTracks()[1])
+         
         })
     }, []);
 

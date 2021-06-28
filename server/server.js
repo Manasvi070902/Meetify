@@ -38,7 +38,6 @@ app.use('/team', require("./routes/teams"));
 const main = async() => {
   await connectToDB()
   const server = await webSockets(app)
-  console.log(server)
   return server
 }
 const PORT = process.env.PORT || 5000;

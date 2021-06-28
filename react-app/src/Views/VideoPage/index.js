@@ -30,22 +30,22 @@ export const VideoPage = (props) => {
    const [peers, setPeers] = useState([]);
    const [audio, setAudio] = useState(true);
    const [video, setVideo] = useState(true);
- 
-  
    const inputRef = useRef(null)
    const [chats, setChats] = useState([])
 
- 
+const senders = [];
    useEffect(() => {
     init()
 }, [])
 const init = useCallback(async() => {
   socketRef.current = io.connect("http://127.0.0.1:5000")
-  const stream = await navigator.mediaDevices.getUserMedia({ audio: audio, video: video })
-  userVideo.current.srcObject = userStream.current = stream
-   
-      
-      console.log(stream)
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+
+
+  userVideo.current.srcObject = userStream.current = stream;
+ 
+
+  
       if(params.get('host') && !params.get('room')){
        console.log(localStorage.getItem('idToken'))
         socketRef.current.emit("start meet", localStorage.getItem('idToken'))
@@ -77,9 +77,12 @@ const init = useCallback(async() => {
       socketRef.current.on("all members", (members) => {
         console.log(members)
         const peers = members.map(member => {
-        
+         
+          
             const peer = createPeer(member.id, socketRef.current.id, stream);
             console.log("stream", stream)
+           
+          
             const peerObj = {
                 peerID: member.id,
                 peer,
@@ -105,12 +108,16 @@ const init = useCallback(async() => {
           peersRef.current.push(peerObj)
           addPeerVideo(peerObj)
           addToChat({message : username +" joined the meet "})
+         
+       
+     
       })
 
       socketRef.current.on("receiving returned signal", (payload) => {
           console.log("receiving returned signal")
           const { signal, id } = payload
           const item = peersRef.current.find((p) => p.peerID === id);
+        
           if(item){
               item.peer.signal(signal)
           }
@@ -132,7 +139,7 @@ const init = useCallback(async() => {
   
     }, []);
     
-
+  
     const createPeer = useCallback((userToSignal, callerID, stream) => {
       // console.log("create peer")
       const peer = new Peer({
@@ -140,6 +147,7 @@ const init = useCallback(async() => {
           trickle: false,
           stream
       })
+     
 
       peer.on("signal", (signal) => {
           socketRef.current.emit("sending signal", { userToSignal, callerID, signal })
@@ -155,7 +163,7 @@ const init = useCallback(async() => {
           trickle: false,
           stream
       })
-
+     
       peer.on("signal", (signal) => {
           console.log(signal)
           socketRef.current.emit("returning signal", { signal, callerID })
@@ -167,6 +175,8 @@ const init = useCallback(async() => {
 
   const addPeerVideo = useCallback((peerObj) => {
       setPeers(peers => [...peers, peerObj])
+     
+     
   }, [])
 
   const removePeerVideo = useCallback((id) => {
@@ -216,6 +226,49 @@ const addToChat = useCallback((chatObj) => {
     setChats(chats => [...chats, chatObj])
 }, [])
   
+const audioHandler = () => {
+    console.log(audio)
+    setAudio(!audio)
+    userStream.current.getAudioTracks()[0].enabled = !(userStream.current.getAudioTracks()[0].enabled);
+   
+}
+
+const videoHandler = () => {
+    console.log(video)
+    setVideo(!video)
+    userStream.current.getVideoTracks()[0].enabled = !(userStream.current.getVideoTracks()[0].enabled);
+}
+   
+// const screenShareHandler = async() => {
+//     console.log(screenshare)
+//     setVideo(!screenshare)
+  
+//     const displayMediaStream = await navigator.mediaDevices.getDisplayMedia();
+//     peers.map((peer, index) => (
+//         peer.peer.on('track', (track, stream) => {
+//             track.replaceTrack(displayMediaStream.getTracks()[0])
+
+//         })
+
+//        ))
+       
+    // senders.find(sender => sender.track.kind === 'video').replaceTrack(displayMediaStream.getTracks()[0]);
+   
+    // navigator.mediaDevices.getDisplayMedia({cursor:true})
+    // .then(screenStream=>{
+
+    // //   myPeer.current.replaceTrack(str.getVideoTracks()[0],screenStream.getVideoTracks()[0],str)
+    // //   userVideo.current.srcObject=userStream.current=screenStream
+   
+    //   console.log(userStream.current)
+    //   screenStream.getTracks()[0].onended = () =>{
+    // //   myPeer.current.replaceTrack(screenStream.getVideoTracks()[0],str.getVideoTracks()[0],str)
+    // //   userVideo.current.srcObject=userStream.current=stream
+    //   }
+    // })
+  
+
+// }
     if(!auth.uid && auth.isLoaded){
         return <Redirect to="/login" />
       }
@@ -223,7 +276,8 @@ const addToChat = useCallback((chatObj) => {
         
         <div className="main-container">
             {console.log(socketRef)}
-        <VideoCallBar exit={exit} audio={audio} video={video} peers={peers} inputRef={inputRef}sendMessage={sendMessage} chats={chats} socketId={auth.displayName} />
+            
+        <VideoCallBar exit={exit} audio={audio} video={video} peers={peers} inputRef={inputRef}sendMessage={sendMessage} chats={chats} socketId={auth.displayName} audioHandler={audioHandler} videoHandler={videoHandler} />
       
         <Grid container spacing={1} alignItems="center" justify="center" style={{ minHeight: '90vh' }}>
 
@@ -235,8 +289,9 @@ const addToChat = useCallback((chatObj) => {
         ))}    
          <Grid item xs={12}  sm={4}>
          <p id="overlay">{auth.displayName}</p>
-        <video id="my-video" muted="muted" autoPlay ref={userVideo}  playsInline ></video>
+        <video id="my-video" muted  autoPlay ref={userVideo}  playsInline ></video>
         </Grid>
+       
 
        </Grid>
 
