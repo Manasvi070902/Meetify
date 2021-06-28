@@ -7,7 +7,7 @@ import './main-board.css';
 class MainBoard extends React.Component {
 
     timeout;
-    socket = io.connect("http://localhost:5000");
+    socket = io.connect("https://mteamsclone.herokuapp.com/");
 
     ctx;
     isDrawing = false;

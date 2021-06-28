@@ -24,7 +24,7 @@ export default function TeamsForm() {
 
   const handleForm = async() => {
    console.log(tname,tdescription)
-    axios.post('http://localhost:5000/team/new', {
+    axios.post('https://mteamsclone.herokuapp.com/team/new', {
     name: tname,
     description: tdescription
   }).then(function (response) {
