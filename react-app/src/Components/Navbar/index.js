@@ -27,6 +27,7 @@ import Box from '@material-ui/core/Box';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
 
 const drawerWidth = 240;
@@ -186,15 +187,15 @@ export const NavBar =(props)=> {
         </div>
         <Divider />
         <List>
-            <ListItem button key='Meetings'>
+            <ListItem button key='Meetings' component={Link} to="/">
               <ListItemIcon><GroupIcon /></ListItemIcon>
               <ListItemText primary='Meetings' />
             </ListItem>
-            <ListItem button key='Chat'>
+            <ListItem button key='Chat' component={Link} to="/chat">
               <ListItemIcon><ChatIcon /></ListItemIcon>
               <ListItemText primary='Chat' />
             </ListItem>
-            <ListItem button key='Notes'>
+            <ListItem button key='Notes' component={Link} to="/note">
               <ListItemIcon><NoteAddIcon /></ListItemIcon>
               <ListItemText primary='Notes' />
             </ListItem>

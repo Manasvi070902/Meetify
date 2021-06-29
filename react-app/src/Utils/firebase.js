@@ -1,6 +1,7 @@
-import firebase from "firebase/app";
-import "firebase/auth";
-import 'firebase/firestore';
+import firebase from "firebase";
+// import "firebase/auth";
+// import 'firebase/database';
+// import 'firebase/firestore';
 
 // Your web app's Firebase configuration
 // Put your SDK details
@@ -16,10 +17,15 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.firestore().settings({ timestampsInSnapshots: true });
+
+//firestore
+export const db = firebase.firestore();
+
 export default firebase
 
 
 // Initialize Provider & Export
 export const microsoftProvider = new firebase.auth.OAuthProvider('microsoft.com')
 export const googleProvider = new firebase.auth.GoogleAuthProvider()
+
+export const auth = firebase.auth();

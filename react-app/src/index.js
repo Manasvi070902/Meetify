@@ -4,6 +4,7 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider, useSelector } from 'react-redux';
+import { reduxFirestore, getFirestore } from 'redux-firestore';
 import thunk from 'redux-thunk';
 import rootReducer from './Reducers'
 import { getFirebase, isLoaded, ReactReduxFirebaseProvider } from 'react-redux-firebase';
@@ -12,7 +13,8 @@ import firebaseConfig from './Utils/firebase'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, composeEnhancers(
-  applyMiddleware(thunk.withExtraArgument({getFirebase})),
+ applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})),
+  reduxFirestore(firebaseConfig)
 
 ))
 

@@ -43,7 +43,9 @@ export const GlobalStyles = createGlobalStyle`
   .MuiInputBase-input{
     color: ${({ theme }) => theme.text} !important;
   }
-  
+  .MuiTypography-colorTextSecondary{
+    color: ${({ theme }) => theme.text} !important;
+  }
 `;
 export const useStyles = makeStyles((theme) => ({
   
