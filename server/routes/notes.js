@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const Note = require('./../models/note')
-
+const User = require("../models/user");
 const router = express.Router()
 
 router.get('/', async function(req, res) {
@@ -17,22 +17,20 @@ router.get('/:id', async function(req, res) {
 
 router.post('/new', async function(req, res) {
   console.log(req)
-   let note = new Note({
-     title : req.body.title,
-    description : req.body.description
-   })
-  
-  
+  const user = await User.findOne({ "user_id" : req.body.user })
+  const note = new Note({
+    title : req.body.title,
+   description : req.body.description,
+   user : user._id
+  }).save()
+  await User.findByIdAndUpdate(user._id, {
+    $push: {
+        'notes': note._id
+    }
+})
 
   
- note.save()
-    .then(item => {
-    res.status(200).send("note added to database");
-    })
-    .catch(err => {
-        console.log(err)
-    res.status(400).send("unable to save note to database");
-    });
+
 })
 
 

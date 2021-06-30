@@ -19,6 +19,10 @@ const userSchema = mongoose.Schema({
   meets: [{
     type: String,
     ref: 'Meet'
+}],
+notes: [{
+  type: String,
+  ref: 'Note'
 }]
 
 });
