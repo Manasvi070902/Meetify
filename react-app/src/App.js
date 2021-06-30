@@ -10,7 +10,7 @@ import  { ThemeProvider } from 'styled-components';
 import VideoPage from './Views/VideoPage';
 import {auth , db} from "./Utils/firebase"
 import ChatPage from './Views/ChatPage'
-
+import NotesPage from './Views/NotesPage';
 
 const App = () => {
   const [ theme, toggleTheme ] = useTheme();
@@ -52,6 +52,9 @@ useEffect(() => {
           <Route path="/chat" >
         <NavBar theme={theme} toggleTheme={toggleTheme}/>
         </Route>
+        <Route path="/note" >
+        <NavBar theme={theme} toggleTheme={toggleTheme}/>
+        </Route>
       </Switch>
       
       <Switch>
@@ -59,6 +62,7 @@ useEffect(() => {
         <Route path="/login" component={LoginPage} />
         <Route path="/room" component={VideoPage} />
          <Route path="/chat" component={ChatPage} />
+         <Route path="/note" component={NotesPage} />
         
       </Switch>
       </ThemeProvider>
