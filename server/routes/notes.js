@@ -3,6 +3,7 @@ const path = require('path')
 const Note = require('./../models/note')
 const User = require("../models/user");
 const router = express.Router()
+const Meet = require('../models/meet');
 
 router.get('/', async function(req, res) {
   const authid = req.headers.auth_id;
@@ -13,15 +14,57 @@ router.get('/', async function(req, res) {
 })
 
 
+router.post('/new/public', async function(req, res) {
+
+  try {
+  const roomid = req.body.room_id;
+   console.log(roomid)
+  const meet = await Meet.findById(roomid)
+  console.log( meet.members)
+  meet.members.forEach(id => {
+    const note = new Note({
+      title : req.body.title,
+     description : req.body.description,
+     user : id
+    })
+   
+    note.save(function(err){
+      if(!err)
+      {
+      res.status(200)
+      }   else{
+          console.log(err)
+          };
+      
+   });  
+  })}
+  catch (err) {
+    next(err);
+  }
+ 
+})
+
 router.post('/new', async function(req, res) {
-  console.log(req)
-  const user = await User.findOne({ "user_id" : req.body.user })
+
+  try{
+  const user = await User.findOne({ "user_id" : req.body.user }) 
   const note = await new Note({
     title : req.body.title,
    description : req.body.description,
    user : user._id
-  }).save().then( res.status(200).send("notes added"))
- 
+  })
+  note.save(function(err){
+    if(!err)
+    {
+    res.status(200)
+    }   else{
+        console.log(err)
+        };
+    
+ });  
+}catch (err) {
+  next(err);
+}
 })
 
 router.put('/edit', async function(req, res) {

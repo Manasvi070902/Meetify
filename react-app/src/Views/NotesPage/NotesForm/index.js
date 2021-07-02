@@ -66,7 +66,8 @@ export const NotesForm = (props) => {
          axios.post('http://localhost:5000/note/new', {
          title: title,
          description: description,
-         user: auth.uid
+         user: auth.uid,
+         type: "private"
        }).then(function (response) {
          console.log(response);
          window.location.reload()

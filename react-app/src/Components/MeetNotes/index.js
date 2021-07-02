@@ -1,0 +1,149 @@
+import React,{useState} from 'react'
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import Avatar from '@material-ui/core/Avatar';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
+import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from '@material-ui/core/styles';
+import { deepPurple } from '@material-ui/core/colors';
+import { connect } from 'react-redux'
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import axios from 'axios'
+
+const IconButtonStyle = {
+  color: "#fff",
+   margin: "5px",
+   width:"50px",
+   height:"50px",
+  }
+
+
+
+ const MeetNotes = (props) => {
+   
+     const {auth} = props
+     const [open, setOpen] = useState(false);
+     const [title , setTitle] = useState('');
+     const [description , setDescription] = useState('');
+     const [type , setType] = useState('');
+     const handleClickOpen = () => {
+      setOpen(true);
+    };
+    
+    const handleClose = () => {
+      setOpen(false);
+    };
+    const StyledButton = withStyles({
+        root: {
+          borderRadius: 3,
+          border: 0,
+          color: '#14a2b8',
+          borderBlockColor : '#14a2b8',
+        },
+        label: {
+          textTransform: 'capitalize',
+        },
+      })(Button);
+
+      const meetnotesHandler = async() => {
+        console.log(title,description)
+        if(type === "public"){ 
+         axios.post('http://localhost:5000/note/new/public', {
+         title: title,
+         description: description,
+         user: auth.uid,
+         room_id : props.roomID
+       }).then(function (response) {
+         console.log(response);
+      
+    })
+  }else{
+    axios.post('http://localhost:5000/note/new', {
+         title: title,
+         description: description,
+         user: auth.uid,
+       }).then(function (response) {
+         console.log(response);
+      
+    })
+  }
+    
+    setOpen(false);
+    console.log(type)
+    }
+   
+
+      
+
+    return (
+<>
+<IconButton onClick={handleClickOpen} style={{ ...IconButtonStyle,backgroundColor: "#1590a2"}} > <NoteAddIcon/> </IconButton>
+<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth="md" maxWidth="md">
+        <DialogTitle id="form-dialog-title">New Note</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Title"
+            type="text"
+            fullWidth
+            value={title} 
+			onChange={(e) => setTitle(e.target.value)} 
+          />
+       <br />
+        <Select
+          label="Type"
+          id="type"
+          className ="mt-3 mb-3"
+          value={type}
+          onChange={(e)=> setType(e.target.value)}
+        >
+          <MenuItem value="public">Team
+          </MenuItem>
+          <MenuItem value="private">Personal</MenuItem>
+        </Select>
+            <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Description"
+            placeholder = "Create a new note"
+            type="text"
+            fullWidth
+            multiline
+            rows={5}
+            value={description} 
+			      onChange={(e) => {setDescription(e.target.value)}} />
+           </DialogContent>
+        <DialogActions>
+          <StyledButton onClick={handleClose} >
+            Cancel
+          </StyledButton>
+          <StyledButton onClick={meetnotesHandler} >
+            Save
+          </StyledButton>
+        </DialogActions>
+      </Dialog>
+            </>
+    )
+}
+
+const mapStateToProps = ({auth, firebase}) => {
+    return {
+      auth: firebase.auth,
+      authError: auth.authError
+    }
+  }
+  export default connect(mapStateToProps)(MeetNotes)

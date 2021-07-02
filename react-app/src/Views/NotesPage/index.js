@@ -21,7 +21,6 @@ const NotesPage = (props) => {
       const note = response.data.note;
       setNotes(note);
     
-    
     };
 
     fetchNotes().catch((error) => {

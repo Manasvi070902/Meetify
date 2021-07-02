@@ -1,18 +1,19 @@
-
 import React, { useEffect, useRef, useState,useCallback } from "react";
 import {useLocation} from "react-router-dom";
-import VideoCallBar from '../../Components/VideoCallBar'
-import { VideoFrame } from '../../Components/VideoFrame'
 import io from 'socket.io-client';
 import Peer, { Instance, SignalData } from 'simple-peer';
-import './videopage.css'
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom';
+import VideoCallBar from '../../Components/VideoCallBar'
+import { VideoFrame } from '../../Components/VideoFrame'
 import Grid from '@material-ui/core/Grid';
 import bg0 from '../../Assets/bg0.jpeg'
 import bg1 from '../../Assets/bg1.png'
 import bg2 from '../../Assets/bg2.jpeg'
+import './videopage.css'
+
+
 export const VideoPage = (props) => {
  
   const userVideo = useRef(document.createElement('video'))
@@ -36,7 +37,6 @@ export const VideoPage = (props) => {
   const [ roomID, setRoomId] =useState();
    const [bg, setBg] = useState(bg0)
 
-const senders = [];
    useEffect(() => {
     init()
 }, [])
@@ -52,7 +52,6 @@ const init = useCallback(async() => {
       if(params.get('host') && !params.get('room')){
        console.log(localStorage.getItem('idToken'))
         socketRef.current.emit("start meet", localStorage.getItem('idToken'))
-       
         socketRef.current.on("roomID", (roomID) => {
             console.log(roomID)
             setRoomId(roomID)
@@ -64,7 +63,7 @@ const init = useCallback(async() => {
             alert("Enter a valid url")
                 return;
           }
-          socketRef.current.emit("join room", { roomID: params.get('room'), token: localStorage.getItem('idToken') })
+          socketRef.current.emit("join room", {roomID: params.get('room'), token: localStorage.getItem('idToken') })
 
           socketRef.current.on("invalid room", () => {
             alert("Invalid room")
@@ -261,7 +260,7 @@ const bg2Handler = () => {setBg(bg2)}
         <div className="main-container" style={{backgroundImage: `url(${bg})`}}>
             <canvas id="canvas" hidden></canvas>
             {console.log(socketRef)}
-            
+          
         <VideoCallBar 
         exit={exit} 
         roomID={roomID}

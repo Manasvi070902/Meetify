@@ -17,6 +17,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import Fade from '@material-ui/core/Fade';
+import MeetNotes from '../MeetNotes';
 import Board from '../../Components/Board'
 import copy from "copy-to-clipboard"; 
 import  "./videocallbar.css"
@@ -78,6 +79,7 @@ export const VideoCallBar = (props) => {
         <IconButton style={{ ...IconButtonStyle,backgroundColor: "#1590a2"}} onClick={imageCapture}> < CameraAltRoundedIcon/> </IconButton>
       
       <MessageBox chats={props.chats} socketId={props.socketId} inputRef={props.inputRef} sendMessage={props.sendMessage}/>
+     <MeetNotes roomID={props.roomID}/>
       <Board />
     </div>
 
