@@ -8,7 +8,7 @@ router.get('/', async function(req, res) {
   const authid = req.headers.auth_id;
   console.log(authid)
   const user = await User.findOne({ "user_id" : authid })
-  const note =await Note.find({"user" : user._id}).sort({update: 'desc'})
+  const note =await Note.find({"user" : user._id}).sort({date:-1})
      res.status(200).send( { note: note })
 })
 

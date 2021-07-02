@@ -49,6 +49,8 @@ const StyledButton = withStyles({
   },
 })(Button);
 
+
+
 var date = new Date(note.date).toDateString()
 
  // DELETE NOTE
@@ -76,7 +78,7 @@ const deletePost = async() => {
               </CardActions>
             </Card>
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} scroll= "paper" fullWidth
-        maxWidth="md">
+        maxWidth="md" >
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
         <DialogActions>
         {note.title}

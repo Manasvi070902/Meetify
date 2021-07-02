@@ -38,6 +38,7 @@ export const NotesForm = (props) => {
           textTransform: 'capitalize',
         },
       })(Button);
+
       const {transcript,interimTranscript,listening,resetTranscript,browserSupportsSpeechRecognition} = useSpeechRecognition();
       
       const [description , setDescription] = useState('');
@@ -46,11 +47,15 @@ export const NotesForm = (props) => {
       
         const startListening = () => {
           SpeechRecognition.startListening({ continuous: true })
+
+          console.log(1)
           setDescription(description + ' ')
           };
           const stopListening = () => {
             SpeechRecognition.stopListening()
-            setDescription(description + interimTranscript)
+            
+              setDescription(description + interimTranscript)
+          
             };
             const handleReset = () => {
               stopListening();
@@ -105,7 +110,9 @@ export const NotesForm = (props) => {
             multiline
             rows={5}
             value={description} 
-			      onChange={(e) => {setDescription(e.target.value)}}> </TextField>
+			      onChange={(e) => {
+              
+              setDescription(e.target.value)}} />
            
           <DialogContentText> 
            

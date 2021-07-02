@@ -129,17 +129,13 @@ export const NotesEditForm = (props) => {
           </StyledButton>
           </DialogContentText>
         
-        <DialogActions>
-          <Button onClick={startListening} color="secondary">
-            Start
-          </Button>
-        </DialogActions>
+     
   
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleEditClose} color="secondary">
+          <StyledButton onClick={handleEditClose} color="secondary">
             Cancel
-          </Button>
+          </StyledButton>
           <StyledButton onClick={noteseditHandler} >
             Save
           </StyledButton>
