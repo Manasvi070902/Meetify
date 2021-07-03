@@ -1,7 +1,9 @@
 const express = require('express')
 const path = require('path')
 const Team = require('./../models/team')
+const User = require('./../models/user')
 const Str = require('@supercharge/strings')
+const { createTeam } = require('../controllers/teams/team')
 const router = express.Router()
 
 router.get('/', async function(req, res) {
@@ -14,9 +16,33 @@ router.get('/:id', async function(req, res) {
 })
 
 
+router.post('/new', async function(req, res) {
+  console.log(req.body)
+  try{
+  const user = await User.findOne({ "user_id" : req.body.user }) 
+  console.log(user)
+  const team = await new Team({
+    name : req.body.name,
+  description : req.body.description,
+  code : Str.random(5),
+    members: [user._id]
+}).save();
+await User.findByIdAndUpdate(user._id, {
+    $push: {
+        'teams': team._id
+    }
+})
+ 
+}catch (err) {
+  console.log(err);
+}
+})
 
 router.post('/new', async function(req, res) {
+
   console.log(req)
+
+
    let team = new Team({
      name : req.body.name,
     description : req.body.description,

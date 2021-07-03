@@ -22,9 +22,9 @@ export const VideoPage = (props) => {
     const socketRef = useRef();
     const peersRef = useRef([]);
    
-    const { auth } = props
+    const { auth, location } = props
     const history = useHistory()
-
+console.log(location.state)
     //get query parameter
    const search = useLocation().search;
    const params = new URLSearchParams(search);
@@ -42,9 +42,10 @@ export const VideoPage = (props) => {
 }, [])
 const init = useCallback(async() => {
   socketRef.current = io.connect("https://mteamsclone.herokuapp.com/")
+ 
   const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true })
-
-
+ 
+  //const userstream = await navigator.mediaDevices.getUserMedia({ audio: audio, video: video })
   userVideo.current.srcObject = userStream.current = stream;
  
 

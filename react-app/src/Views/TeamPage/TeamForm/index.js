@@ -8,8 +8,10 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Snackbar from '@material-ui/core/Snackbar';
 import axios from 'axios'
+import { auth } from '../../../Utils/firebase';
+import { connect } from 'react-redux'
 
-export default function TeamsForm() {
+const TeamForm = (props) => {
   const [open, setOpen] = useState(false);
   const [tname , setTname] = useState('');
   const [tdescription , setTdescription] = useState('');
@@ -21,12 +23,13 @@ export default function TeamsForm() {
   const handleClose = () => {
     setOpen(false);
   };
-
+const {auth} = props;
   const handleForm = async() => {
    console.log(tname,tdescription)
-    axios.post('https://mteamsclone.herokuapp.com/team/new', {
+    axios.post('http://localhost:5000/team/new', {
     name: tname,
-    description: tdescription
+    description: tdescription,
+    user:auth.uid
   }).then(function (response) {
     console.log(response);
   })
@@ -50,7 +53,7 @@ export default function TeamsForm() {
             autoFocus
             margin="dense"
             id="name"
-            label="Enter Team Name"
+            label="Team Name"
             type="text"
             id="filled-basic"
             fullWidth
@@ -60,8 +63,8 @@ export default function TeamsForm() {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
-            label="Enter Team Description"
+            id="description"
+            label="Team Description"
             type="text"
             id="filled-basic"
             fullWidth
@@ -82,3 +85,10 @@ export default function TeamsForm() {
     </div>
   );
 }
+const mapStateToProps = ({auth, firebase}) => {
+    return {
+      auth: firebase.auth,
+      authError: auth.authError
+    }
+  }
+export default connect(mapStateToProps)(TeamForm)

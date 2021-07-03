@@ -9,7 +9,6 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import TeamsForm from '../../Components/TeamsForm'
 
 import axios from 'axios'
 
@@ -30,20 +29,10 @@ const handleChange = (event) => {
   const startMeet = async() => {
       window.open(`/room?host=${true}`)
   }
-  const joinMeet = async() => {
+  const joinpreviewMeet = async() => {
     window.open(`/room?room=${value}`)
 }
-  // const getDetails = () => {
-  //    axios.get(`http://localhost:5000/team/`)
-  //     .then(res => {
-  //    const teams = res.data.team;
-  //       setTeams(teams);
-  
-       
-  //     })
-       
-  // }
-  
+
     return (
       <main className={classes.content}>
           <div className={classes.toolbar} />
@@ -62,7 +51,7 @@ const handleChange = (event) => {
           onChange={handleChange}
           color="secondary"
         />
-        <Button className="p-2 m-1"  variant="danger" onClick = {joinMeet} >Join Meet </Button>
+        <Button className="p-2 m-1"  variant="danger" onClick = {joinpreviewMeet} >Join Meet </Button>
         </form>
        
 

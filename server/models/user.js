@@ -19,6 +19,10 @@ const userSchema = mongoose.Schema({
   meets: [{
     type: String,
     ref: 'Meet'
+}],
+ teams: [{
+  type: mongoose.Schema.Types.ObjectId,
+    ref: 'Team'
 }]
 
 });

@@ -11,6 +11,8 @@ import VideoPage from './Views/VideoPage';
 import {auth , db} from "./Utils/firebase"
 import ChatPage from './Views/ChatPage'
 import NotesPage from './Views/NotesPage';
+import VideoPreviewPage from './Views/VideoPreviewPage';
+import TeamPage from './Views/TeamPage';
 
 const App = () => {
   const [ theme, toggleTheme ] = useTheme();
@@ -55,6 +57,10 @@ useEffect(() => {
         <Route path="/note" >
         <NavBar theme={theme} toggleTheme={toggleTheme}/>
         </Route>
+        <Route path="/team" >
+        <NavBar theme={theme} toggleTheme={toggleTheme}/>
+        </Route>
+        
       </Switch>
       
       <Switch>
@@ -63,6 +69,8 @@ useEffect(() => {
         <Route path="/room" component={VideoPage} />
          <Route path="/chat" component={ChatPage} />
          <Route path="/note" component={NotesPage} />
+        <Route path="/preview" component={VideoPreviewPage} /> 
+        <Route path="/team" component={TeamPage} /> 
         
       </Switch>
       </ThemeProvider>

@@ -32,7 +32,7 @@ export const login = () => {
       var user = resp.user;
       axios({
         method: 'POST',
-        url : "https://mteamsclone.herokuapp.com/users",
+        url : "http://localhost:5000/users",
         headers: {
             'authtoken': idToken,
             'Content-Type': 'application/json',
