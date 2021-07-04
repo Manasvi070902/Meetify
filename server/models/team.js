@@ -13,12 +13,14 @@ code:{
   },
 members: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    unique:true
 }],
 
 meetings: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Meet'
+    ref: 'Meet',
+    unique:true
 }],
 messages: [{
   message: {

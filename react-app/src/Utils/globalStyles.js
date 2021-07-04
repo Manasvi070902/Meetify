@@ -46,6 +46,9 @@ export const GlobalStyles = createGlobalStyle`
   .MuiTypography-colorTextSecondary{
     color: ${({ theme }) => theme.text} !important;
   }
+  .card{
+    background: ${({ theme }) => theme.drawer} !important;
+  }
 `;
 export const useStyles = makeStyles((theme) => ({
   

@@ -7,7 +7,10 @@ const { createTeam } = require('../controllers/teams/team')
 const router = express.Router()
 
 router.get('/', async function(req, res) {
-  const team =await Team.find().sort({update: 'desc'})
+  const authid = req.headers.auth_id;
+  console.log(authid)
+  const user = await User.findOne({ "user_id" : authid })
+  const team =await Team.find({"members" : user._id}).sort({createdAt:-1})
      res.status(200).send( { team: team })
 })
 router.get('/:id', async function(req, res) {
@@ -32,36 +35,36 @@ await User.findByIdAndUpdate(user._id, {
         'teams': team._id
     }
 })
- 
+res.status(200)
 }catch (err) {
   console.log(err);
 }
 })
 
-router.post('/new', async function(req, res) {
-
-  console.log(req)
-
-
-   let team = new Team({
-     name : req.body.name,
-    description : req.body.description,
-     code : Str.random(5)  
-   })
-  
-  
- console.log(team)
-  
- team.save()
-    .then(item => {
-    res.status(200).send("team added to database");
-    })
-    .catch(err => {
-        console.log(err)
-    res.status(400).send("unable to save to database");
-    });
+router.post('/join', async function(req, res) {
+  console.log(req.body)
+  try{
+    const team = await Team.findOne({"code" : req.body.code})
+  const user = await User.findOneAndUpdate({ "user_id" : req.body.user },{
+    $addToSet: {
+      'teams': team._id
+  }
+  }) 
+  await Team.findByIdAndUpdate(team._id, {
+    $addToSet: {
+        'members': user._id
+    }
+})
+return res.status(200)
+ 
+}catch (err) {
+  console.log(err);
+  return res.status(500).json({
+    message: 'User already exists!'
 })
 
+}
+})
 
 
 router.delete('/:id', async (req, res) => {

@@ -11,11 +11,13 @@ import axios from 'axios'
 import { auth } from '../../../Utils/firebase';
 import { connect } from 'react-redux'
 
+
 const TeamForm = (props) => {
   const [open, setOpen] = useState(false);
   const [tname , setTname] = useState('');
   const [tdescription , setTdescription] = useState('');
 
+ 
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -32,6 +34,7 @@ const {auth} = props;
     user:auth.uid
   }).then(function (response) {
     console.log(response);
+    alert("Team created successfully")
   })
 
   setOpen(false);
@@ -40,8 +43,8 @@ const {auth} = props;
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Create Teams
+      <Button variant="contained" className={"mr-2"} color="primary" onClick={handleClickOpen}>
+        Create Team
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Create your team</DialogTitle>
