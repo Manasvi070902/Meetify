@@ -3,13 +3,16 @@ import io from 'socket.io-client';
 import { connect } from 'react-redux'
 import {useLocation} from "react-router-dom";
 import { Avatar, Button,IconButton } from '@material-ui/core';
-import { AttachFile, SearchOutlined, MoreVert, InsertEmoticon, MicOutlined} from '@material-ui/icons';
+import { InsertEmoticon} from '@material-ui/icons';
 import axios from "axios";
-// import div from 'react-scroll-to-bottom';
 import './chatsection.css';
+import ScrollToBottom from 'react-scroll-to-bottom';
 import { makeStyles } from '@material-ui/core/styles';
+import { Redirect } from 'react-router-dom';
+import SendIcon from '@material-ui/icons/Send';
+import { Picker } from "emoji-mart";
+import "emoji-mart/css/emoji-mart.css";
 
-  
 const useStyles = makeStyles((theme) => ({
     rounded: {
       color: '#fff',
@@ -26,21 +29,19 @@ const ChatSection = (props) => {
  const params = new URLSearchParams(search);
  
  const meetid = params.get("meetid")
+
+
  const [input, setInput] = useState("");
  const [show, setShow] = useState(false);
+ const [showchat, setShowchat] = useState(false);
  const [messages, setMessages] = useState([]);
  const [meets, setMeets] = useState([]);
  const [name, setName] = useState('');
 
  const socketRef = useRef();
  const inputRef = useRef(null)
- const [chats, setChats] = useState([])
 
-//  const init = useCallback(async() => {
-//     socketRef.current = io.connect("http://localhost:5000")
-//     console.log(meetid)
-//     socketRef.current.emit("join room", {roomID: meetid, token: localStorage.getItem('idToken') })
-// })  
+
  useEffect(() => {
     socketRef.current = io.connect("http://localhost:5000")
     console.log(socketRef.current)
@@ -69,6 +70,7 @@ const sendMessage = useCallback((e) => {
         }
         addToChat(chatObj)
         inputRef.current.value = ""
+        setInput("")
     }
 }, [])
 const addToChat = useCallback((chatObj) => {
@@ -77,24 +79,6 @@ const addToChat = useCallback((chatObj) => {
     setMessages(chats => [...chats, chatObj])
 }, [])
   
-
-//  const sendMessage = async(e) => {
-//      e.preventDefault();
-
-//      if(input !== ''){
-//         //  await axios.post('/messages/new', {
-//         //      message: input,
-//         //      name: user.displayName,
-//         //      timestamp: new Date(),
-//         //      roomid: roomId
-//         //  });
- 
-//         //  setInput('');
-//         //  if(show){
-//         //      setShow(!show);
-//         //  }
-//      }
-//  };
 
  useEffect(() => {
     const fetchMeets = async () => {
@@ -121,28 +105,32 @@ const addToChat = useCallback((chatObj) => {
     
     });
    
-  }, []);
+  }, [meetid]);
   
-
+    const joinHandler = () => {
+        window.open(`/room?room=${meetid}`)
+    }
+  if(!auth.uid && auth.isLoaded){
+    return <Redirect to="/login" />
+  }
 
  return (
-     <div className="chat">
-         <div className="chat__header">
+
+         <div className="chat">
+         <div className="chat__header col-10 col-lg-12">
          <Avatar variant="rounded" className={classes.rounded} style={{minHeight:"30px",minWidth:"30px"}}>{name.charAt(0)}</Avatar>
              <div className="chat__headerInfo">
-                 <h3>{name}</h3>
+                 <h4>{name}</h4>
                  <p>Last seen {messages.length-1 > 0 ? (new Date(messages[messages.length-1].date).toString()) : ("No messages yet.")}</p>
              </div>
 
              <div className="chat__headerRight">
-             <Button variant="contained" color="secondary">Join</Button>
+             <Button onClick={joinHandler} variant="contained" color="secondary">Join</Button>
              </div>
          </div>
-         <div className="chat__body">
-{/* {console.log(meets)} */}
-    
+         <ScrollToBottom className="chat__body">
              {messages.map(message => (
-                 <>
+                 
                
                  <p className={`chat__message ${message.sender === auth.displayName && "chat__receiver"}`}>
                      <span className="chat__name">{message.sender}</span>
@@ -150,26 +138,21 @@ const addToChat = useCallback((chatObj) => {
                      {message.message}
                      <span className="chat__timestamp">{new Date(message.date).toLocaleTimeString()}</span>
                  </p>
-                 </>
+               
              ))}
-         </div>
-         {/* {show ? <Picker set="apple" emojiSize={34} showPreview={false} color={"#009688"} onSelect={emoji => setInput(input + emoji.native)} style={{ width: '100%' }}/> : null} */}
+         </ScrollToBottom>
+         {show ? <Picker set="apple" emojiSize={34} showPreview={false} color={"#009688"} onSelect={emoji => setInput(input + emoji.native)} style={{ width: '100%' }}/> : null}
          <div className="chat__footer">
              <IconButton>
                  <InsertEmoticon onClick={() => setShow(!show)}/>
              </IconButton>
-             <IconButton title="Attach">
-                 <AttachFile/>
-             </IconButton>
-             {/* <form> */}
-                 <input ref={inputRef}  placeholder="Type a message" type="text"/>
-                 <button onClick={(e) => sendMessage(e)} type="submit"> Send a message</button>
-             {/* </form> */}
+                 <input ref={inputRef} value={input} onChange={e => setInput(e.target.value)}  placeholder="Type a message" type="text"/>
              <IconButton>
-                 <MicOutlined/>
+                 <SendIcon  onClick={(e) => sendMessage(e)} />
              </IconButton>
          </div>
      </div>
+    
  )
     
 }

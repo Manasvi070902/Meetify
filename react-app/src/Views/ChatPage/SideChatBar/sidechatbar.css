@@ -3,7 +3,9 @@
     padding: 10px;
     cursor: pointer;
     margin: 0;
-    border-bottom: 1px solid #f6f6f6;
+    border-left : 1px solid gray;
+    border-right : 1px solid gray;
+    border-bottom : 1px solid gray;
 }
 
 a{
@@ -21,9 +23,5 @@ p{
 
 .sidebarChat__info>h2{
     font-size: 16px;
-    margin-bottom: 8px;
 }
 
-.sidebarChat__info{
-    margin-left: 15px;
-}
