@@ -36,30 +36,36 @@ const ChatSection = (props) => {
  const inputRef = useRef(null)
  const [chats, setChats] = useState([])
 
+//  const init = useCallback(async() => {
+//     socketRef.current = io.connect("http://localhost:5000")
+//     console.log(meetid)
+//     socketRef.current.emit("join room", {roomID: meetid, token: localStorage.getItem('idToken') })
+// })  
  useEffect(() => {
-    init()
-}, [])
-const init = useCallback(async() => {
     socketRef.current = io.connect("http://localhost:5000")
-})  
- useEffect(() => {
+    console.log(socketRef.current)
+    socketRef.current.emit("chatroom", {roomID: meetid, token: localStorage.getItem('idToken') })
+
     socketRef.current.on("receive-message", (payload) => {
-    console.log("read..")
-    console.log(payload)
-       addToChat(payload)
-    })
+        console.log("read..")
+        console.log(payload)
+           addToChat(payload)
+        })
 }, [])
+
+
 const sendMessage = useCallback((e) => {
     e.preventDefault()
     console.log("send")
     if(inputRef.current && inputRef.current?.value !== ""){
         const val = inputRef.current?.value
         console.log(val)
-        socketRef.current.emit("message", val)
+        socketRef.current.emit("message",  val)
         const chatObj = {
             sender: auth.displayName,
             message: val,
-            id:'me'
+            id:'me',
+            date : new Date()
         }
         addToChat(chatObj)
         inputRef.current.value = ""
@@ -68,7 +74,7 @@ const sendMessage = useCallback((e) => {
 const addToChat = useCallback((chatObj) => {
     console.log(chatObj)
     console.log("add")
-    setChats(chats => [...chats, chatObj])
+    setMessages(chats => [...chats, chatObj])
 }, [])
   
 

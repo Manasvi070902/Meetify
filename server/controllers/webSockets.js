@@ -44,12 +44,17 @@ const webSockets = app => {
        
         socket.on("join room", async({ roomID, token }) => {
             try{
+                console.log('11111')
+                
                 const { id, name } = await getTokenDetails(token)
+                console.log(name)
                 if(!uuid.validate(roomID)){
+                    console.log('1')
                     socket.emit("invalid room")
                     return;
                 }
                 const roomData = io.sockets.adapter.rooms[roomID]
+                console.log(roomData)
                 if(!roomData){
                     socket.emit("invalid room")
                     return;
@@ -60,6 +65,7 @@ const webSockets = app => {
                 }
                 socket.roomID = roomID
                 socket.userName = name
+              
                 const usersInThisRoom1 = []
                 for(let key in roomData.sockets){
                     console.log(io.sockets.connected[key].userName)
@@ -92,9 +98,33 @@ const webSockets = app => {
         socket.on("sending signal", payload => {
             io.to(payload.userToSignal).emit('user joined', { signal: payload.signal, id: payload.callerID, username: socket.userName });
         });
+        socket.on("chatroom", async({ roomID, token }) => {
+            try{
+                console.log('11')
+                
+                const { id, name } = await getTokenDetails(token)
+                
+                socket.roomID = roomID
+                socket.userName = name
+                
+                console.log("join chat room",roomID, socket.id)
+                 
+                socket.join(roomID)
+                
+            }
+            catch(err){
+                console.log(err)
+                if(err.name === "LoginError"){
+                    socket.emit("unauthorized", "Please login again")
+                    return
+                }
+                socket.emit("something broke", "Something went wrong, please try again!")
+            }
+        })
+
        socket.on("message", (message) => {
-           console.log('hii')
-            socket.broadcast.to(socket.roomID).emit('receive-message', { sender: socket.userName, message,id:socket.id });
+           console.log(socket.userName)
+            socket.broadcast.to(socket.roomID).emit('receive-message', { sender: socket.userName, message,id:socket.id,date: new Date() });
             addMessage({
                 meetID: socket.roomID,
                 sender : socket.userName,
