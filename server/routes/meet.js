@@ -5,17 +5,24 @@ const Meet = require('../models/meet');
 const User = require('../models/user');
 
 
-router.get('/', ensureAuthenticated, async function(req,res){
+router.get('/', async function(req,res){
     try{
-        const { id } = req.userData
-        const user = await User.findById(id, 'meets').populate({
+        const authid = req.headers.auth_id;
+        console.log(authid)
+        const userdetails = await User.findOne({ "user_id" : authid })
+        const user = await User.findById(userdetails._id, 'meets').populate({
             path : 'meets',
-            select: ['members', 'createdAt'],
             populate : {
                 path : 'members',
                 select: ['name']
-            }
+            },
+            populate : {
+                path : 'host',
+                select: ['name']
+            },
+           
         })
+        console.log(user)
         return res.status(200).json({
             meets: user.meets
         })

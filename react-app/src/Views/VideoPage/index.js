@@ -41,18 +41,16 @@ console.log(location.state)
     init()
 }, [])
 const init = useCallback(async() => {
-  socketRef.current = io.connect("https://mteamsclone.herokuapp.com/")
+  socketRef.current = io.connect("http://localhost:5000")
  
   const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true })
  
   //const userstream = await navigator.mediaDevices.getUserMedia({ audio: audio, video: video })
   userVideo.current.srcObject = userStream.current = stream;
  
-
-  
       if(params.get('host') && !params.get('room')){
-       console.log(localStorage.getItem('idToken'))
-        socketRef.current.emit("start meet", localStorage.getItem('idToken'))
+       console.log(localStorage.getItem('meetname'))
+        socketRef.current.emit("start meet", {token : localStorage.getItem('idToken') , meetname :localStorage.getItem('meetname') } )
         socketRef.current.on("roomID", (roomID) => {
             console.log(roomID)
             setRoomId(roomID)

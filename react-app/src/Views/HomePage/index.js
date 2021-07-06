@@ -17,9 +17,13 @@ import axios from 'axios'
 const HomePage = (props) => {
 const [teams , setTeams] = useState([])
 const [value, setValue] = useState();
+const [meetname, setMeetName] = useState('');
 
 const handleChange = (event) => {
   setValue(event.target.value);
+};
+const handleMeetName = (event) => {
+  setMeetName(event.target.value);
 };
   const classes = useStyles();
   const {auth} = props;
@@ -27,6 +31,7 @@ const handleChange = (event) => {
     return <Redirect to="/login" />
   }
   const startMeet = async() => {
+    localStorage.setItem('meetname' , meetname)
       window.open(`/room?host=${true}`)
   }
   const joinpreviewMeet = async() => {
@@ -40,6 +45,15 @@ const handleChange = (event) => {
         <p className="lead d-flex justify-content-center">Hi &nbsp; <span className="text-primary"> {auth.displayName}</span>!</p>
           <p className="lead d-flex justify-content-center">Welcome to MS Teams.</p>
           <div className="d-flex justify-content-center">
+          <TextField
+          id="standard-multiline-flexible"
+          label="Enter Meet Name"
+          multiline
+          rowsMax={4}
+          value={meetname}
+          onChange={handleMeetName}
+          color="secondary"
+        />
           <Button className="p-2 m-5 "  variant="info"  onClick={startMeet} >Create Meet</Button> <br /></div>
           <form className="d-flex justify-content-center" noValidate autoComplete="off">
           <TextField
@@ -92,7 +106,7 @@ const handleChange = (event) => {
     }
   }
   export default connect(mapStateToProps)(HomePage)
-
+  
 
  
 

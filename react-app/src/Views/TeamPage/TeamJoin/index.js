@@ -8,8 +8,9 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Snackbar from '@material-ui/core/Snackbar';
 import axios from 'axios'
-import { auth } from '../../../Utils/firebase';
 import { connect } from 'react-redux'
+import { db } from '../../../Utils/firebase';
+import firebase from "firebase";
 
 const TeamJoin = (props) => {
   const [joinopen, setJoinopen] = useState(false);
@@ -31,10 +32,24 @@ const handleCode = (event) => {
     axios.post('http://localhost:5000/team/join', {
       code : code,
       user:auth.uid
-    }).then(function (response) {
+    }).then(async function (response) {
       console.log(response);
       alert("Team joined!!")
     })
+
+     await db.collection('teams').where("code", "==", code).get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+       
+       db.collection('teams').doc(doc.id).update({
+         members : firebase.firestore.FieldValue.arrayUnion(auth.uid)
+       })
+      });
+  })
+    // console.log(response)
+    // db.collection('teams').doc(id).update({
+    //   members: db.FieldValue.arrayUnion(auth.uid)
+    // }).then( resp => console.log("team member added to firebase")).catch((err) => console.log(err))
+
     setJoinopen(false);
 }
 

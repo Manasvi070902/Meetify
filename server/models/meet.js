@@ -5,6 +5,13 @@ const meetSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    name : {
+        type: String,
+    },
+    host: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
     members: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -17,6 +24,10 @@ const meetSchema = new mongoose.Schema({
         sender: {
             type: String,
             required: true,
+        },
+        date : {
+          type:Date,
+          default:Date.now
         }
     }],
 },

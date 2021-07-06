@@ -10,7 +10,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import axios from 'axios'
 import { auth } from '../../../Utils/firebase';
 import { connect } from 'react-redux'
-
+import {db} from "../../../Utils/firebase"
 
 const TeamForm = (props) => {
   const [open, setOpen] = useState(false);
@@ -28,15 +28,22 @@ const TeamForm = (props) => {
 const {auth} = props;
   const handleForm = async() => {
    console.log(tname,tdescription)
-    axios.post('http://localhost:5000/team/new', {
+    await axios.post('http://localhost:5000/team/new', {
     name: tname,
     description: tdescription,
     user:auth.uid
   }).then(function (response) {
     console.log(response);
     alert("Team created successfully")
+    db.collection('teams').doc(response.data.teamid).set({
+      name: tname,
+      description: tdescription,
+      members:[auth.uid],
+      code:response.data.code
+    }).then( resp => console.log("team added to firebase")).catch((err) => console.log(err))
   })
 
+  
   setOpen(false);
   }
 

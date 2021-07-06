@@ -13,7 +13,7 @@ const webSockets = app => {
     io.on("connection", (socket) => {
         console.log("connection")
     
-        socket.on("start meet",  async(token) => {
+        socket.on("start meet",  async({token, meetname}) => {
             console.log("!!!!")
          
             try{
@@ -27,7 +27,8 @@ const webSockets = app => {
                 io.to(socket.id).emit("roomID", roomID)
                 createMeet({
                     roomID,
-                    hostID: id
+                    hostID: id,
+                    meetname : meetname
                 })
                 console.log("starting meet at",socket.id)
             }
@@ -92,11 +93,13 @@ const webSockets = app => {
             io.to(payload.userToSignal).emit('user joined', { signal: payload.signal, id: payload.callerID, username: socket.userName });
         });
        socket.on("message", (message) => {
+           console.log('hii')
             socket.broadcast.to(socket.roomID).emit('receive-message', { sender: socket.userName, message,id:socket.id });
             addMessage({
                 meetID: socket.roomID,
                 sender : socket.userName,
-                message
+                message,
+                date : new Date()
             })
         })
         socket.on("returning signal", payload => {

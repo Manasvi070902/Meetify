@@ -35,7 +35,10 @@ await User.findByIdAndUpdate(user._id, {
         'teams': team._id
     }
 })
-res.status(200)
+return res.status(200).json({
+  code: team.code,
+  teamid : team._id
+})
 }catch (err) {
   console.log(err);
 }
@@ -55,7 +58,9 @@ router.post('/join', async function(req, res) {
         'members': user._id
     }
 })
-return res.status(200)
+return res.status(200).json({
+  code:team.code
+})
  
 }catch (err) {
   console.log(err);

@@ -49,6 +49,9 @@ export const GlobalStyles = createGlobalStyle`
   .card{
     background: ${({ theme }) => theme.drawer} !important;
   }
+  .viewmember{
+    background: ${({ theme }) => theme.drawer} !important;
+  }
 `;
 export const useStyles = makeStyles((theme) => ({
   

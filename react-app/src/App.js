@@ -13,7 +13,7 @@ import ChatPage from './Views/ChatPage'
 import NotesPage from './Views/NotesPage';
 import VideoPreviewPage from './Views/VideoPreviewPage';
 import TeamPage from './Views/TeamPage';
-
+import ViewPage from './Views/TeamViewPage';
 const App = () => {
   const [ theme, toggleTheme ] = useTheme();
 
@@ -60,6 +60,9 @@ useEffect(() => {
         <Route path="/team" >
         <NavBar theme={theme} toggleTheme={toggleTheme}/>
         </Route>
+        <Route path="/teamview" >
+        <NavBar theme={theme} toggleTheme={toggleTheme}/>
+        </Route>
         
       </Switch>
       
@@ -71,6 +74,7 @@ useEffect(() => {
          <Route path="/note" component={NotesPage} />
         <Route path="/preview" component={VideoPreviewPage} /> 
         <Route path="/team" component={TeamPage} /> 
+        <Route path="/teamview" component={ViewPage} /> 
         
       </Switch>
       </ThemeProvider>

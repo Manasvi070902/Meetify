@@ -8,6 +8,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import { deepOrange, green } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 import './card.css'
 
@@ -24,11 +25,16 @@ const TeamCard = (props) => {
 const team= props.team
 const classes = useStyles();
   return(
-      <>       <div className=" card col-md-6 col-lg-2 ">
+      <>
+       <div className=" card col-md-6 col-lg-2 ">
+        
          <div class="icon"> <Avatar variant="rounded" className={classes.rounded} style={{minHeight:"50px",minWidth:"50px"}}>{team.name.charAt(0)}</Avatar></div>
-         <p class="title">{team.name}</p>
+         <p class="title" >{team.name}</p>
+         <Link to= {`/teamview?teamid=${team._id}`}  > View</Link>
          </div>
-            </> 
+         
+        
+        </> 
   )
 }
 
