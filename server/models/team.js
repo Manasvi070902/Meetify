@@ -18,9 +18,14 @@ members: [{
 }],
 
 meetings: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Meet',
-    unique:true
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'TeamMeet',
+  unique:true
+}],
+notes : [{
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'TeamNote',
+  unique:true
 }],
 messages: [{
   message: {
