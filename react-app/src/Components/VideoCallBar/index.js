@@ -79,7 +79,7 @@ export const VideoCallBar = (props) => {
         <IconButton style={{ ...IconButtonStyle,backgroundColor: "#1590a2"}} onClick={imageCapture}> < CameraAltRoundedIcon/> </IconButton>
       
       <MessageBox chats={props.chats} socketId={props.socketId} inputRef={props.inputRef} sendMessage={props.sendMessage}/>
-     <MeetNotes roomID={props.roomID}/>
+      <MeetNotes roomID={props.roomID} team = {props.team}/>
       <Board />
     </div>
 

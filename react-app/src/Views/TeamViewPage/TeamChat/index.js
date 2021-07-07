@@ -28,15 +28,15 @@ const TeamsChat = (props) => {
  const search = useLocation().search;
  const params = new URLSearchParams(search);
  
- const meetid = params.get("meetid")
+ const teamid = params.get("teamid")
 
 
  const [input, setInput] = useState("");
  const [show, setShow] = useState(false);
  const [showchat, setShowchat] = useState(false);
  const [messages, setMessages] = useState([]);
- const [meets, setMeets] = useState([]);
- const [name, setName] = useState('');
+ const [teammessages, setTeamMessages] = useState([]);
+
 
  const socketRef = useRef();
  const inputRef = useRef(null)
@@ -45,7 +45,7 @@ const TeamsChat = (props) => {
  useEffect(() => {
     socketRef.current = io.connect("http://localhost:5000")
     console.log(socketRef.current)
-    socketRef.current.emit("chatroom", {roomID: meetid, token: localStorage.getItem('idToken') })
+    socketRef.current.emit("chatroom", {roomID: teamid, token: localStorage.getItem('idToken') })
 
     socketRef.current.on("receive-message", (payload) => {
         console.log("read..")
@@ -61,7 +61,7 @@ const sendMessage = useCallback((e) => {
     if(inputRef.current && inputRef.current?.value !== ""){
         const val = inputRef.current?.value
         console.log(val)
-        socketRef.current.emit("message",  val)
+        socketRef.current.emit("team message",  {message: val , teamid : teamid })
         const chatObj = {
             sender: auth.displayName,
             message: val,
@@ -81,35 +81,29 @@ const addToChat = useCallback((chatObj) => {
   
 
  useEffect(() => {
-    const fetchMeets = async () => {
+    const fetchTeam = async () => {
         var meets = []
-      const response = await axios.get(`http://localhost:5000/meets/`,{
-        headers: {'auth_id' : auth.uid}
+      const response = await axios.get(`http://localhost:5000/team/details`,{
+        headers: {'team_id' : teamid}
       })
-      const meet = response.data.meets;
-
-      
-     setMeets(meet)
-     meet.map(item => {
-         if(item._id === meetid){
-            
-             setMessages(item.messages)
-             setName(item.name)
-         } 
-     })
+      const team = response.data.team;
+console.log(team)
+      const messages = team.messages
+      setMessages(messages)
+    
     
     };
 
-    fetchMeets().catch((error) => {
+   fetchTeam().catch((error) => {
    console.log(error.message)
     
     });
    
-  }, [meetid]);
+  }, []);
   
-    const joinHandler = () => {
-        window.open(`/room?room=${meetid}`)
-    }
+    // const joinHandler = () => {
+    //     window.open(`/room?room=${meetid}`)
+    // }
   if(!auth.uid && auth.isLoaded){
     return <Redirect to="/login" />
   }
@@ -121,7 +115,6 @@ const addToChat = useCallback((chatObj) => {
          <ScrollToBottom className="teamchat__body">
              {messages.map(message => (
                  
-               
                  <p className={`teamchat__message ${message.sender === auth.displayName && "teamchat__receiver"}`}>
                      <span className="teamchat__name">{message.sender}</span>
                      <br></br>

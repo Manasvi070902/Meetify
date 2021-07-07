@@ -4,7 +4,8 @@ const uuid = require('uuid')
 const getTokenDetails = require("../middleware/verifytoken");
 
 const { createMeet , addMember} = require('./meets/meets');
-const { addMessage } = require('./meets/messages');
+const {createTeamMeet , addTeamMeetMember } = require('./teams/teammeet');
+const { addTeamMeetMessage , addTeamChatMessage } = require('./teams/teammessages');
 const webSockets = app => {
   
     const server = http.createServer(app);
@@ -158,7 +159,6 @@ socket.on("start teammeet",  async({token, meetname,teamid}) => {
         socket.roomID = roomID
         socket.isHost = true
         socket.userName = name
-        socket.teamid = teamid
         socket.join(roomID)
         io.to(socket.id).emit("roomID", roomID)
         createTeamMeet({
@@ -171,10 +171,7 @@ socket.on("start teammeet",  async({token, meetname,teamid}) => {
     }
     catch(err){
         console.log(err)
-        if(err.name === "LoginError"){
-            socket.emit("unauthorized", "Please login again")
-            return
-        }
+  
         socket.emit("something broke", "Something went wrong, please try again!")
     }
 })
@@ -216,7 +213,7 @@ socket.on("join teamroom", async({ roomID, token }) => {
         socket.join(roomID)
         console.log("all teammeet members", usersInThisRoom)
         io.to(socket.id).emit("all teammeet members", usersInThisRoom1);
-        addTeamMember({
+        addTeamMeetMember({
             roomID,
             userID: id
         })
@@ -224,15 +221,12 @@ socket.on("join teamroom", async({ roomID, token }) => {
     }
     catch(err){
         console.log(err)
-        if(err.name === "LoginError"){
-            socket.emit("unauthorized", "Please login again")
-            return
-        }
+       
         socket.emit("something broke", "Something went wrong, please try again!")
     }
 })
 
-socket.on("team meet message", (message) => {
+socket.on("team meet message", ({message, teamid}) => {
     console.log(socket.userName)
      socket.broadcast.to(socket.roomID).emit('receive-message', { sender: socket.userName, message,id:socket.id,date: new Date() });
      addTeamMeetMessage({
@@ -240,10 +234,10 @@ socket.on("team meet message", (message) => {
          sender : socket.userName,
          message,
          date : new Date(),
-         teamid : socket.teamid
+         teamid : teamid
      })
  })
- socket.on("team message", (message, teamid) => {
+ socket.on("team message", ({message, teamid}) => {
     console.log(socket.userName)
      socket.broadcast.to(teamid).emit('receive-message', { sender: socket.userName, message,id:socket.id,date: new Date() });
      addTeamChatMessage({

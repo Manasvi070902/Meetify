@@ -1,20 +1,20 @@
 import React, { useEffect, useRef, useState,useCallback } from "react";
 import {useLocation} from "react-router-dom";
 import io from 'socket.io-client';
-import Peer, { Instance, SignalData } from 'simple-peer';
+import Peer from 'simple-peer';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom';
-import VideoCallBar from '../../Components/VideoCallBar'
-import { VideoFrame } from '../../Components/VideoFrame'
+import VideoCallBar from '../../../Components/VideoCallBar'
+import { VideoFrame } from '../../../Components/VideoFrame'
 import Grid from '@material-ui/core/Grid';
-import bg0 from '../../Assets/bg0.jpeg'
-import bg1 from '../../Assets/bg1.png'
-import bg2 from '../../Assets/bg2.jpeg'
-import './videopage.css'
+import bg0 from '../../../Assets/bg0.jpeg'
+import bg1 from '../../../Assets/bg1.png'
+import bg2 from '../../../Assets/bg2.jpeg'
+import './teamvideo.css'
 
 
-export const VideoPage = (props) => {
+export const TeamVideoPage = (props) => {
  
   const userVideo = useRef(document.createElement('video'))
   const userStream = useRef()
@@ -24,10 +24,12 @@ export const VideoPage = (props) => {
    
     const { auth, location } = props
     const history = useHistory()
-console.log(location.state)
+    console.log(location.state)
     //get query parameter
    const search = useLocation().search;
    const params = new URLSearchParams(search);
+    const teamid = localStorage.getItem("teamid")
+
 
    const [peers, setPeers] = useState([]);
    const [audio, setAudio] = useState(true);
@@ -50,7 +52,8 @@ const init = useCallback(async() => {
  
       if(params.get('host') && !params.get('room')){
        console.log(localStorage.getItem('meetname'))
-        socketRef.current.emit("start meet", {token : localStorage.getItem('idToken') , meetname :localStorage.getItem('meetname') } )
+     
+        socketRef.current.emit("start teammeet", {token : localStorage.getItem('idToken') , meetname :localStorage.getItem('meetname'),teamid:localStorage.getItem('teamid') } )
         socketRef.current.on("roomID", (roomID) => {
             console.log(roomID)
             setRoomId(roomID)
@@ -62,7 +65,7 @@ const init = useCallback(async() => {
             alert("Enter a valid url")
                 return;
           }
-          socketRef.current.emit("join room", {roomID: params.get('room'), token: localStorage.getItem('idToken') })
+          socketRef.current.emit("join teamroom", {roomID: params.get('room'), token: localStorage.getItem('idToken') })
 
           socketRef.current.on("invalid room", () => {
             alert("Invalid room")
@@ -76,7 +79,7 @@ const init = useCallback(async() => {
     
 
       //get all member details and create peers
-      socketRef.current.on("all members", (members) => {
+      socketRef.current.on("all teammeet members", (members) => {
         console.log(members)
         const peers = members.map(member => {
          
@@ -216,7 +219,7 @@ const sendMessage = useCallback((e) => {
     console.log("send")
     if(inputRef.current && inputRef.current?.value !== ""){
         const val = inputRef.current?.value
-        socketRef.current.emit("message", val)
+        socketRef.current.emit("team meet message", {message : val , teamid : teamid })
         const chatObj = {
             sender: auth.displayName,
             message: val,
@@ -262,7 +265,7 @@ const bg2Handler = () => {setBg(bg2)}
           
         <VideoCallBar 
         exit={exit} 
-        team={false}
+        team={true}
         roomID={roomID}
         audio={audio} 
         video={video} 
@@ -303,4 +306,4 @@ const mapStateToProps = ({auth, firebase}) => {
       authError: auth.authError
     }
   }
-  export default connect(mapStateToProps)(VideoPage)
+  export default connect(mapStateToProps)(TeamVideoPage)

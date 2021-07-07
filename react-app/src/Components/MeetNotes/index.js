@@ -59,16 +59,30 @@ const IconButtonStyle = {
       const meetnotesHandler = async() => {
         console.log(title,description)
         if(type === "public"){ 
+          if(props.team === true) {
+            axios.post('http://localhost:5000/note/new/team', {
+              title: title,
+              description: description,
+              user: auth.uid,
+              teamid : localStorage.getItem("teamid")
+            }).then(function (response) {
+              console.log(response);
+           
+         })
+        
+          }else{
          axios.post('http://localhost:5000/note/new/public', {
          title: title,
          description: description,
-         user: auth.uid,
+         user: auth.displayName,
          room_id : props.roomID
        }).then(function (response) {
          console.log(response);
       
     })
-  }else{
+  }
+  }
+  else{
     axios.post('http://localhost:5000/note/new', {
          title: title,
          description: description,

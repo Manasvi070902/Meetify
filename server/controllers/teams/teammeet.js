@@ -4,7 +4,7 @@ const Team = require('../../models/team');
 exports.createTeamMeet = async({ roomID, hostID , meetname , teamid}) => {
     
     try{
-        
+        console.log(teamid)
         const meet = await new TeamMeet({
             _id: roomID,
             name : meetname,
@@ -21,7 +21,7 @@ exports.createTeamMeet = async({ roomID, hostID , meetname , teamid}) => {
         console.log(err)
     }
 }
-exports.addTeamMember = async({ roomID, userID }) => {
+exports.addTeamMeetMember = async({ roomID, userID }) => {
     try{
         
         await Promise.all([

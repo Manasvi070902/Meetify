@@ -1,0 +1,38 @@
+.main-container{
+    /* background-image: url('../../Assets/bg1.png');  */
+ background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height:100vh;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    overflow-y: hidden;
+}
+
+video {
+  height: 300px;
+  width: 400px;
+  object-fit: cover;
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  border : 1px solid white;
+  position:relative;
+z-index:0;
+  
+}
+
+#overlay{
+    position:absolute;
+    background-color: #1590a3;
+    margin-left: 0.1rem;
+    margin-top:16.5rem;
+   font-weight:600;
+   font-size:16px;
+   padding:5px;
+    z-index:3;
+}
+
+

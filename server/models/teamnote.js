@@ -8,9 +8,12 @@ const teamnoteSchema = mongoose.Schema({
      type: String
   },
 
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+  username: {
+    type: String
+},
+teamid : {
+  type: mongoose.Schema.Types.ObjectId,
+    ref: 'Team'
 },
 date: {
     type:Date,

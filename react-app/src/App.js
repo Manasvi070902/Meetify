@@ -14,6 +14,8 @@ import NotesPage from './Views/NotesPage';
 import VideoPreviewPage from './Views/VideoPreviewPage';
 import TeamPage from './Views/TeamPage';
 import ViewPage from './Views/TeamViewPage';
+import TeamVideoPage from './Views/TeamViewPage/TeamVideoPage';
+
 const App = () => {
   const [ theme, toggleTheme ] = useTheme();
 
@@ -75,6 +77,7 @@ useEffect(() => {
         <Route path="/preview" component={VideoPreviewPage} /> 
         <Route path="/team" component={TeamPage} /> 
         <Route path="/teamview" component={ViewPage} /> 
+        <Route path="/teammeet" component={TeamVideoPage} /> 
         
       </Switch>
       </ThemeProvider>

@@ -1,8 +1,10 @@
 const TeamMeet = require('../../models/teammeet');
 const Team = require('../../models/team');
 
-exports.addTeamMessage = async({ meetID, sender, message,date ,teamid}) => {
+exports.addTeamMeetMessage = async({ meetID, sender, message,date ,teamid}) => {
     try{
+        console.log(teamid)
+        
         await TeamMeet.findByIdAndUpdate(meetID, {
             $push: {
                 messages: {
@@ -11,6 +13,7 @@ exports.addTeamMessage = async({ meetID, sender, message,date ,teamid}) => {
                     date
                 }
             }
+       
         })
         await Team.findByIdAndUpdate(teamid, {
             $push: {
@@ -21,7 +24,8 @@ exports.addTeamMessage = async({ meetID, sender, message,date ,teamid}) => {
                 }
             }
         })
-        console.log('meeee')
+   
+        console.log('both chats')
     }
     catch(err){
         console.log(err)
@@ -29,7 +33,7 @@ exports.addTeamMessage = async({ meetID, sender, message,date ,teamid}) => {
 }
 exports.addTeamChatMessage = async({ meetID, sender, message,date ,teamid}) => {
     try{
-       
+       console.log(teamid)
         await Team.findByIdAndUpdate(teamid, {
             $push: {
                 messages: {
@@ -39,7 +43,7 @@ exports.addTeamChatMessage = async({ meetID, sender, message,date ,teamid}) => {
                 }
             }
         })
-        console.log('meeee')
+        console.log('heeee')
     }
     catch(err){
         console.log(err)

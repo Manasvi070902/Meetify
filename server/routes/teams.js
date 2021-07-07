@@ -13,8 +13,10 @@ router.get('/', async function(req, res) {
   const team =await Team.find({"members" : user._id}).sort({createdAt:-1})
      res.status(200).send( { team: team })
 })
-router.get('/:id', async function(req, res) {
-   const team = await Team.findOne({ id: req.params.id })
+router.get('/details', async function(req, res) {
+  const teamid = req.headers.team_id;
+  
+   const team = await Team.findById(teamid)
    res.status(200).send( { team: team })
 })
 
