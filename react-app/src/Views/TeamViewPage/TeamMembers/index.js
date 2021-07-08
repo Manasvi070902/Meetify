@@ -10,6 +10,9 @@ import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 import green from '@material-ui/core/colors/green';
 import {useLocation} from "react-router-dom";
+import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
+import IconButton from '@material-ui/core/IconButton';
+import copy from "copy-to-clipboard"; 
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -42,8 +45,6 @@ const StyledBadge = withStyles((theme) => ({
 const useStyles = makeStyles((theme) => ({
   list: {
     width: '90%',
-    maxWidth: '36ch',
-    margin : '10px',
     minHeight: '84vh',
     
   },
@@ -87,12 +88,24 @@ const fetchUsers = async(props) => {
  useEffect(() => {    
   fetchUsers();
 }, [])
+
+const copyHandler = () => {
+      
+  copy(props.code);
+}
     return (
         
         
         
     <List className={classes.list} >
-    <h4>Members</h4>
+     <div className="d-flex justify-content-center ">
+            <h4>Members</h4> 
+        </div>
+        <hr color="#333333"></hr>
+        <div className="d-flex justify-content-end">
+            <h6>Add Member : {props.code} <IconButton  onClick={copyHandler}> < FileCopyOutlinedIcon/> </IconButton></h6> 
+        </div>
+        
           {Object.values(membersList).map(item => {    
       return(
       <>

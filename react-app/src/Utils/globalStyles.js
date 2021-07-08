@@ -52,6 +52,9 @@ export const GlobalStyles = createGlobalStyle`
   .viewmember{
     background: ${({ theme }) => theme.drawer} !important;
   }
+  td{
+    color: ${({ theme }) => theme.text} !important;
+  }
 `;
 export const useStyles = makeStyles((theme) => ({
   

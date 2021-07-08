@@ -5,6 +5,9 @@ const teammeetSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    teamid : {
+        type : String
+    },
     name : {
         type: String,
     },

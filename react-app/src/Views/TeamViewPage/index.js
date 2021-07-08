@@ -23,10 +23,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TeamNote from './TeamNote';
+import MeetHistory from './MeetHistory';
 import axios from 'axios';
-
-
 import './view.css'
+
 
 
 function TabPanel(props) {
@@ -75,6 +75,7 @@ const ViewPage = (props) => {
     const [roomid, setRoomid] = useState('');
     const [meetname, setMeetname] = useState('');
     const [teamname, setTeamName] = useState('');
+    const [code, setCode] = useState('');
     const handleCreateClickOpen = () => {
       setCreateOpen(true);
     };
@@ -123,7 +124,9 @@ useEffect(() => {
     const team = response.data.team;
 console.log(team)
     const name = team.name
+    const code = team.code
     setTeamName(name)
+    setCode(code)
   
   
   };
@@ -175,13 +178,13 @@ if(!auth.uid && auth.isLoaded){
       <TeamsChat teamid={teamid} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-      <Members teamid = {teamid} />
+      <Members teamid = {teamid} code={code}/>
       </TabPanel>
       <TabPanel value={value} index={2}>
       <TeamNote />
       </TabPanel>
       <TabPanel value={value} index={3}>
-      
+      <MeetHistory />
       </TabPanel>
      
      {/* for create meet button */}

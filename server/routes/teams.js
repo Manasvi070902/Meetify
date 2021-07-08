@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const Team = require('./../models/team')
 const User = require('./../models/user')
+const TeamMeet = require('./../models/teammeet');
 const Str = require('@supercharge/strings')
 const { createTeam } = require('../controllers/teams/team')
 const router = express.Router()
@@ -18,6 +19,26 @@ router.get('/details', async function(req, res) {
   
    const team = await Team.findById(teamid)
    res.status(200).send( { team: team })
+})
+router.get('/meetings', async function(req, res) {
+
+  try{
+  const teamid = req.headers.team_id;
+  console.log(teamid)
+   const meets = await TeamMeet.find({"teamid" : teamid}).populate([   
+     {
+        path : 'members',
+        select: ['name' , 'email']
+    },
+     {
+        path : 'host',
+        select: ['name']
+    }]
+  )
+   res.status(200).send( { meets: meets })
+  }catch (err) {
+    console.log(err);
+  }
 })
 
 

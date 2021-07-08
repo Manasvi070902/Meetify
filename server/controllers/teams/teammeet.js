@@ -9,13 +9,10 @@ exports.createTeamMeet = async({ roomID, hostID , meetname , teamid}) => {
             _id: roomID,
             name : meetname,
             host: [hostID],
-            members: [hostID]
+            members: [hostID],
+            teamid : teamid
         }).save();
-        await Team.findByIdAndUpdate(teamid, {
-            $push: {
-                'meetings': meet._id
-            }
-        })
+     
     }
     catch(err){
         console.log(err)
