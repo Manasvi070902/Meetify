@@ -45,12 +45,9 @@ const handleCode = (event) => {
        })
       });
   })
-    // console.log(response)
-    // db.collection('teams').doc(id).update({
-    //   members: db.FieldValue.arrayUnion(auth.uid)
-    // }).then( resp => console.log("team member added to firebase")).catch((err) => console.log(err))
 
     setJoinopen(false);
+    window.location.reload()
 }
 
   return (

@@ -11,7 +11,7 @@ const TeamNote = (props) => {
     const [notes, setNotes] = useState([]);
     const { auth } = props
     const classes = useStyles();
- 
+   const teamid= props.teamid
 
   useEffect(() => {
     const fetchTeamNotes = async () => {
@@ -38,6 +38,7 @@ const TeamNote = (props) => {
       if(!auth.uid && auth.isLoaded){
         return <Redirect to="/login" />
       }
+
     return (
 
         <>
@@ -48,13 +49,13 @@ const TeamNote = (props) => {
         <hr color="#333333"></hr>
            <div className="d-flex justify-content-end">
          
-           <TeamNoteForm auth={auth}/>
+           <TeamNoteForm teamid= {teamid} auth={auth}/>
       </div>
    
       <div className="row d-flex justify-content-center ml-4 ">
            
-     
-      {notes && notes.map(note => {
+     {notes.length === 0 && <p>No notes found</p>}
+      {notes.length>0 && notes.map(note => {
     return (
       <div className=" col-12 m-3">
    

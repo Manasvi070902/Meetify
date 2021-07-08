@@ -21,6 +21,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import GroupIcon from '@material-ui/icons/Group';
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
+import VideoCallIcon from '@material-ui/icons/VideoCall';
 import ChatIcon from '@material-ui/icons/Chat';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
@@ -145,7 +146,7 @@ export const NavBar =(props)=> {
           </IconButton>
           
           <Typography variant="h6" className={classes.title}>
-            Teams
+            Meetify
           </Typography>
           </Box>
          
@@ -188,8 +189,12 @@ export const NavBar =(props)=> {
         <Divider />
         <List>
             <ListItem button key='Meetings' component={Link} to="/">
-              <ListItemIcon><GroupIcon /></ListItemIcon>
+              <ListItemIcon><VideoCallIcon /></ListItemIcon>
               <ListItemText primary='Meetings' />
+            </ListItem>
+            <ListItem button key='Teams' component={Link} to="/team">
+              <ListItemIcon><GroupIcon /></ListItemIcon>
+              <ListItemText primary='Teams' />
             </ListItem>
             <ListItem button key='Chat' component={Link} to="/chat">
               <ListItemIcon><ChatIcon /></ListItemIcon>

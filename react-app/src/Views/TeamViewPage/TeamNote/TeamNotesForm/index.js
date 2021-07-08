@@ -17,7 +17,7 @@ export const TeamNoteForm = (props) => {
     const [open, setOpen] = React.useState(false);
     const [title , setTitle] = useState('');
     
-  
+  const teamid= props.teamid
     const { auth } = props
 
     const handleClickOpen = () => {
@@ -67,6 +67,7 @@ export const TeamNoteForm = (props) => {
          title: title,
          description: description,
          user: auth.displayName,
+         teamid : teamid
        }).then(function (response) {
          console.log(response);
          window.location.reload()

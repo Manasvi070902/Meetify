@@ -4,13 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { useStyles } from '../../Utils/globalStyles'
 import  {Button } from 'react-bootstrap'
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 
-import axios from 'axios'
 
 
 
@@ -67,33 +61,6 @@ const handleMeetName = (event) => {
         />
         <Button className="p-2 m-1"  variant="danger" onClick = {joinpreviewMeet} >Join Meet </Button>
         </form>
-       
-
-        {/* <TeamsForm /> */}
-
-         {/* <Button className="p-2 mt-5"  onClick={getDetails} variant="success">View team
-        </Button> */}
-       
-       {/* {teams.map((team) => {
-          {console.log(team.name)}
-    <Card className={classes.root}>
-      <CardContent>
-        <Typography  color="textSecondary" gutterBottom>
-          {team.name}
-        </Typography>
-        
-        <Typography  color="textSecondary">
-          {team.description}
-        </Typography>
-
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>
-        }
-        )} */}
-      
       
         </main>
       

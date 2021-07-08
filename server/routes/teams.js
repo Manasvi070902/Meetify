@@ -3,6 +3,7 @@ const path = require('path')
 const Team = require('./../models/team')
 const User = require('./../models/user')
 const TeamMeet = require('./../models/teammeet');
+const TeamNote = require('./../models/teamnote');
 const Str = require('@supercharge/strings')
 const { createTeam } = require('../controllers/teams/team')
 const router = express.Router()
@@ -15,10 +16,14 @@ router.get('/', async function(req, res) {
      res.status(200).send( { team: team })
 })
 router.get('/details', async function(req, res) {
+  try{
   const teamid = req.headers.team_id;
   
    const team = await Team.findById(teamid)
    res.status(200).send( { team: team })
+  }catch(err){
+    res.status(400).send({err : err})
+  }
 })
 router.get('/meetings', async function(req, res) {
 
@@ -95,9 +100,15 @@ return res.status(200).json({
 })
 
 
-router.delete('/:id', async (req, res) => {
-  await Team.findByIdAndDelete(req.params.id)
-  res.redirect('/')
+router.delete('/delete', async (req, res) => {
+  const teamid = req.headers.team_id;
+  console.log(teamid)
+  try{
+  await Team.findByIdAndDelete(teamid)
+  res.status(200)
+  }catch(err){
+    console.log(err)
+  }
 })
 
 module.exports = router

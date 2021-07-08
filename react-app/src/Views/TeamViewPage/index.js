@@ -22,10 +22,13 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import TeamNote from './TeamNote';
 import MeetHistory from './MeetHistory';
 import axios from 'axios';
 import './view.css'
+import { LaptopWindows } from '@material-ui/icons';
 
 
 
@@ -75,6 +78,7 @@ const ViewPage = (props) => {
     const [roomid, setRoomid] = useState('');
     const [meetname, setMeetname] = useState('');
     const [teamname, setTeamName] = useState('');
+    const [description, setDescription] = useState('');
     const [code, setCode] = useState('');
     const handleCreateClickOpen = () => {
       setCreateOpen(true);
@@ -105,14 +109,25 @@ localStorage.setItem('teamid' , params.get('teamid'))
 
 const teamid =   params.get('teamid')
 
+
 const createhandler = () =>{
   localStorage.setItem('meetname' , meetname)
   localStorage.setItem('teamid' , teamid)
+  if(meetname === ""){
+    alert("Enter meet name")
+
+  }else{
   window.open(`/teammeet?host=${true}`)
+  }
+  setCreateOpen(false);
 }
 const joinHandler = async() => {
-
+if(roomid === ""){
+  alert("Enter Code")
+}else{
   window.open(`/teammeet?room=${roomid}`)
+  setJoinOpen(false);
+}
 }
 
 useEffect(() => {
@@ -121,26 +136,41 @@ useEffect(() => {
     const response = await axios.get(`http://localhost:5000/team/details`,{
       headers: {'team_id' : teamid}
     })
+  
     const team = response.data.team;
 console.log(team)
     const name = team.name
+    const desp = team.description
     const code = team.code
     setTeamName(name)
     setCode(code)
-  
-  
+    setDescription(desp)
+
   };
 
  fetchTeam().catch((error) => {
  console.log(error.message)
+ alert(error.message)
+
+ return <Redirect to="/team"/>
+ 
   
   });
  
 }, []);
-
+ // DELETE NOTE
+ const deleteTeam = async() => {
+  const response = await axios.delete('http://localhost:5000/team/delete', {
+    headers: {"team_id" : teamid}}).then(
+      window.open(`/team`)
+    )}
 if(!auth.uid && auth.isLoaded){
     return <Redirect to="/login" />
   }
+  if(teamid === ""){
+    return <Redirect to="/team" />
+  }
+  
     return (
         <main className={classes.content}>
         <div className={classes.toolbar} />
@@ -150,6 +180,9 @@ if(!auth.uid && auth.isLoaded){
   
       <div className="d-flex justify-content-center mt-2">
         <h4>{teamname}</h4>
+        </div>
+        <div className="d-flex justify-content-center">
+        <h6>{description}</h6>
         </div>
       
         <Tabs
@@ -168,6 +201,7 @@ if(!auth.uid && auth.isLoaded){
           <Box display='flex' flexGrow={1}  mx="auto" >
           <Button className = "m-3" variant="contained" color="primary" onClick={handleCreateClickOpen}>Create Meet</Button>
           <Button className = "m-3" variant="contained" color="secondary" onClick={handleJoinClickOpen}>Join Meet</Button>
+          <IconButton onClick={deleteTeam} ><DeleteIcon /></IconButton>
           </Box>
       
         </Tabs>
@@ -181,7 +215,7 @@ if(!auth.uid && auth.isLoaded){
       <Members teamid = {teamid} code={code}/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-      <TeamNote />
+      <TeamNote teamid={teamid}/>
       </TabPanel>
       <TabPanel value={value} index={3}>
       <MeetHistory />

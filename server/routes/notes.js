@@ -90,7 +90,7 @@ router.delete('/delete', async (req, res) => {
 
 //team notes
 router.post('/new/team', async function(req, res) {
-
+console.log(req.body)
   try {
    
     const note = new TeamNote({
@@ -125,13 +125,17 @@ router.get('/team', async function(req, res) {
      res.status(200).send( { note: note })
 })
 router.put('/team/edit', async function(req, res) {
-  console.log(req)
-  
+  try {
+  const noteId = req.headers.note_id;
   const note = await TeamNote.findByIdAndUpdate(noteId,{
     title : req.body.title,
    description : req.body.description,
    username : req.body.user
-  }).then( res.status(200).send("notes edited"))
+  })
+  res.status(200).send("notes edited")
+} catch(err){
+  console.log(err)
+}
   
 })
 

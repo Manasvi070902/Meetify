@@ -45,6 +45,7 @@ const {auth} = props;
 
   
   setOpen(false);
+  window.location.reload()
   }
 
 

@@ -58,8 +58,8 @@ const TeamPage = (props) => {
    
       <div className="row d-flex justify-content-center mt-4 ml-4 ">
            
-     
-      {teams && teams.map(team => {
+     {teams.length === 0 && <h3>No Teams Found!</h3>}
+      {teams.length>0 && teams.map(team => {
     return (
          <TeamCard team = {team}/>       
     )})}

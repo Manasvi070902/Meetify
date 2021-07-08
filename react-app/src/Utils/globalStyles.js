@@ -55,6 +55,10 @@ export const GlobalStyles = createGlobalStyle`
   td{
     color: ${({ theme }) => theme.text} !important;
   }
+  .card a {
+    color: ${({ theme }) => theme.text} !important;
+    
+  }
 `;
 export const useStyles = makeStyles((theme) => ({
   

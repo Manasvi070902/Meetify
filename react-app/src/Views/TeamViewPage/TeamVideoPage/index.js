@@ -256,6 +256,8 @@ const bg2Handler = () => {setBg(bg2)}
     if(!auth.uid && auth.isLoaded){
         return <Redirect to="/login" />
       }
+
+
     return (
         
         

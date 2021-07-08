@@ -34,12 +34,14 @@
     text-align: center;
     margin-top: 5px;
     font-weight: 600;
+   
  }
  
  
  .card:hover {
     background: rgba(231, 227, 227, 0.4) !important;
+    text-decoration: underline;
  }
 
  
- 
+
