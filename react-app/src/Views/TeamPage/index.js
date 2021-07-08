@@ -5,9 +5,8 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import TeamForm from './TeamForm';
 import TeamJoin from './TeamJoin';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import TeamCard from './TeamCard'
+import teampic from "../../Assets/teams.svg"
 
 
 const TeamPage = (props) => {
@@ -58,7 +57,14 @@ const TeamPage = (props) => {
    
       <div className="row d-flex justify-content-center mt-4 ml-4 ">
            
-     {teams.length === 0 && <h3>No Teams Found!</h3>}
+     {teams.length === 0 && 
+     <>
+     <div className="col-lg-8  col-12 align-items-center justify-content-center">
+      <img className="img-fluid mx-auto d-block rounded w-50" src={teampic} alt="pic"/>
+      <h3 className="col-12 d-flex justify-content-center">You're not on a team yet!</h3>
+      <h6 className="d-flex justify-content-center">Once you join a team, it'll show up here.</h6>
+      </div>
+     </>}
       {teams.length>0 && teams.map(team => {
     return (
          <TeamCard team = {team}/>       

@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import NotesCard from './NotesCard';
 import { NotesForm } from './NotesForm';
+import notepic from "../../Assets/notes.svg"
 
 const NotesPage = (props) => {
 
@@ -40,7 +41,7 @@ const NotesPage = (props) => {
         <div className={classes.toolbar} />
      
         <div className="d-flex justify-content-center">
-            <h4>Meeting Notes</h4> 
+            <h4>Notes</h4> 
         </div>
         <hr color="#333333"></hr>
            <div className="d-flex justify-content-end">
@@ -51,7 +52,7 @@ const NotesPage = (props) => {
       <div className="row d-flex justify-content-center mt-4 ml-4 ">
            
      
-      {notes && notes.map(note => {
+      {notes.length>0 && notes.map(note => {
     return (
       <div className="col-md-6 col-lg-3 m-3">
    
@@ -59,6 +60,15 @@ const NotesPage = (props) => {
          </div>
         
     )})}
+    {notes.length === 0 &&
+    <>
+    <div className="col-lg-8  col-12 align-items-center justify-content-center">
+      <img className="img-fluid mx-auto d-block rounded w-50" src={notepic} alt="pic"/>
+      <h3 className="col-12 d-flex justify-content-center">Save your Thoughts</h3>
+      <h6 className="d-flex justify-content-center">Read and write notes using speech recognition!</h6>
+      </div>
+    </>
+    }
         </div>
         </main>
     )

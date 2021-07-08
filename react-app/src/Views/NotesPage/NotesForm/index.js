@@ -39,6 +39,8 @@ export const NotesForm = (props) => {
         },
       })(Button);
 
+     
+
       const {transcript,interimTranscript,listening,resetTranscript,browserSupportsSpeechRecognition} = useSpeechRecognition();
       
       const [description , setDescription] = useState('');
@@ -70,11 +72,13 @@ export const NotesForm = (props) => {
          type: "private"
        }).then(function (response) {
          console.log(response);
-         window.location.reload()
+         
     })
     
     setOpen(false);
+    window.location.reload()
     }
+    
       
     if (!browserSupportsSpeechRecognition) {
         return <span>Browser doesn't support speech recognition.</span>;
