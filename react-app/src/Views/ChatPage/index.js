@@ -7,8 +7,6 @@ const ChatPage = () => {
 
      const classes = useStyles();
     
-     
- 
 
     return (
           <main className={classes.content}>
@@ -18,7 +16,7 @@ const ChatPage = () => {
         <div className="col-lg-2 col-6 justify-content-center" >
             <SideBar />
         </div>
-        <div className="col-lg-8  col-9  justify-content-center" >
+        <div className="col-lg-8  col-10  justify-content-center" >
             <ChatSection />
             </div>
         </div>

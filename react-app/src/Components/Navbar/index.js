@@ -29,6 +29,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
+import logo from "../../Assets/logo.png"
 
 
 const drawerWidth = 240;
@@ -214,9 +215,9 @@ export const NavBar =(props)=> {
     <AppBar position="static" className="custom-nav">
         <Toolbar>
           <Box display='flex' flexGrow={1} >
-          <Typography variant="h6" className={classes.title}>
-            Teams
-          </Typography>
+          <Typography variant="h6" className={classes.title}> 
+            Meetify
+          </Typography> 
           </Box>
           <Toggle theme={props.theme} toggleTheme={props.toggleTheme}/>
           <Button color="inherit" onClick={handleLoginBtn}>Login</Button>

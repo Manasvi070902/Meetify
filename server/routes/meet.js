@@ -12,16 +12,16 @@ router.get('/', async function(req,res){
         const userdetails = await User.findOne({ "user_id" : authid })
         const user = await User.findById(userdetails._id, 'meets').populate({
             path : 'meets',
-            populate : {
+            populate : [ {
                 path : 'members',
                 select: ['name']
             },
-            populate : {
+            {
                 path : 'host',
                 select: ['name']
-            },
+            }
            
-        })
+            ]})
         console.log(user)
         return res.status(200).json({
             meets: user.meets

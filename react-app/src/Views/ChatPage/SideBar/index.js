@@ -33,25 +33,28 @@ const Sidebar = (props) => {
   }, []);
     
     return (
-            <div>
-                <div className="sidebar__header">
+            <>
+                {meets.length>0 && meets.map(meet => {
+                        console.log(meet)     
+                return (
+                  <> 
+                <div className="sidebar__header mt-4">
                     <div className="sidebar__headerRight">
                     <h4>Meetings</h4>
                     </div>
-                </div>                 
-                    {meets && meets.map(meet => {
-                        console.log(meet)     
-                return (
+                </div>    
+
+                
                     <div className="sidebar__chats">
                     <SideChat key={meet._id} id={meet._id} name={meet.name}/>
                     </div>
-                  
+                  </>
                      ) })}
                      
                 
                
             
-         </div>
+         </>
     )
 }
 

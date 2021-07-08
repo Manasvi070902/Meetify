@@ -4,6 +4,7 @@ const uuid = require('uuid')
 const getTokenDetails = require("../middleware/verifytoken");
 
 const { createMeet , addMember} = require('./meets/meets');
+const {addMessage } = require('./meets/messages');
 const {createTeamMeet , addTeamMeetMember } = require('./teams/teammeet');
 const { addTeamMeetMessage , addTeamChatMessage } = require('./teams/teammessages');
 const webSockets = app => {
