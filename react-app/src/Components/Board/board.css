@@ -5,12 +5,11 @@
 .color-picker {
     text-align: center;
     display: inline;
-    color: white;
+
 }
 
 .size {
     display: inline;
-    color: white;
     margin-left: 12px;
 }
 

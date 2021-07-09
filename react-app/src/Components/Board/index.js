@@ -9,6 +9,8 @@ import Slide from '@material-ui/core/Slide';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
+import { imageCapture } from '../../Actions/imagecapture';
 import './board.css';
 
 
@@ -90,7 +92,7 @@ const Board =(props)=>{
 
                 </div>
 
-                <div class="board-container">
+                <div id="mainboard" class="board-container">
                     <MainBoard color={color} size={size}></MainBoard>
                 </div>
             </div>

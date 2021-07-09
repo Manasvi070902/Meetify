@@ -6,14 +6,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import IconButton from '@material-ui/core/IconButton';
-import { makeStyles } from '@material-ui/core/styles';
-import { deepPurple } from '@material-ui/core/colors';
 import { connect } from 'react-redux'
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
+import Draggable from 'react-draggable';
 import axios from 'axios'
 
 const IconButtonStyle = {
@@ -39,6 +38,15 @@ const IconButtonStyle = {
     const handleClose = () => {
       setOpen(false);
     };
+    function PaperComponent(props) {
+      return (
+        <Draggable handle="#meet-note-form" cancel={'[class*="MuiDialogContent-root"]'}>
+          <Paper {...props} />
+        </Draggable>
+      );
+    }
+
+    
     const StyledButton = withStyles({
         root: {
           borderRadius: 3,
@@ -98,8 +106,8 @@ const IconButtonStyle = {
     return (
 <>
 <IconButton onClick={handleClickOpen} style={{ ...IconButtonStyle,backgroundColor: "#1590a2"}} > <NoteAddIcon/> </IconButton>
-<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth="md" maxWidth="md">
-        <DialogTitle id="form-dialog-title">New Note</DialogTitle>
+<Dialog open={open} onClose={handleClose} aria-labelledby="meet-note-form" fullWidth="md" maxWidth="md" PaperComponent={PaperComponent}>
+        <DialogTitle id="meet-note-form">New Note</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus

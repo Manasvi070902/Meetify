@@ -50,13 +50,13 @@ export const saveAs = (blob, fileName) =>{
   }
 
 
-  var node = document.getElementById('root');
+  var node = document.getElementById('mainboard');
 
   
   export const imageCapture = async() =>{
     console.log('hi')
     await captureVideos();
-    htmlToImage.toPng(node)
+    htmlToImage.toPng(node , "")
       .then(function (dataUrl) {
         var img = new Image();
         img.src = dataUrl;

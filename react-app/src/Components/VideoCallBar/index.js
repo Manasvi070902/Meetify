@@ -7,8 +7,6 @@ import MicOffIcon from '@material-ui/icons/MicOff';
 import ScreenShareIcon from '@material-ui/icons/ScreenShare';
 import StopScreenShareIcon from '@material-ui/icons/StopScreenShare';
 import CallEndIcon from '@material-ui/icons/CallEnd';
-import CameraAltRoundedIcon from '@material-ui/icons/CameraAltRounded';
-import { imageCapture } from '../../Actions/imagecapture';
 import { useTheme } from '@material-ui/core/styles';
 import Participants from '../../Components/Participants'
 import MessageBox from '../MessageBox';
@@ -54,6 +52,9 @@ export const VideoCallBar = (props) => {
     return (
        
         <div className="btn-down" >
+          <div className= "row container" style={{position :"absolute"}}>
+    <p>Hi</p>
+          </div>
         {(props.video === true) ?
         <IconButton style={{ ...IconButtonStyle,backgroundColor: "#323232"}} onClick={props.videoHandler}> <VideocamIcon /></IconButton>
          :<IconButton style={{ ...IconButtonStyle,backgroundColor: "#da3c3f"}} onClick={props.videoHandler}> <VideocamOffIcon /></IconButton>} 
@@ -61,9 +62,6 @@ export const VideoCallBar = (props) => {
         <IconButton style={{ ...IconButtonStyle,backgroundColor: "#323232"}} onClick={props.audioHandler}> <MicIcon /></IconButton>
         :  <IconButton style={{ ...IconButtonStyle,backgroundColor: "#da3c3f"}} onClick={props.audioHandler}> <MicOffIcon /> </IconButton>}
 <IconButton style={{ ...IconButtonStyle,backgroundColor: "#323232"}} onClick={shareHandler}> <GroupAddIcon /></IconButton>
-         {/* {props.screenshare === true ?
-        <IconButton style={{ ...IconButtonStyle,backgroundColor: "#323232"}} onClick={props.screenShareHandler}> <ScreenShareIcon/></IconButton>
-        :  <IconButton style={{ ...IconButtonStyle,backgroundColor: "#da3c3f"}} onClick={props.screenShareHandler}> <StopScreenShareIcon /> </IconButton>} */}
 <IconButton style={{ ...IconButtonStyle,backgroundColor: "#323232"}} aria-controls="fade-menu" aria-haspopup="true" onClick={handleClick}><ImageIcon /> </IconButton>
         <IconButton style={{ ...IconButtonStyle,backgroundColor: "#da3c3f"}} onClick={exit} ><CallEndIcon /></IconButton>
 
@@ -76,11 +74,11 @@ export const VideoCallBar = (props) => {
 
         <Participants peers={props.peers} /> 
 
-        <IconButton style={{ ...IconButtonStyle,backgroundColor: "#1590a2"}} onClick={imageCapture}> < CameraAltRoundedIcon/> </IconButton>
+       
       
       <MessageBox chats={props.chats} socketId={props.socketId} inputRef={props.inputRef} sendMessage={props.sendMessage}/>
       <MeetNotes roomID={props.roomID} team = {props.team}/>
-      <Board />
+      <Board/>
     </div>
 
 

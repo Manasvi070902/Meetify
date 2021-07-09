@@ -1,19 +1,11 @@
-.messageContainer{
-    max-width: 70%;
-    min-width: 5%;
-    min-height: 1.25rem;
-    word-break: break-all;
-    margin: 5px;
-}
-#messageContent{
-    margin: 5px;
-}
+
 #readMessage{
-    color:white !important;
+    
     text-align: left;
     
 }
 #userMessage{
-    color:white !important;
+   
     text-align: right;   
 }
+

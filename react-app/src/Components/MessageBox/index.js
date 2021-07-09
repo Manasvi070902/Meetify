@@ -9,7 +9,19 @@ import { connect } from 'react-redux'
 import IconButton from '@material-ui/core/IconButton';
 import Message from '../Message';
 import ArrowForwardIos from '@material-ui/icons/ArrowForwardIos';
-import { Input, Button } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
+import Draggable from 'react-draggable';
+import { withStyles } from '@material-ui/core/styles';
+import groupchatpic from "../../Assets/groupchat.svg"
+
+
+function PaperComponent(props) {
+  return (
+    <Draggable handle="#chat-form" cancel={'[class*="MuiDialogContent-root"]'}>
+      <Paper {...props} />
+    </Draggable>
+  );
+}
 const IconButtonStyle = {
     color: "#fff",
      margin: "5px",
@@ -34,16 +46,26 @@ const MessageBox = (props) => {
     return (
         <>
         <IconButton onClick={handleClickOpen} style={{ ...IconButtonStyle,backgroundColor: "#1590a2"}} > <ChatIcon/> </IconButton>
-        <Dialog open={open} onClose={handleClose}aria-labelledby="responsive-dialog-title">
-        <DialogTitle onClose={handleClose} id="responsive-dialog-title">Group Chat  </DialogTitle>
+        <Dialog open={open} onClose={handleClose}  aria-labelledby="chat-form" PaperComponent={PaperComponent}> 
+        <DialogTitle onClose={handleClose} id="chat-form">Group Chat  </DialogTitle>
         <DialogContent>
-        {chats.map((chat, index) => (
+        {chats.length === 0 && 
+        <div className="col-lg-12  col-12 align-items-center justify-content-center">
+        <img className="img-fluid mx-auto d-block rounded " src={groupchatpic} alt="pic"/>
+        <h6 className="d-flex justify-content-center">Start Group Chat!</h6>
+        </div>}
+        {chats.length>0 && chats.map((chat, index) => (
                     <Message key={index} chat={chat} socketID={props.socketID} />
                 ))}
         </DialogContent>
         <DialogActions>
-        <input  placeholder="Type here..." ref={inputRef}  />
-						<IconButton style={{ color: "#ffffff", backgroundColor: "#5867dd", margin: "0 10px 0 10px"}}  onClick={(e) => props.sendMessage(e)} >
+        <input  placeholder="Type here..." ref={inputRef}  style={{
+    flex: 1,
+    borderRadius: "21px",
+    padding: "12px",
+    outlineWidth: 0
+}}/>
+						<IconButton style={{ color: "#ffffff", backgroundColor: "#35a9aa", margin: "0 10px 0 10px"}}  onClick={(e) => props.sendMessage(e)} >
 					<ArrowForwardIos />
 					</IconButton>
        

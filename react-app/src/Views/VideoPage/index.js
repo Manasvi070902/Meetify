@@ -280,12 +280,12 @@ const bg2Handler = () => {setBg(bg2)}
 
         {peers.map((peer, index) => (
             <Grid item xs={12} sm={4}>
-            <p id="overlay">{peer.username}</p>
+            <p id="overlay" style={{color : "white"}}>{peer.username}</p>
             <VideoFrame key={index} peer={peer.peer} />
             </Grid>
         ))}    
          <Grid item xs={12}  sm={4}>
-         <p id="overlay">{auth.displayName}</p>
+         <p id="overlay" style={{color : "white"}}>{auth.displayName}</p>
         <video id="my-video" muted  autoPlay ref={userVideo}  playsInline ></video>
         </Grid>
        

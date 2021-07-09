@@ -25,6 +25,7 @@ class MainBoard extends React.Component {
                 var image = new Image();
                 var canvas = document.querySelector('#board');
                 var ctx = canvas.getContext('2d');
+
                 image.onload = function() {
                     ctx.drawImage(image, 0, 0);
 

@@ -12,9 +12,10 @@ import Avatar from '@material-ui/core/Avatar';
 import PeopleIcon from '@material-ui/icons/People';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
-import { deepPurple } from '@material-ui/core/colors';
 import { connect } from 'react-redux'
-
+import Paper from '@material-ui/core/Paper';
+import Draggable from 'react-draggable';
+import { withStyles } from '@material-ui/core/styles';
 
 const IconButtonStyle = {
   color: "#fff",
@@ -22,14 +23,32 @@ const IconButtonStyle = {
    width:"50px",
    height:"50px",
   }
+  const StyledButton = withStyles({
+    root: {
+      borderRadius: 3,
+      border: 0,
+      color: '#14a2b8',
+      borderBlockColor : '#14a2b8',
+    },
+    label: {
+      textTransform: 'capitalize',
+    },
+  })(Button);
 
 const useStyles = makeStyles((theme) => ({
 
-  purple: {
-    color: theme.palette.getContrastText(deepPurple[500]),
-    backgroundColor: deepPurple[500],
+  green: {
+    color: "white",
+    backgroundColor: "#14a2b8",
   },
 }));
+function PaperComponent(props) {
+  return (
+    <Draggable handle="#draggable-dialog-title" cancel={'[class*="MuiDialogContent-root"]'}>
+      <Paper {...props} />
+    </Draggable>
+  );
+}
 
  const Participants = (props) => {
      const classes = useStyles();
@@ -47,16 +66,15 @@ const useStyles = makeStyles((theme) => ({
     return (
 <>
 <IconButton onClick={handleClickOpen} style={{ ...IconButtonStyle,backgroundColor: "#1590a2"}} > <PeopleIcon/> </IconButton>
-<Dialog open={open} onClose={handleClose} aria-labelledby="responsive-dialog-title"
-      >
-        <DialogTitle onClose={handleClose} id="responsive-dialog-title">Participants  </DialogTitle>
+<Dialog open={open} onClose={handleClose} aria-labelledby="draggable-dialog-title" PaperComponent={PaperComponent}>
+        <DialogTitle onClose={handleClose} id="draggable-dialog-title">Participants</DialogTitle>
         <DialogContent>
           
        
          <List>
           <ListItem>
                   <ListItemAvatar>
-                    <Avatar className={classes.purple}>{auth.displayName.charAt(0).toUpperCase()}
+                    <Avatar className={classes.green}>{auth.displayName.charAt(0).toUpperCase()}
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText
@@ -66,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
               {props.peers.map(peer => (
                 <ListItem>
                   <ListItemAvatar>
-                    <Avatar className={classes.purple}>{peer.username.charAt(0).toUpperCase()}
+                    <Avatar className={classes.green}>{peer.username.charAt(0).toUpperCase()}
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText
@@ -78,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
             </List>
             </DialogContent>
         <DialogActions>
-          <Button  style= {{color : "#fff"}} onClick={handleClose}  > Close</Button>
+          <StyledButton   onClick={handleClose}  > Close</StyledButton>
         </DialogActions>
         
       </Dialog>
