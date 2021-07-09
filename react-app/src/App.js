@@ -10,7 +10,6 @@ import VideoPage from './Views/VideoPage';
 import {auth , db} from "./Utils/firebase"
 import ChatPage from './Views/ChatPage'
 import NotesPage from './Views/NotesPage';
-import VideoPreviewPage from './Views/VideoPreviewPage';
 import TeamPage from './Views/TeamPage';
 import ViewPage from './Views/TeamViewPage';
 import TeamVideoPage from './Views/TeamViewPage/TeamVideoPage';
@@ -73,8 +72,7 @@ useEffect(() => {
         <Route path="/login" component={LoginPage} />
         <Route path="/room" component={VideoPage} />
          <Route path="/chat" component={ChatPage} />
-         <Route path="/note" component={NotesPage} />
-        <Route path="/preview" component={VideoPreviewPage} /> 
+         <Route path="/note" component={NotesPage} /> 
         <Route path="/team" component={TeamPage} /> 
         <Route path="/teamview" component={ViewPage} /> 
         <Route path="/teammeet" component={TeamVideoPage} /> 

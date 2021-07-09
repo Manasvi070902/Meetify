@@ -10,7 +10,7 @@ import rootReducer from './Reducers'
 import { getFirebase, isLoaded, ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import firebaseConfig from './Utils/firebase'
 import Loader from "react-loader-spinner";
-import { Translate } from '@material-ui/icons';
+
 
 
 

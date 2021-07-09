@@ -24,6 +24,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import sharepic from "../../Assets/share.svg"
 import { makeStyles } from '@material-ui/core';
+import {useLocation} from "react-router-dom";
 import  "./videocallbar.css"
 
 const IconButtonStyle = {
@@ -76,14 +77,17 @@ const DialogContent = withStyles((theme) => ({
 
 export const VideoCallBar = (props) => {
    
-  
+  const roomid = props.roomID
     const classes = useStyles();
 
    const exit = props.exit;  
 	 const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  const [modalopen, setModalOpen] = useState(true);
+  const [modalopen, setModalOpen] = useState(false);
+ 
+      
+
 
   const handleModalOpen = () => {
     setModalOpen(true);
@@ -94,8 +98,10 @@ export const VideoCallBar = (props) => {
   const [pageURL, setPageURL] = useState(0);
   useEffect(() => {
     setPageURL(window.location.href);
+    //get query parameter
     
-  },[])
+    
+  })
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -109,6 +115,10 @@ export const VideoCallBar = (props) => {
       
      copy(pageURL);
   }
+  const copycodeHandler = () => {
+      
+    copy(roomid);
+ }
     return (
        
         <div className="btn-down" >
@@ -145,8 +155,12 @@ export const VideoCallBar = (props) => {
         <DialogContent dividers>
         <div className="col-lg-12  d-flex col-12 align-items-center justify-content-center">
         <img className="img-fluid mx-auto d-block rounded w-50 " src={sharepic} alt="pic"/>
+        <div className= "row">
         <h6 >Share the Meeting Link <br /> <br />{pageURL}
-          <IconButton  onClick={shareHandler}> < FileCopyOutlinedIcon/> </IconButton></h6>
+          <IconButton  onClick={shareHandler}> < FileCopyOutlinedIcon/> </IconButton></h6> <hr />
+          <h6 > Meeting Code<br /> <br />{roomid}
+          <IconButton  onClick={copycodeHandler}> < FileCopyOutlinedIcon/> </IconButton></h6>
+          </div>
         </div>
         </DialogContent>
         

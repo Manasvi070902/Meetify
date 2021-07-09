@@ -257,7 +257,7 @@ const bg2Handler = () => {setBg(bg2)}
         
         
         <div className="main-container" style={{backgroundImage: `url(${bg})`}}>
-            <canvas id="canvas" hidden></canvas>
+          
             {console.log(socketRef)}
           
         <VideoCallBar 
