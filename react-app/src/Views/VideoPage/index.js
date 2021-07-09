@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState,useCallback } from "react";
 import {useLocation} from "react-router-dom";
 import io from 'socket.io-client';
-import Peer, { Instance, SignalData } from 'simple-peer';
+import Peer from 'simple-peer';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom';

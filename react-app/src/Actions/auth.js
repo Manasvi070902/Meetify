@@ -1,5 +1,4 @@
-import {useState} from 'react'
-import {googleProvider,db } from '../Utils/firebase'
+import {googleProvider } from '../Utils/firebase'
 import axios from 'axios'
 //import {microsoftProvider ,googleProvider} from '../Utils/firebase'
 

@@ -1,9 +1,8 @@
-import React ,{ useRef, useState, useCallback, useEffect}from 'react'
+import React ,{ useState}from 'react'
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { useTheme } from '@material-ui/core/styles';
 import ChatIcon from '@material-ui/icons/Chat';
 import { connect } from 'react-redux'
 import IconButton from '@material-ui/core/IconButton';
@@ -11,7 +10,6 @@ import Message from '../Message';
 import ArrowForwardIos from '@material-ui/icons/ArrowForwardIos';
 import Paper from '@material-ui/core/Paper';
 import Draggable from 'react-draggable';
-import { withStyles } from '@material-ui/core/styles';
 import groupchatpic from "../../Assets/groupchat.svg"
 
 
@@ -33,7 +31,6 @@ const MessageBox = (props) => {
     const chats = props.chats
     const [open, setOpen] = useState(false);
     const inputRef = props.inputRef
-    const theme = useTheme();
     const handleClickOpen = () => {
         setOpen(true);
       };

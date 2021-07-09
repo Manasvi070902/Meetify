@@ -1,5 +1,4 @@
 import * as htmlToImage from 'html-to-image';
-import { toPng } from 'html-to-image';
 
 function captureVideos() {
     let canvas = document.getElementById("canvas"); // declare a canvas element in your html
