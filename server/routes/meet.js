@@ -5,6 +5,7 @@ const Meet = require('../models/meet');
 const User = require('../models/user');
 
 
+//get meet details with member name from User Modal
 router.get('/', async function(req,res){
     try{
         const authid = req.headers.auth_id;

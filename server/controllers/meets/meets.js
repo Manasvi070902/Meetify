@@ -1,6 +1,7 @@
 const Meet = require('../../models/meet');
 const User = require('../../models/user');
 
+//create meet and save to mongodb
 exports.createMeet = async({ roomID, hostID , meetname}) => {
     
     try{
@@ -11,6 +12,7 @@ exports.createMeet = async({ roomID, hostID , meetname}) => {
             host: [hostID],
             members: [hostID]
         }).save();
+        //append meet to user modal
         await User.findByIdAndUpdate(hostID, {
             $push: {
                 'meets': meet._id
@@ -21,6 +23,8 @@ exports.createMeet = async({ roomID, hostID , meetname}) => {
         console.log(err)
     }
 }
+
+//save members joined in meet
 exports.addMember = async({ roomID, userID }) => {
     try{
         

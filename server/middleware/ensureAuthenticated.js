@@ -1,7 +1,7 @@
 var admin = require("firebase-admin");
 require("dotenv").config();
 
-
+//firebase auth status
 const checkAuth = (req, res, next) => {
   console.log(
     "inside ensureAuth middleware"

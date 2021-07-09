@@ -4,7 +4,7 @@ const ensureAuthenticated = require("../middleware/ensureAuthenticated");
 const User = require("../models/user");
 
 
-
+//user details saved to mongodb
 router.post("/",ensureAuthenticated, function(req, res){
     
     var user = new User({

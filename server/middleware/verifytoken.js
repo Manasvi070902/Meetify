@@ -1,6 +1,7 @@
 var admin = require("firebase-admin");
 const User = require('../models/user');
 require("dotenv").config();
+
 // required for configuring firebase admin sdk
 var serviceAccount = {
   type: process.env.TYPE,
