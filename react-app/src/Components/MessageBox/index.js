@@ -1,4 +1,4 @@
-import React ,{ useState}from 'react'
+import React, { useState } from 'react'
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -21,61 +21,63 @@ function PaperComponent(props) {
   );
 }
 const IconButtonStyle = {
-    color: "#fff",
-     margin: "5px",
-     width:"50px",
-     height:"50px",
-    }
+  color: "#fff",
+  margin: "5px",
+  width: "50px",
+  height: "50px",
+}
 
 const MessageBox = (props) => {
-    const chats = props.chats
-    const [open, setOpen] = useState(false);
-    const inputRef = props.inputRef
-    const handleClickOpen = () => {
-        setOpen(true);
-      };
-    
-      const handleClose = () => {
-        setOpen(false);
-      };
-   
+  const chats = props.chats
+  const [open, setOpen] = useState(false);
+  const inputRef = props.inputRef
 
-    return (
-        <>
-        <IconButton onClick={handleClickOpen} style={{ ...IconButtonStyle,backgroundColor: "#1590a2"}} > <ChatIcon/> </IconButton>
-        <Dialog open={open} onClose={handleClose}  aria-labelledby="chat-form" PaperComponent={PaperComponent}> 
+  //handle message dialog
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
+  return (
+    <>
+      <IconButton onClick={handleClickOpen} style={{ ...IconButtonStyle, backgroundColor: "#1590a2" }} > <ChatIcon /> </IconButton>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="chat-form" PaperComponent={PaperComponent}>
         <DialogTitle onClose={handleClose} id="chat-form">Group Chat  </DialogTitle>
         <DialogContent>
-        {chats.length === 0 && 
-        <div className="col-lg-12  col-12 align-items-center justify-content-center">
-        <img className="img-fluid mx-auto d-block rounded " src={groupchatpic} alt="pic"/>
-        <h6 className="d-flex justify-content-center">Start Group Chat!</h6>
-        </div>}
-        {chats.length>0 && chats.map((chat, index) => (
-                    <Message key={index} chat={chat} socketID={props.socketID} />
-                ))}
+          {chats.length === 0 &&
+            <div className="col-lg-12  col-12 align-items-center justify-content-center">
+              <img className="img-fluid mx-auto d-block rounded " src={groupchatpic} alt="pic" />
+              <h6 className="d-flex justify-content-center">Start Group Chat!</h6>
+            </div>}
+          {chats.length > 0 && chats.map((chat, index) => (
+            <Message key={index} chat={chat} socketID={props.socketID} />
+          ))}
         </DialogContent>
         <DialogActions>
-        <input  placeholder="Type here..." ref={inputRef}  style={{
-    flex: 1,
-    borderRadius: "21px",
-    padding: "12px",
-    outlineWidth: 0
-}}/>
-						<IconButton style={{ color: "#ffffff", backgroundColor: "#35a9aa", margin: "0 10px 0 10px"}}  onClick={(e) => props.sendMessage(e)} >
-					<ArrowForwardIos />
-					</IconButton>
-       
+          <input placeholder="Type here..." ref={inputRef} style={{
+            flex: 1,
+            borderRadius: "21px",
+            padding: "12px",
+            outlineWidth: 0
+          }} />
+          <IconButton style={{ color: "#ffffff", backgroundColor: "#35a9aa", margin: "0 10px 0 10px" }} onClick={(e) => props.sendMessage(e)} >
+            <ArrowForwardIos />
+          </IconButton>
+
         </DialogActions>
-     
+
       </Dialog>
-      </>
-    )
+    </>
+  )
 }
-const mapStateToProps = ({auth, firebase}) => {
-    return {
-      auth: firebase.auth,
-      authError: auth.authError
-    }
+const mapStateToProps = ({ auth, firebase }) => {
+  return {
+    auth: firebase.auth,
+    authError: auth.authError
   }
-  export default connect(mapStateToProps)(MessageBox)
+}
+export default connect(mapStateToProps)(MessageBox)

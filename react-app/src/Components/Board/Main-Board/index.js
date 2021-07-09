@@ -1,13 +1,14 @@
 
 import React from 'react';
 import io from 'socket.io-client';
-
+import { APIBaseURL } from '../../../constants';
 import './main-board.css';
 
 class MainBoard extends React.Component {
 
+    //whiteboard socket connection
     timeout;
-    socket = io.connect("https://mteamsclone.herokuapp.com/");
+    socket = io.connect(APIBaseURL);
 
     ctx;
     isDrawing = false;

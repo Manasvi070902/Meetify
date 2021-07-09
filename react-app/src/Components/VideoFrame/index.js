@@ -1,6 +1,6 @@
 import React , {useRef , useEffect} from 'react'
 
-
+//meet members(peers) video frame
 export const VideoFrame = (props) => {
     const ref = useRef(document.createElement('video'));
 

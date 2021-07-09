@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -14,99 +14,107 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Draggable from 'react-draggable';
 import axios from 'axios'
+import { APIBaseURL } from '../../constants';
 
 const IconButtonStyle = {
   color: "#fff",
-   margin: "5px",
-   width:"50px",
-   height:"50px",
+  margin: "5px",
+  width: "50px",
+  height: "50px",
+}
+
+
+
+const MeetNotes = (props) => {
+
+  const { auth } = props
+  const [open, setOpen] = useState(false);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [type, setType] = useState('');
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  function PaperComponent(props) {
+    return (
+      <Draggable handle="#meet-note-form" cancel={'[class*="MuiDialogContent-root"]'}>
+        <Paper {...props} />
+      </Draggable>
+    );
   }
 
 
+  const StyledButton = withStyles({
+    root: {
+      borderRadius: 3,
+      border: 0,
+      color: '#14a2b8',
+      borderBlockColor: '#14a2b8',
+    },
+    label: {
+      textTransform: 'capitalize',
+    },
+  })(Button);
 
- const MeetNotes = (props) => {
-   
-     const {auth} = props
-     const [open, setOpen] = useState(false);
-     const [title , setTitle] = useState('');
-     const [description , setDescription] = useState('');
-     const [type , setType] = useState('');
-     const handleClickOpen = () => {
-      setOpen(true);
-    };
-    
-    const handleClose = () => {
-      setOpen(false);
-    };
-    function PaperComponent(props) {
-      return (
-        <Draggable handle="#meet-note-form" cancel={'[class*="MuiDialogContent-root"]'}>
-          <Paper {...props} />
-        </Draggable>
-      );
+
+  const meetnotesHandler = async () => {
+    console.log(title, description)
+    //teams notes (only when meeting is created inside team)
+    if (type === "public") {
+      if (props.team === true) {
+        axios.post(`${APIBaseURL}/note/new/team`, {
+          title: title,
+          description: description,
+          user: auth.uid,
+          teamid: localStorage.getItem("teamid")
+        }).then(function (response) {
+          console.log(response);
+
+        })
+
+      } else {
+
+        //if notes are written for meeting members(not in team meets for instant meets created)
+
+        axios.post(`${APIBaseURL}/note/new/public`, {
+          title: title,
+          description: description,
+          user: auth.displayName,
+          room_id: props.roomID
+        }).then(function (response) {
+          console.log(response);
+
+        })
+      }
+    }
+    //if notes are written for personal use
+    else {
+      axios.post(`${APIBaseURL}/note/new`, {
+        title: title,
+        description: description,
+        user: auth.uid,
+      }).then(function (response) {
+        console.log(response);
+
+      })
     }
 
-    
-    const StyledButton = withStyles({
-        root: {
-          borderRadius: 3,
-          border: 0,
-          color: '#14a2b8',
-          borderBlockColor : '#14a2b8',
-        },
-        label: {
-          textTransform: 'capitalize',
-        },
-      })(Button);
-
-      const meetnotesHandler = async() => {
-        console.log(title,description)
-        if(type === "public"){ 
-          if(props.team === true) {
-            axios.post('http://localhost:5000/note/new/team', {
-              title: title,
-              description: description,
-              user: auth.uid,
-              teamid : localStorage.getItem("teamid")
-            }).then(function (response) {
-              console.log(response);
-           
-         })
-        
-          }else{
-         axios.post('http://localhost:5000/note/new/public', {
-         title: title,
-         description: description,
-         user: auth.displayName,
-         room_id : props.roomID
-       }).then(function (response) {
-         console.log(response);
-      
-    })
-  }
-  }
-  else{
-    axios.post('http://localhost:5000/note/new', {
-         title: title,
-         description: description,
-         user: auth.uid,
-       }).then(function (response) {
-         console.log(response);
-      
-    })
-  }
-    
     setOpen(false);
     console.log(type)
-    }
-   
+  }
 
-      
 
-    return (
-<>
-<IconButton onClick={handleClickOpen} style={{ ...IconButtonStyle,backgroundColor: "#1590a2"}} > <NoteAddIcon/> </IconButton>
-<Dialog open={open} onClose={handleClose} aria-labelledby="meet-note-form" fullWidth="md" maxWidth="md" PaperComponent={PaperComponent}>
+
+
+  return (
+    <>
+      <IconButton onClick={handleClickOpen} style={{ ...IconButtonStyle, backgroundColor: "#1590a2" }} > <NoteAddIcon /> </IconButton>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="meet-note-form" fullWidth="md" maxWidth="md" PaperComponent={PaperComponent}>
         <DialogTitle id="meet-note-form">New Note</DialogTitle>
         <DialogContent>
           <TextField
@@ -116,34 +124,34 @@ const IconButtonStyle = {
             label="Title"
             type="text"
             fullWidth
-            value={title} 
-			onChange={(e) => setTitle(e.target.value)} 
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
-       <br />
-        <Select
-          label="Type"
-          id="type"
-          className ="mt-3 mb-3"
-          value={type}
-          onChange={(e)=> setType(e.target.value)}
-        >
-          <MenuItem value="public">Team
-          </MenuItem>
-          <MenuItem value="private">Personal</MenuItem>
-        </Select>
-            <TextField
+          <br />
+          <Select
+            label="Type"
+            id="type"
+            className="mt-3 mb-3"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+          >
+            <MenuItem value="public">Team
+            </MenuItem>
+            <MenuItem value="private">Personal</MenuItem>
+          </Select>
+          <TextField
             autoFocus
             margin="dense"
             id="name"
             label="Description"
-            placeholder = "Create a new note"
+            placeholder="Create a new note"
             type="text"
             fullWidth
             multiline
             rows={5}
-            value={description} 
-			      onChange={(e) => {setDescription(e.target.value)}} />
-           </DialogContent>
+            value={description}
+            onChange={(e) => { setDescription(e.target.value) }} />
+        </DialogContent>
         <DialogActions>
           <StyledButton onClick={handleClose} >
             Cancel
@@ -153,14 +161,14 @@ const IconButtonStyle = {
           </StyledButton>
         </DialogActions>
       </Dialog>
-            </>
-    )
+    </>
+  )
 }
 
-const mapStateToProps = ({auth, firebase}) => {
-    return {
-      auth: firebase.auth,
-      authError: auth.authError
-    }
+const mapStateToProps = ({ auth, firebase }) => {
+  return {
+    auth: firebase.auth,
+    authError: auth.authError
   }
-  export default connect(mapStateToProps)(MeetNotes)
+}
+export default connect(mapStateToProps)(MeetNotes)

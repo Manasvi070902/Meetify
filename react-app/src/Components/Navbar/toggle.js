@@ -2,6 +2,8 @@ import React from 'react';
 
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
+
+//light , dark mode added
 export const Toggle = ({ theme, toggleTheme }) => {
  console.log(theme)
   return (

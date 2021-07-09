@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+
+//handle light , dark mode
 export const GlobalStyles = createGlobalStyle`
  
   

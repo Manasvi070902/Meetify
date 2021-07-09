@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -19,21 +19,21 @@ import { withStyles } from '@material-ui/core/styles';
 
 const IconButtonStyle = {
   color: "#fff",
-   margin: "5px",
-   width:"50px",
-   height:"50px",
-  }
-  const StyledButton = withStyles({
-    root: {
-      borderRadius: 3,
-      border: 0,
-      color: '#14a2b8',
-      borderBlockColor : '#14a2b8',
-    },
-    label: {
-      textTransform: 'capitalize',
-    },
-  })(Button);
+  margin: "5px",
+  width: "50px",
+  height: "50px",
+}
+const StyledButton = withStyles({
+  root: {
+    borderRadius: 3,
+    border: 0,
+    color: '#14a2b8',
+    borderBlockColor: '#14a2b8',
+  },
+  label: {
+    textTransform: 'capitalize',
+  },
+})(Button);
 
 const useStyles = makeStyles((theme) => ({
 
@@ -42,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#14a2b8",
   },
 }));
+
+//make component draggable
 function PaperComponent(props) {
   return (
     <Draggable handle="#draggable-dialog-title" cancel={'[class*="MuiDialogContent-root"]'}>
@@ -50,64 +52,64 @@ function PaperComponent(props) {
   );
 }
 
- const Participants = (props) => {
-     const classes = useStyles();
-     const {auth} = props
-     const [open, setOpen] = useState(false);
+const Participants = (props) => {
+  const classes = useStyles();
+  const { auth } = props
+  const [open, setOpen] = useState(false);
 
-     const handleClickOpen = () => {
-      setOpen(true);
-    };
-    
-    const handleClose = () => {
-      setOpen(false);
-    };
-    
-    return (
-<>
-<IconButton onClick={handleClickOpen} style={{ ...IconButtonStyle,backgroundColor: "#1590a2"}} > <PeopleIcon/> </IconButton>
-<Dialog open={open} onClose={handleClose} aria-labelledby="draggable-dialog-title" PaperComponent={PaperComponent}>
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <>
+      <IconButton onClick={handleClickOpen} style={{ ...IconButtonStyle, backgroundColor: "#1590a2" }} > <PeopleIcon /> </IconButton>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="draggable-dialog-title" PaperComponent={PaperComponent}>
         <DialogTitle onClose={handleClose} id="draggable-dialog-title">Participants</DialogTitle>
         <DialogContent>
-          
-       
-         <List>
-          <ListItem>
-                  <ListItemAvatar>
-                    <Avatar className={classes.green}>{auth.displayName.charAt(0).toUpperCase()}
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={auth.displayName}
-                  />
-                </ListItem>
-              {props.peers.map(peer => (
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar className={classes.green}>{peer.username.charAt(0).toUpperCase()}
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={peer.username}
-                  />
-                </ListItem>
-             ))}
-            
-            </List>
-            </DialogContent>
+
+
+          <List>
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar className={classes.green}>{auth.displayName.charAt(0).toUpperCase()}
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText
+                primary={auth.displayName}
+              />
+            </ListItem>
+            {props.peers.map(peer => (
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar className={classes.green}>{peer.username.charAt(0).toUpperCase()}
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={peer.username}
+                />
+              </ListItem>
+            ))}
+
+          </List>
+        </DialogContent>
         <DialogActions>
-          <StyledButton   onClick={handleClose}  > Close</StyledButton>
+          <StyledButton onClick={handleClose} > Close</StyledButton>
         </DialogActions>
-        
+
       </Dialog>
-            </>
-    )
+    </>
+  )
 }
 
-const mapStateToProps = ({auth, firebase}) => {
-    return {
-      auth: firebase.auth,
-      authError: auth.authError
-    }
+const mapStateToProps = ({ auth, firebase }) => {
+  return {
+    auth: firebase.auth,
+    authError: auth.authError
   }
-  export default connect(mapStateToProps)(Participants)
+}
+export default connect(mapStateToProps)(Participants)

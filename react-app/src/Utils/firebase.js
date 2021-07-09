@@ -1,7 +1,4 @@
 import firebase from "firebase";
-// import "firebase/auth";
-// import 'firebase/database';
-// import 'firebase/firestore';
 
 // Your web app's Firebase configuration
 // Put your SDK details
