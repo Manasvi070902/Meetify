@@ -2,7 +2,6 @@ import React ,{useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import HomePage from './Views/HomePage'
 import LoginPage from './Views/LoginPage'
-import Room from './Views/VideoPage'
 import NavBar from './Components/Navbar'
 import {useTheme} from "./Utils/theme"
 import { GlobalStyles, lightTheme, darkTheme } from './Utils/globalStyles';
@@ -15,6 +14,7 @@ import VideoPreviewPage from './Views/VideoPreviewPage';
 import TeamPage from './Views/TeamPage';
 import ViewPage from './Views/TeamViewPage';
 import TeamVideoPage from './Views/TeamViewPage/TeamVideoPage';
+import PageNotFound from './Views/PageNotFound';
 
 const App = () => {
   const [ theme, toggleTheme ] = useTheme();
@@ -78,6 +78,7 @@ useEffect(() => {
         <Route path="/team" component={TeamPage} /> 
         <Route path="/teamview" component={ViewPage} /> 
         <Route path="/teammeet" component={TeamVideoPage} /> 
+        <Route path="" component={PageNotFound} />
         
       </Switch>
       </ThemeProvider>
