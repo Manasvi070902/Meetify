@@ -14,6 +14,7 @@ const Login =(props) => {
   const classes = useStyles();
 
     const {auth} = props;
+    //proctected route
     if(auth.uid && auth.isLoaded){
       return <Redirect to="/" />
     }

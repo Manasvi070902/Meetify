@@ -1,4 +1,4 @@
-import React,{useState , useEffect} from 'react'
+import React from 'react'
 import { useStyles } from '../../Utils/globalStyles'
 import ChatSection from './ChatSection'
 import SideBar from './SideBar'

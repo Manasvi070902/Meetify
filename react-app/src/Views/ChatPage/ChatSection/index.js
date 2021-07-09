@@ -3,26 +3,20 @@ import io from 'socket.io-client';
 import axios from "axios";
 import { connect } from 'react-redux'
 import {useLocation} from "react-router-dom";
-import { Avatar, Button,IconButton } from '@material-ui/core';
-import { InsertEmoticon} from '@material-ui/icons';
+import { Avatar, Button,IconButton ,Dialog , DialogActions,DialogContent, DialogTitle,List,ListItem , ListItemAvatar ,ListItemText} from '@material-ui/core';
+import { InsertEmoticon  } from '@material-ui/icons';
+import GroupIcon from '@material-ui/icons/Group';
+import SendIcon from '@material-ui/icons/Send';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
-import SendIcon from '@material-ui/icons/Send';
-import GroupIcon from '@material-ui/icons/Group';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemText from '@material-ui/core/ListItemText';
 import { Picker } from "emoji-mart";
 import "emoji-mart/css/emoji-mart.css";
 import chatpic from "../../../Assets/chat.svg"
 import './chatsection.css';
+import { APIBaseURL } from '../../../constants';
 
+//styled for buttons
 const useStyles = makeStyles((theme) => ({
     rounded: {
       color: '#fff',
@@ -38,10 +32,10 @@ const useStyles = makeStyles((theme) => ({
 const ChatSection = (props) => {
   const {auth} = props;
   const classes = useStyles();
+
   //get query parameter
  const search = useLocation().search;
  const params = new URLSearchParams(search);
- 
  const meetid = params.get("meetid")
 
 
@@ -64,9 +58,9 @@ const handleMemberClose = () => {
  const socketRef = useRef();
  const inputRef = useRef(null)
 
-
+//socket connection for chats
  useEffect(() => {
-    socketRef.current = io.connect("http://localhost:5000")
+    socketRef.current = io.connect(APIBaseURL)
     console.log(socketRef.current)
     socketRef.current.emit("chatroom", {roomID: meetid, token: localStorage.getItem('idToken') })
 
@@ -77,7 +71,7 @@ const handleMemberClose = () => {
         })
 }, [])
 
-
+//handle chats after meet
 const sendMessage = useCallback((e) => {
     e.preventDefault()
     console.log("send")
@@ -100,19 +94,17 @@ const addToChat = useCallback((chatObj) => {
     console.log(chatObj)
     console.log("add")
     setMessages(chats => [...chats, chatObj])
-}, [])
+},[])
   
 
-
+//fetch meeting old chats
  useEffect(() => {
     const fetchMeets = async () => {
         var meets = []
-      const response = await axios.get(`http://localhost:5000/meets/`,{
+      const response = await axios.get(`${APIBaseURL}/meets/`,{
         headers: {'auth_id' : auth.uid}
       })
-      const meet = response.data.meets;
-
-      
+      const meet = response.data.meets;    
      setMeets(meet)
      meet.map(item => {
          if(item._id === meetid){
@@ -120,8 +112,7 @@ const addToChat = useCallback((chatObj) => {
              setMessages(item.messages)
              setName(item.name)
 
-         } 
-        
+         }  
      })
     
     };
@@ -133,7 +124,7 @@ const addToChat = useCallback((chatObj) => {
    
   }, [meetid]);
   
- 
+ //proctected routing
   if(!auth.uid && auth.isLoaded){
     return <Redirect to="/login" />
   }
@@ -143,7 +134,6 @@ const addToChat = useCallback((chatObj) => {
     <>
     {meets.length > 0 && 
          <div className="chat">
-        
          {name !== "" &&
          <>
          <div className="chat__header col-10 col-lg-12 m-4">
@@ -179,15 +169,10 @@ const addToChat = useCallback((chatObj) => {
           <Button  style= {{color : "#fff"}} onClick={handleMemberClose}  >Close</Button>
         </DialogActions>
         
-      </Dialog>
-
-       
+      </Dialog>  
              </div>
          </div>
-
-        
-
-         <ScrollToBottom className="chat__body">
+    <ScrollToBottom className="chat__body">
              {messages.length >0 && messages.map(message => (
                  
                
@@ -212,6 +197,7 @@ const addToChat = useCallback((chatObj) => {
          </div>
          </>
     }
+    
     {name === "" && 
     <>
     <div className="col-lg-10 col-12 align-items-center justify-content-center">

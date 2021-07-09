@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import DonutLargeIcon from "@material-ui/icons/DonutLarge";
-import ChatIcon from "@material-ui/icons/Chat";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { Avatar, IconButton } from "@material-ui/core";
-import { SearchOutlined } from '@material-ui/icons';
 import SideChat from '../SideChatBar';
 import { connect } from 'react-redux'
 import axios from "axios";
+import { APIBaseURL } from '../../../constants';
 import './sidebar.css'
 
 
@@ -14,11 +10,10 @@ const Sidebar = (props) => {
   const { auth } = props;
   const [meets, setMeets] = useState([]);
 
-
+//fetch meetings atttended by user
   useEffect(() => {
     const fetchMeets = async () => {
-      var meets = []
-      const response = await axios.get(`http://localhost:5000/meets/`, {
+      const response = await axios.get(`${APIBaseURL}/meets/`, {
         headers: { 'auth_id': auth.uid }
       })
       const meet = response.data.meets;

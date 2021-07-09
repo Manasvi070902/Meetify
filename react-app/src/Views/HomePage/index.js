@@ -23,6 +23,7 @@ const HomePage = (props) => {
   if (!auth.uid && auth.isLoaded) {
     return <Redirect to="/login" />
   }
+  //start meeting
   const startMeet = async () => {
     localStorage.setItem('meetname', meetname)
     if(meetname === ""){
@@ -31,7 +32,7 @@ const HomePage = (props) => {
     window.open(`/room?host=${true}`)
     }
   }
-  const joinpreviewMeet = async () => {
+  const joinMeet = async () => {
     window.open(`${value}`)
   }
 
@@ -68,7 +69,7 @@ const HomePage = (props) => {
                 onChange={handleChange}
                 color="secondary"
               />
-              <Button className="p-2 m-1" variant="danger" onClick={joinpreviewMeet} >Join Meet </Button>
+              <Button className="p-2 m-1" variant="danger" onClick={joinMeet} >Join Meet </Button>
             </form>
           </div>
         </div>

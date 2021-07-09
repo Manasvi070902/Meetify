@@ -36,11 +36,8 @@ const webSockets = app => {
             }
             catch(err){
                 console.log(err)
-                if(err.name === "LoginError"){
-                    socket.emit("unauthorized", "Please login again")
-                    return
-                }
-                socket.emit("something broke", "Something went wrong, please try again!")
+                
+                socket.emit("something broke", "Something went wrong, please LOGIN again!")
             }
         })
        

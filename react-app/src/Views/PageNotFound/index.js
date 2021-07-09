@@ -1,7 +1,6 @@
 import React from 'react'
 import errorpic from "../../Assets/error.svg"
 import { Button } from 'react-bootstrap'
-import { LaptopWindows } from '@material-ui/icons'
 
  const PageNotFound = () => {
     return (

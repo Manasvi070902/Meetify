@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom';
 import NotesCard from './NotesCard';
 import { NotesForm } from './NotesForm';
 import notepic from "../../Assets/notes.svg"
+import { APIBaseURL } from '../../constants';
 
 const NotesPage = (props) => {
 
@@ -14,9 +15,10 @@ const NotesPage = (props) => {
     const classes = useStyles();
  
 
+    //fetch user notes from database
   useEffect(() => {
     const fetchNotes = async () => {
-      const response = await axios.get(`http://localhost:5000/note/`,{
+      const response = await axios.get(`${APIBaseURL}/note/`,{
         headers: {'auth_id' : auth.uid}
       })
       const note = response.data.note;
@@ -31,7 +33,7 @@ const NotesPage = (props) => {
   }, []);
 
        
-    
+    //proctected route
       if(!auth.uid && auth.isLoaded){
         return <Redirect to="/login" />
       }
@@ -45,7 +47,6 @@ const NotesPage = (props) => {
         </div>
         <hr color="#333333"></hr>
            <div className="d-flex justify-content-end">
-         
            <NotesForm auth={auth}/>
       </div>
    
@@ -60,6 +61,8 @@ const NotesPage = (props) => {
          </div>
         
     )})}
+    
+    {/* screen when no notes are found */}
     {notes.length === 0 &&
     <>
     <div className="col-lg-8  col-12 align-items-center justify-content-center">

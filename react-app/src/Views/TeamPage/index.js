@@ -7,6 +7,7 @@ import TeamForm from './TeamForm';
 import TeamJoin from './TeamJoin';
 import TeamCard from './TeamCard'
 import teampic from "../../Assets/teams.svg"
+import { APIBaseURL } from '../../constants';
 
 
 const TeamPage = (props) => {
@@ -16,12 +17,10 @@ const TeamPage = (props) => {
     const { auth } = props
     const classes = useStyles();
 
-
- 
-
+    //fetch teams joined or created by user
   useEffect(() => {
     const fetchTeams = async () => {
-      const response = await axios.get(`http://localhost:5000/team/`,{
+      const response = await axios.get(`${APIBaseURL}/team/`,{
         headers: {'auth_id' : auth.uid}
       })
       const team = response.data.team;
@@ -36,7 +35,7 @@ const TeamPage = (props) => {
   }, []);
 
        
-    
+    //proctected route
       if(!auth.uid && auth.isLoaded){
         return <Redirect to="/login" />
       }

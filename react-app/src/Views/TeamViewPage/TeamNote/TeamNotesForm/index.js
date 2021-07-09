@@ -1,4 +1,4 @@
-import React , {useState}from 'react'
+import React, { useState } from 'react'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import axios from 'axios'
 import { connect } from 'react-redux'
@@ -12,81 +12,83 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import MicIcon from '@material-ui/icons/Mic';
 import MicOffIcon from '@material-ui/icons/MicOff';
+import { APIBaseURL } from '../../../../constants';
 
 export const TeamNoteForm = (props) => {
-    const [open, setOpen] = React.useState(false);
-    const [title , setTitle] = useState('');
-    
-  const teamid= props.teamid
-    const { auth } = props
+  const [open, setOpen] = React.useState(false);
+  const [title, setTitle] = useState('');
 
-    const handleClickOpen = () => {
-        setOpen(true);
-      };
-    
-      const handleClose = () => {
-        setOpen(false);
-      };
-      const StyledButton = withStyles({
-        root: {
-          borderRadius: 3,
-          border: 0,
-          color: '#14a2b8',
-          borderBlockColor : '#14a2b8',
-        },
-        label: {
-          textTransform: 'capitalize',
-        },
-      })(Button);
+  const teamid = props.teamid
+  const { auth } = props
 
-      const {transcript,interimTranscript,listening,resetTranscript,browserSupportsSpeechRecognition} = useSpeechRecognition();
-      
-      const [description , setDescription] = useState('');
-  
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-      
-        const startListening = () => {
-          SpeechRecognition.startListening({ continuous: true })
-
-          console.log(1)
-          setDescription(description + ' ')
-          };
-          const stopListening = () => {
-            SpeechRecognition.stopListening()
-            
-              setDescription(description + interimTranscript)
-          
-            };
-            const handleReset = () => {
-              stopListening();
-              resetTranscript();
-            };
-      const teamnotesformHandler = async() => {
-        console.log(title,description)
-         axios.post('http://localhost:5000/note/new/team', {
-         title: title,
-         description: description,
-         user: auth.displayName,
-         teamid : teamid
-       }).then(function (response) {
-         console.log(response);
-         window.location.reload()
-    })
-    
+  const handleClose = () => {
     setOpen(false);
-    }
-      
-    if (!browserSupportsSpeechRecognition) {
-        return <span>Browser doesn't support speech recognition.</span>;
-      }
+  };
+  const StyledButton = withStyles({
+    root: {
+      borderRadius: 3,
+      border: 0,
+      color: '#14a2b8',
+      borderBlockColor: '#14a2b8',
+    },
+    label: {
+      textTransform: 'capitalize',
+    },
+  })(Button);
 
-      
-    return (
-        <>
+  const { transcript, interimTranscript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
+
+  const [description, setDescription] = useState('');
+
+
+
+  const startListening = () => {
+    SpeechRecognition.startListening({ continuous: true })
+    //add space before adding content
+    setDescription(description + ' ')
+  };
+  const stopListening = () => {
+    SpeechRecognition.stopListening()
+    //append current words to description
+    setDescription(description + interimTranscript)
+
+  };
+  const handleReset = () => {
+    stopListening();
+    resetTranscript();
+  };
+
+  //Add notes to team
+  const teamnotesformHandler = async () => {
+    console.log(title, description)
+    axios.post(`${APIBaseURL}/note/new/team`, {
+      title: title,
+      description: description,
+      user: auth.displayName,
+      teamid: teamid
+    }).then(function (response) {
+      console.log(response);
+      window.location.reload()
+    })
+
+    setOpen(false);
+  }
+
+  if (!browserSupportsSpeechRecognition) {
+    return <span>Browser doesn't support speech recognition.</span>;
+  }
+
+
+  return (
+    <>
       <StyledButton variant="outlined" color="primary" onClick={handleClickOpen}>
-       Add New Note
+        Add New Note
       </StyledButton>
-    
+
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth="md" maxWidth="md">
         <DialogTitle id="form-dialog-title">New Note</DialogTitle>
         <DialogContent>
@@ -97,38 +99,39 @@ export const TeamNoteForm = (props) => {
             label="Title"
             type="text"
             fullWidth
-            value={title} 
-			onChange={(e) => setTitle(e.target.value)} 
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
-            <TextField
+          <TextField
             autoFocus
             margin="dense"
             id="name"
             label="Description"
-            placeholder = "Create a new note by typing or voice recognition"
+            placeholder="Create a new note by typing or voice recognition"
             type="text"
             fullWidth
             multiline
             rows={5}
-            value={description} 
-			      onChange={(e) => {
-              
-              setDescription(e.target.value)}} />
-           
-          <DialogContentText> 
-           
-        {listening ? <StyledButton ><MicIcon /></StyledButton> : <StyledButton ><MicOffIcon /></StyledButton>}
-        {interimTranscript} <br/>
-         
-        
-          <StyledButton onClick={startListening}>
-          Start
-          </StyledButton>
-          <StyledButton onClick={stopListening}>
-            Pause
-          </StyledButton>
+            value={description}
+            onChange={(e) => {
+
+              setDescription(e.target.value)
+            }} />
+
+          <DialogContentText>
+
+            {listening ? <StyledButton ><MicIcon /></StyledButton> : <StyledButton ><MicOffIcon /></StyledButton>}
+            {interimTranscript} <br />
+
+
+            <StyledButton onClick={startListening}>
+              Start
+            </StyledButton>
+            <StyledButton onClick={stopListening}>
+              Pause
+            </StyledButton>
           </DialogContentText>
-  
+
         </DialogContent>
         <DialogActions>
           <StyledButton onClick={handleClose} >
@@ -139,16 +142,16 @@ export const TeamNoteForm = (props) => {
           </StyledButton>
         </DialogActions>
       </Dialog>
-        </>
-    )
+    </>
+  )
 }
 
-const mapStateToProps = ({auth, firebase}) => {
-    return {
-      auth: firebase.auth,
-      authError: auth.authError
-    }
+const mapStateToProps = ({ auth, firebase }) => {
+  return {
+    auth: firebase.auth,
+    authError: auth.authError
   }
-  export default connect(mapStateToProps)(TeamNoteForm)
-  
-  
+}
+export default connect(mapStateToProps)(TeamNoteForm)
+
+
