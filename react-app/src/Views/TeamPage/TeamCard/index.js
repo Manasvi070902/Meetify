@@ -24,7 +24,7 @@ const classes = useStyles();
       
          <div class="icon"> <Avatar variant="rounded" className={classes.rounded} style={{minHeight:"50px",minWidth:"50px"}}>{team.name.charAt(0)}</Avatar></div>
          <Link to= {`/teamview?teamid=${team._id}`}  >
-    <h4 class="title" >{team.name}</h4>
+    <h6 class="title" >{team.name}</h6>
          </Link>
          </div>
         </> 

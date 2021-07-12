@@ -35,19 +35,22 @@ const {auth} = props;
     user:auth.uid
   }).then(function (response) {
     console.log(response);
-    alert("Team created successfully")
+    // alert("Team created successfully")
     //for firebase intergration , add teams data to firestore
     db.collection('teams').doc(response.data.teamid).set({
       name: tname,
       description: tdescription,
       members:[auth.uid],
       code:response.data.code
-    }).then( resp => console.log("team added to firebase")).catch((err) => console.log(err))
+    }).then( resp => {
+      console.log("team added to firebase")
+      window.location.reload()
+    }).catch((err) => console.log(err))
   })
 
   
   setOpen(false);
-  window.location.reload()
+  
   }
 
 

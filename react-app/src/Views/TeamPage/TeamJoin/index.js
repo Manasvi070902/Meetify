@@ -28,6 +28,7 @@ const handleCode = (event) => {
     setCode(event.target.value);
   };
   const joinTeam = async() => {
+    try{
     //store user data to mongodb
     axios.post(`${APIBaseURL}/team/join`, {
       code : code,
@@ -37,6 +38,7 @@ const handleCode = (event) => {
       alert("Team joined!!")
     })
    //store user data to firestore
+ 
      await db.collection('teams').where("code", "==", code).get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
        
@@ -45,9 +47,12 @@ const handleCode = (event) => {
        })
       });
   })
+}catch(err) {
+  console.log(err)
+}
 
     setJoinopen(false);
-    window.location.reload()
+  
 }
 
   return (

@@ -11,8 +11,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
-import Draggable from 'react-draggable';
 import axios from 'axios'
 import { APIBaseURL } from '../../constants';
 
@@ -40,13 +38,7 @@ const MeetNotes = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
-  function PaperComponent(props) {
-    return (
-      <Draggable handle="#meet-note-form" cancel={'[class*="MuiDialogContent-root"]'}>
-        <Paper {...props} />
-      </Draggable>
-    );
-  }
+
 
 
   const StyledButton = withStyles({
@@ -114,7 +106,7 @@ const MeetNotes = (props) => {
   return (
     <>
       <IconButton onClick={handleClickOpen} style={{ ...IconButtonStyle, backgroundColor: "#1590a2" }} > <NoteAddIcon /> </IconButton>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="meet-note-form" fullWidth="md" maxWidth="md" PaperComponent={PaperComponent}>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="meet-note-form" fullWidth="md" maxWidth="md" >
         <DialogTitle id="meet-note-form">New Note</DialogTitle>
         <DialogContent>
           <TextField
@@ -144,13 +136,17 @@ const MeetNotes = (props) => {
             margin="dense"
             id="name"
             label="Description"
-            placeholder="Create a new note"
+            placeholder="Create a new note by typing or voice recognition"
             type="text"
             fullWidth
             multiline
             rows={5}
             value={description}
-            onChange={(e) => { setDescription(e.target.value) }} />
+            onChange={(e) => {
+
+              setDescription(e.target.value)
+            }} />
+
         </DialogContent>
         <DialogActions>
           <StyledButton onClick={handleClose} >

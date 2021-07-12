@@ -114,7 +114,6 @@ const addToChat = useCallback((chatObj) => {
 
          }  
      })
-    
     };
 
     fetchMeets().catch((error) => {
