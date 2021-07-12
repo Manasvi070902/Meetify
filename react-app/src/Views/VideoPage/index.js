@@ -39,6 +39,7 @@ export const VideoPage = (props) => {
     const [roomID, setRoomId] = useState();
     const [bg, setBg] = useState(bg0)
 
+
     useEffect(() => {
         init()
     }, [])
