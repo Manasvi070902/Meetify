@@ -40,7 +40,7 @@ const HomePage = (props) => {
     <main className={classes.content}>
       <div className={classes.toolbar} />
 
-
+   
       <div className="container-fluid d-lg-flex  d-md-flex justify-content-center p-lg-5 ">
 
         <div className="container col-12 col-lg-7" style={{ marginTop: "20vh" }} >

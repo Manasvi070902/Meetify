@@ -134,6 +134,7 @@ export const NavBar =(props)=> {
     
         <Toolbar>
         <Box display='flex' flexGrow={1}  mx="auto" >
+        
           <IconButton
             color="inherit"
             aria-label="open drawer"
