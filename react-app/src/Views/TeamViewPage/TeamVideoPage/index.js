@@ -9,7 +9,7 @@ import VideoCallBar from '../../../Components/VideoCallBar'
 import { VideoFrame } from '../../../Components/VideoFrame'
 import Grid from '@material-ui/core/Grid';
 import bg0 from '../../../Assets/bg0.jpeg'
-import bg1 from '../../../Assets/bg1.jpeg'
+import bg1 from '../../../Assets/bg1.png'
 import bg2 from '../../../Assets/bg2.jpeg'
 import { APIBaseURL } from "../../../constants";
 import './teamvideo.css'
