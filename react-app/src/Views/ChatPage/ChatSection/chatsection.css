@@ -36,7 +36,9 @@
 .chat__body{
     flex: 1;
     overflow-y: auto;
-   
+}
+a{
+    color: #305dbf !important;
 }
 
 .chat__message{

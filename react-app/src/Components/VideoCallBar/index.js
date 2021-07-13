@@ -25,7 +25,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import sharepic from "../../Assets/share.svg"
 import { makeStyles } from '@material-ui/core';
-import ClosedCaptionIcon from '@material-ui/icons/ClosedCaption';
 import "./videocallbar.css"
 
 const IconButtonStyle = {
@@ -87,16 +86,6 @@ export const VideoCallBar = (props) => {
 
   const [modalopen, setModalOpen] = useState(false);
 
-  //SPEECH RECOGINITION , we mainly need interimTranscript ( it gives current words you speak)
-  const { transcript, interimTranscript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
-
-  const startListening = () => {
-    SpeechRecognition.startListening({ continuous: true })
-    
-  };
-  const stopListening = () => {
-    SpeechRecognition.stopListening()
-  };
 
 
   const handleModalOpen = () => {
@@ -129,10 +118,8 @@ export const VideoCallBar = (props) => {
   return (
 
     <div className="btn-down" >
-      <p>    {interimTranscript} </p>
-{!listening ?
-        <IconButton style={{ ...IconButtonStyle, backgroundColor: "#323232" }} onClick={startListening}> <ClosedCaptionIcon /></IconButton>
-        : <IconButton style={{ ...IconButtonStyle, backgroundColor: "#da3c3f" }} onClick={stopListening}> <ClosedCaptionIcon /></IconButton>}
+     
+
       <IconButton style={{ ...IconButtonStyle, backgroundColor: "#323232" }} onClick={handleModalOpen}> <InfoOutlinedIcon /></IconButton>
       <IconButton style={{ ...IconButtonStyle, backgroundColor: "#323232" }} aria-controls="fade-menu" aria-haspopup="true" onClick={handleClick}><ImageIcon /> </IconButton>
       {(props.video === true) ?
@@ -167,8 +154,6 @@ export const VideoCallBar = (props) => {
             <div className="row">
               <h6 >Share the Meeting Link <br /> <br />{pageURL}
                 <IconButton onClick={shareHandler}> < FileCopyOutlinedIcon /> </IconButton></h6> <hr />
-              <h6 > Meeting Code<br /> <br />{roomid}
-                <IconButton onClick={copycodeHandler}> < FileCopyOutlinedIcon /> </IconButton></h6>
             </div>
           </div>
         </DialogContent>

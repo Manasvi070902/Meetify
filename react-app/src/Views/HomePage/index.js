@@ -44,8 +44,8 @@ const HomePage = (props) => {
       <div className="container-fluid d-lg-flex  d-md-flex justify-content-center p-lg-5 ">
 
         <div className="container col-12 col-lg-7" style={{ marginTop: "20vh" }} >
-          <h4 className=" m-3 justify-content-center">Hi &nbsp;<span style={{ color: "#2dbdc3" }}> {auth.displayName}</span></h4>
-          <h6 className=" m-3 justify-content-center" style={{ fontSize: "1.4rem" }}>Connect,collaborate,and celebrate from anywhere with Meetify!</h6>
+          <h4 className=" m-3 justify-content-center">Hi <span style={{ color: "#2dbdc3" }}> {auth.displayName}</span></h4>
+          <h6 className=" m-3 justify-content-center" style={{ fontSize: "1.4rem" }}>Connect, collaborate, and celebrate from anywhere with Meetify!</h6>
           <div className="row container m-3">
             <div className=" justify-content-center m-3">
               <TextField

@@ -14,7 +14,7 @@ const Login =(props) => {
   const classes = useStyles();
 
     const {auth} = props;
-    //proctected route
+    //protected route
     if(auth.uid && auth.isLoaded){
       return <Redirect to="/" />
     }
@@ -26,7 +26,7 @@ const Login =(props) => {
     <div className="  d-lg-flex  d-md-flex justify-content-center p-lg-5 m-lg-10 ">
       <div className="container col-12 col-lg-7 px-0 mt-5">
         <h1 className={styles['main-heading']}>Meetify</h1>
-        <h5 className={[styles['main-text'] ,"mt-4"].join(' ')}>Meet, chat, call in just one place!</h5>
+        <h5 className={[styles['main-text'] ,"mt-4"].join(' ')}>Meet, chat, notes in just one place!</h5>
         <Button className="p-2 mt-5" onClick={handleLoginBtn} variant="info">Sign In with Google
         </Button>
        
