@@ -71,6 +71,7 @@ const handleMemberClose = () => {
         })
 }, [])
 
+
 //handle chats after meet
 const sendMessage = useCallback((e) => {
     e.preventDefault()
@@ -139,6 +140,7 @@ const addToChat = useCallback((chatObj) => {
          <Avatar variant="rounded" className={classes.rounded} style={{minHeight:"30px",minWidth:"30px"}}>{name.charAt(0)}</Avatar>
              <div className="chat__headerInfo">
                  <h4>{name}</h4>
+                
                  <p>Last seen {messages.length-1 > 0 ? (new Date(messages[messages.length-1].date).toString()) : ("No messages yet.")}</p>
              </div>
 
@@ -202,6 +204,7 @@ const addToChat = useCallback((chatObj) => {
     <div className="col-lg-10 col-12 align-items-center justify-content-center">
       <img className="img-fluid rounded" src={chatpic} alt="pic"/>
       <h3 className="col-12 d-flex justify-content-center">Choose a Meet</h3>
+      <p className="col-12 d-flex justify-content-center">RELOAD the page once before starting the conversation</p>
       <h6 className="d-flex justify-content-center">Have group conversations after the meet!</h6>
       </div>
     </>}

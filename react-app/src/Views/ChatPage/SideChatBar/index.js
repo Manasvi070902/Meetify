@@ -13,10 +13,9 @@ const useStyles = makeStyles((theme) => ({
   }));
 const  SideChat = ({ id, name }) => {
     const classes = useStyles();
-
 console.log(id)
     return  (
-        <Link to={`/chat/?meetid=${id}`}>
+        <Link  to={`/chat/?meetid=${id}`}>
             <div className="sidebarChat">
             <Avatar variant="rounded" className={classes.rounded} style={{minHeight:"30px",minWidth:"30px"}}>{name.charAt()}</Avatar>
             <div className="sidebarChat__info m-2 justify-content-center">

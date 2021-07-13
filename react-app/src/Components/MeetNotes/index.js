@@ -136,7 +136,7 @@ const MeetNotes = (props) => {
             margin="dense"
             id="name"
             label="Description"
-            placeholder="Create a new note by typing or voice recognition"
+            placeholder="Create a new note"
             type="text"
             fullWidth
             multiline

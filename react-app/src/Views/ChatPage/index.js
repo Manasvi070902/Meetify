@@ -6,8 +6,7 @@ import SideBar from './SideBar'
 const ChatPage = () => {
 
      const classes = useStyles();
-    
-
+  
     return (
           <main className={classes.content}>
           <div className={classes.toolbar} />
