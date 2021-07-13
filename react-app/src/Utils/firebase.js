@@ -3,13 +3,12 @@ import firebase from "firebase";
 // Your web app's Firebase configuration
 // Put your SDK details
 const firebaseConfig = {
-    apiKey: "AIzaSyCRFltWlE0bVhWfQsfYxvV52B5hinjExnA",
-    authDomain: "teams-clone-20c1d.firebaseapp.com",
-    projectId: "teams-clone-20c1d",
-    databaseURL : "https://teams-clone-20c1d-default-rtdb.firebaseio.com/",
-    storageBucket: "teams-clone-20c1d.appspot.com",
-    messagingSenderId: "439384179574",
-    appId: "1:439384179574:web:c2698ab30eba91f9ed3057"
+  apiKey: "AIzaSyCF50jEiTBaH7uhlO59Eu38EW_-ayyy3Zo",
+    authDomain: "meetify-a0446.firebaseapp.com",
+    projectId: "meetify-a0446",
+    storageBucket: "meetify-a0446.appspot.com",
+    messagingSenderId: "863424801228",
+    appId: "1:863424801228:web:e60dfee10b9801a5f01569"
   };
 
 // Initialize Firebase
