@@ -1,6 +1,6 @@
 # Meetify - Meet, chat, notes in just one place!
 
-## Submission for Microsoft Enagage Program 2021
+## Submission for Microsoft Engage Program 2021
 
 ### Project Link : https://meetify-a0446.firebaseapp.com/
 ### Agile Methodology : https://trello.com/b/li8YUADV/meetify
